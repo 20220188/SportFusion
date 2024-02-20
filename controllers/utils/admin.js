@@ -103,7 +103,7 @@ const loadTemplate = async () => {
                 <footer>
                     <nav class="navbar fixed-bottom bg-body-tertiary">
                         <div class="container">
-                            <p><a class="nav-link" href="https://github.com/dacasoft/coffeeshop" target="_blank"><i class="bi bi-github"></i> CoffeeShop</a></p>
+                            <p><a class="nav-link" href="https://github.com/20220188/SportFusion" target="_blank"><i class="bi bi-github"></i> CoffeeShop</a></p>
                             <p><i class="bi bi-envelope-fill"></i> dacasoft@outlook.com</p>
                         </div>
                     </nav>
