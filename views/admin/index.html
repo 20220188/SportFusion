@@ -9,11 +9,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- IMPORTACIÓN DE RECURSOS EXTERNOS -->
-    <!-- Llamada al icono de la página web -->
-    <link type="image/png" rel="icon" href="../../resources/img/icon.png">
-    <!-- Llamada a las hojas de estilos del framework e iconos -->
-    <link type="text/css" rel="stylesheet" href="../../resources/css/bootsrap.min.css">
-    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
+
+    <!-- Links de Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -21,71 +23,28 @@
     <main>
         <!-- Título del contenido principal -->
         <h3 id="mainTitle"></h3>
-        <img src="../../resources/img/user.png" class="mx-auto d-block" width="200">
+
         <!-- Formulario para iniciar sesión -->
-        <form class="d-none" id="loginForm">
-            <div class="row g-3">
-                <div class="col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-                    <label for="alias" class="form-label">Alias</label>
-                    <input id="alias" type="text" name="alias" class="form-control" required>
-                </div>
-                <div class="col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-                    <label for="clave" class="form-label">Contraseña</label>
-                    <input id="clave" type="password" name="clave" class="form-control" required>
-                </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary"><i class="bi bi-send"></i> Enviar</button>
-                </div>
-            </div>
-        </form>
+        
         <!-- Formulario para crear el primer administrador -->
-        <form class="d-none" id="signupForm">
-            <div class="row g-3">
-                <div class="col-sm-12 col-md-6">
-                    <label for="nombreAdministrador" class="form-label">Nombre</label>
-                    <input id="nombreAdministrador" type="text" name="nombreAdministrador" class="form-control"
-                        required>
-                </div>
-                <div class="col-sm-12 col-md-6">
-                    <label for="apellidoAdministrador" class="form-label">Apellido</label>
-                    <input id="apellidoAdministrador" type="text" name="apellidoAdministrador" class="form-control"
-                        required>
-                </div>
-                <div class="col-sm-12 col-md-6">
-                    <label for="correoAdministrador" class="form-label">Correo</label>
-                    <input id="correoAdministrador" type="email" name="correoAdministrador" class="form-control"
-                        required>
-                </div>
-                <div class="col-sm-12 col-md-6">
-                    <label for="aliasAdministrador" class="form-label">Alias</label>
-                    <input id="aliasAdministrador" type="text" name="aliasAdministrador" class="form-control" required>
-                </div>
-                <div class="col-sm-12 col-md-6">
-                    <label for="claveAdministrador" class="form-label">Contraseña</label>
-                    <input id="claveAdministrador" type="password" name="claveAdministrador" class="form-control"
-                        required>
-                </div>
-                <div class="col-sm-12 col-md-6">
-                    <label for="confirmarClave" class="form-label">Confirmar contraseña</label>
-                    <input id="confirmarClave" type="password" name="confirmarClave" class="form-control" required>
-                </div>
-                <div class="text-center">
-                    <button type="reset" class="btn btn-secondary"><i class="bi bi-x-square"></i> Cancelar</button>
-                    <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Guardar</button>
-                </div>
+        <form>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
-        </form>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Password</label>
+              <input type="password" class="form-control" id="exampleInputPassword1">
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
     </main>
-    <!-- IMPORTACIÓN DE ARCHIVOS JAVASCRIPT -->
-    <!-- Llamada al framework y librería de mensajes -->
-    <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
-    <!-- Llamada al controlador general de la aplicación -->
-    <script type="text/javascript" src="../../controllers/utils/components.js"></script>
-    <!-- Llamada al controlador del sitio privado -->
-    <script type="text/javascript" src="../../controllers/utils/admin.js"></script>
-    <!-- Llamada al controlador de la página web -->
-    <script type="text/javascript" src="../../controllers/utils/public.js"></script>
+
 </body>
 
 </html>
