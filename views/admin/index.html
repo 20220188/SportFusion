@@ -8,6 +8,8 @@
     <!-- Metadatos de la página web -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- LInk de CSS -->
+    <link rel="stylesheet" href="../../resources/css/login.css">
     <!-- IMPORTACIÓN DE RECURSOS EXTERNOS -->
 
     <!-- Links de Bootstrap -->
@@ -26,23 +28,31 @@
 
         <!-- Formulario para iniciar sesión -->
         
-        <!-- Formulario para crear el primer administrador -->
-        <form>
-            <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label">Email address</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-            </div>
-            <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label">Password</label>
-              <input type="password" class="form-control" id="exampleInputPassword1">
-            </div>
-            <div class="mb-3 form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1">
-              <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
+        <div class="contenedor">
+          <div class="seccion derecha">
+
+              <img src="../../resources/img/logoSF.png" alt="Logo" class="logo_login"
+                  style="width: 550px; height: 500px; margin-top: 200px; margin-left: 175px; margin-right: 285px;">
+
+          </div>
+          <div class="seccion izquierda">
+              <div class="container">
+                  <img src="../../resources/img/usuarioSF.png" alt="Logo">
+                  <form action="/login" method="post">
+
+                      <label for="name" style="color: white;">Nombre de usuario:</label>
+                      <input type="text" id="name" name="name" placeholder="Ingrese su nombre">
+                      
+                      <label for="password" style="color: white;">Contraseña:</label>
+                      <input type="password" id="password" name="password" placeholder="Ingrese su contraseña">
+                      <p style="color: white;">¿No tienes una cuenta aún?, crea una <a href="registro.html" class="link-primary">aquí</a></p>
+                      <button type="submit" style="border-radius: 100px; margin-top: 75px;width: 100px;">Entrar</button>
+                  </form>
+              </div>
+          </div>
+
+      </div>
+        
     </main>
 
 </body>
