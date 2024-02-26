@@ -1,0 +1,11 @@
+.contenedor {
+    display: flex;
+    
+}
+
+.header {
+    background-color: #292F36;
+    border-radius: 50px 0 0 50 px;
+    margin-top: 0;
+    margin-bottom: 100px;
+}
