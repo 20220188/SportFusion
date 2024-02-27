@@ -60,7 +60,7 @@
         <div class="main p-3">
             <div class="text-center">
                 <h1>
-                    Administrador
+                    Deportes
                 </h1>
 
                 <div class="row">
@@ -97,9 +97,10 @@
                             <td colspan="6" id="rowsFound"></td>
                         </tr>
                         <tr>
-                            <th>IMAGEN</th>
-                            <th>NOMBRE</th>
-                            <th>RETRO</th>
+                            <th>Imagen</th>
+                            <th>Nombre</th>
+                            <th>Retro</th>
+                            <th>Acciones</th>
             
                         </tr>
                     </thead>
@@ -107,25 +108,49 @@
                     <!-- Cuerpo de la tabla para mostrar un registro por fila -->
                     <tbody id="tableBody">
                         <tr>
-                            <th scope="row"></th>
+                            <th scope="row"><img src="../../resources/img/futbol.png"></th>
                             <td>Fútbol</td>
                             <td>si</td>
+                            <td>
+                                <button>
+                                    <img src="../../resources/img/Edit.png">
+                                </button>
+                                <button>
+                                    <img src="../../resources/img/Remove.png">
+                                </button>
+                            </td>
             
                         </tr>
                         <tr>
                             
-                            <th scope="row"><i class="lni lni-basketball"></i></th>
+                            <th scope="row"><img src="../../resources/img/baloncesto.png"></th>
                             </th>
-                            <td>Basquetbol</td>
+                            <td class=>Basquetbol</td>
                             <td>Si</td>
+                            <td>
+                                <button>
+                                    <img src="../../resources/img/Edit.png">
+                                </button>
+                                <button>
+                                    <img src="../../resources/img/Remove.png">
+                                </button>
+                            </td>
             
                         </tr>
-                        <tr>
+                        <tr >
                             
-                            <th scope="row"></th>
+                            <th scope="row"><img src="../../resources/img/voleibol.png"></th>
                             
-                            <td>Volleyball</td>
+                            <td>voleibol</td>
                             <td>No</td>
+                            <td>
+                                <button>
+                                    <img src="../../resources/img/Edit.png">
+                                </button>
+                                <button>
+                                    <img src="../../resources/img/Remove.png">
+                                </button>
+                            </td>
             
             
                         </tr>
@@ -163,7 +188,7 @@
                                         <input id="imagenProducto" type="file" name="imagenProducto" class="form-control"
                                             accept=".png, .jpg">
                                     </div>
-                                    Retro
+                                    
                                 </div>
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-primary">Guardar</button>
