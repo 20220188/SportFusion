@@ -12,3 +12,18 @@ Swal.fire({
       Swal.fire("Changes are not saved", "", "info");
     }
   });
+
+  const btnAceptar =
+  document.querySelector("#btn_aceptar");
+  const btnCerrar =
+  document.querySelector("#btn_cerrar");
+  const accion =
+  document.querySelector("#accion");
+
+  btnAceptar.addEventListener("click",()=>{
+    accion.showAccion();
+  })
+
+  btnCerrar.addEventListener("click",()=>{
+    accion.close();
+  })

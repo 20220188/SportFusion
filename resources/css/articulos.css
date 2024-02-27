@@ -9,3 +9,12 @@
     margin-top: 0;
     margin-bottom: 100px;
 }
+/* Aceptar */
+
+#accion::backdrop{
+    background-color: rgba(0,0,0,.55);
+}
+
+#accion {
+    max-width: 50ch;
+}
