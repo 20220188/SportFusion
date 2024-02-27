@@ -26,5 +26,5 @@ Swal.fire({
 
   btnCerrar.addEventListener("click",()=>{
     accion.close();
-    console.log("hola")
+    console.log("mensaje")
   })
