@@ -26,5 +26,5 @@ Swal.fire({
 
   btnCerrar.addEventListener("click",()=>{
     accion.close();
-    console.log("mensaje 2")
+    console.log("mensaje modificacion grande gran motnond e cosisadfasdasfdasdfasdfasdfasdfasdf")
   })
