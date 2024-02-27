@@ -60,9 +60,9 @@
         <div class="main p-3">
             <div class="text-center">
                 <h1>
-                    Articulos
+                    Perfil
                 </h1>
-                
+
                 <div class="row">
                     <!-- Formulario de búsqueda -->
                     <form class="col-sm-12 col-md-6" id="searchForm">
@@ -82,9 +82,13 @@
                     </form>
                     <div class="col-sm-12 col-md-6 text-end">
                         <!-- Botón para abrir una caja de diálogo al momento de crear un nuevo registro -->
-                       
+                        <button type="button" class="btn btn-primary" onclick="openCreate()">
+                            <i class="bi bi-plus-square-fill"></i>
+                        </button>
+            
                     </div>
                 </div>
+            
                 <!-- Tabla para mostrar los registros existentes -->
                 <table class="table table-striped">
                     <!-- Cabeza de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
@@ -95,34 +99,64 @@
                         <tr>
                             <th>Imagen</th>
                             <th>Nombre</th>
-                            <th>Categoria</th>
+                            <th>Retro</th>
                             <th>Acciones</th>
+            
                         </tr>
                     </thead>
+            
                     <!-- Cuerpo de la tabla para mostrar un registro por fila -->
                     <tbody id="tableBody">
                         <tr>
-                            <th scope="row"><img src="../../resources/img/jersey_basket.png" alt="imagen de jersey">
-                            </th>
-                            <td>Jersey</td>
-                            <td>Basquetball</td>
+                            <th scope="row"><img src="../../resources/img/futbol.png"></th>
+                            <td>Fútbol</td>
+                            <td>si</td>
+                            <td>
+                                <button>
+                                    <img src="../../resources/img/Edit.png">
+                                </button>
+                                <button>
+                                    <img src="../../resources/img/Remove.png">
+                                </button>
+                            </td>
+            
                         </tr>
                         <tr>
                             
-                            <th scope="row"><img src="../../resources/img/jersey_futbol.png" alt="imagen de futbol"
+                            <th scope="row"><img src="../../resources/img/baloncesto.png"></th>
                             </th>
-                            <td>Jersey</td>
-                            <td>Fútbol</td>
+                            <td class=>Basquetbol</td>
+                            <td>Si</td>
+                            <td>
+                                <button>
+                                    <img src="../../resources/img/Edit.png">
+                                </button>
+                                <button>
+                                    <img src="../../resources/img/Remove.png">
+                                </button>
+                            </td>
+            
                         </tr>
-                        <tr>
-                            <th scope="row"><img src="../../resources/img/rodillera.png" alt="imagen de volley"
-                            </th>
-                            <td>Rodilleras</td>
-                            <td>Volleyball</td>
+                        <tr >
+                            
+                            <th scope="row"><img src="../../resources/img/voleibol.png"></th>
+                            
+                            <td>voleibol</td>
+                            <td>No</td>
+                            <td>
+                                <button>
+                                    <img src="../../resources/img/Edit.png">
+                                </button>
+                                <button>
+                                    <img src="../../resources/img/Remove.png">
+                                </button>
+                            </td>
+            
+            
                         </tr>
-                        </th>
                     </tbody>
                 </table>
+            
                 <!-- Componente Modal para guardar un registro -->
                 <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                     aria-labelledby="modalTitle" aria-hidden="true">
@@ -141,18 +175,20 @@
                                         <label for="nombreProducto" class="form-label">Nombre</label>
                                         <input id="nombreProducto" type="text" name="nombreProducto" class="form-control" required>
                                     </div>
-             
+            
+            
                                     <div class="col-sm-12 col-md-6">
                                         <label for="RetroDisponible" class="form-label">Retro</label>
                                         <input id="RetroDisponible" type="text" name="RetroDisponible" min="1" step="1"
                                             class="form-control" required>
                                     </div>
+            
                                     <div class="col-sm-12 col-md-6">
                                         <label for="imagenProducto" class="form-label">Imagen</label>
                                         <input id="imagenProducto" type="file" name="imagenProducto" class="form-control"
                                             accept=".png, .jpg">
                                     </div>
-                                    Retro
+                                    
                                 </div>
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-primary">Guardar</button>

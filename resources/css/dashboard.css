@@ -140,3 +140,7 @@ a.sidebar-link:hover {
     transform: rotate(45deg);
     transition: all .2s ease-out;
 }
+.btn.btn-primary{
+    background-color: #25A18E;
+}
+

@@ -1,0 +1,20 @@
+.contenedor {
+    display: flex;
+    
+}
+
+.header {
+    background-color: #292F36;
+    border-radius: 50px 0 0 50 px;
+    margin-top: 0;
+    margin-bottom: 100px;
+}
+/* Aceptar */
+
+#accion::backdrop{
+    background-color: rgba(0,0,0,.55);
+}
+
+#accion {
+    max-width: 50ch;
+}
