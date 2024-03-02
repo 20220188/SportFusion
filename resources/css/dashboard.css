@@ -145,26 +145,33 @@ a.sidebar-link:hover {
 }
 
 .footer {
-    text-align: center;
-    padding: 5px;
     background-color: #292F36;
-    margin-top: 20px;
+    color: #666; /* adjust for better contrast */
+    text-align: center;
+    padding: 15px 0; /* add some padding */
+    position:-webkit-sticky;
+    bottom: 0;
+    left: 0;
+    width: 100%;
   }
   
   .footer p {
-    margin-bottom: 10px;
+    line-height: 1.5; /* improve readability */
+    margin-bottom: 0; /* remove unnecessary margin */
   }
   
   .footer ul {
+    display: flex; /* use flexbox for alignment */
+    justify-content: center; /* center elements horizontally */
     list-style: none;
     padding: 0;
     margin: 0;
   }
   
   .footer li {
-    display: inline-block;
-    margin-right: 15px;
+    margin-right: 20px; /* adjust spacing as needed */
   }
+  
   
   .footer a {
     color: #333;
