@@ -1,10 +1,10 @@
 const footerHTML = `
   <footer class="footer">
-    <p>&copy; 2024 Your Company Name</p>
+    <p style="color: white">&copy; SportsFusion</p>
     <ul>
-      <li><a href="#">Link 1</a></li>
-      <li><a href="#">Link 2</a></li>
-      <li><a href="#">Link 3</a></li>
+      <li><p  style="color: white">Jafet Melara</p></li>
+      <li><p  style="color: white">Dominic Mejía</p></li>
+      <li><p  style="color: white">Kevin Roodríguez</p></li>
     </ul>
   </footer>
   
