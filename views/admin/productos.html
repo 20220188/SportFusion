@@ -7,8 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrador</title>
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
-    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../resources/css/productos.css">
     <link rel="stylesheet" href="../../resources/css/dashboard.css">
 </head>
 
@@ -60,7 +62,7 @@
         <div class="main p-3">
             <div class="text-center">
                 <h1>
-                    Deportes
+                    Productos
                 </h1>
 
                 <div class="row">
@@ -83,7 +85,6 @@
 
 
                     <div class="col-sm-12 col-md-6 text-end">
-                        <!-- Botón para abrir el formulario para abrir -->
                         <!-- Botón para abrir el formulario -->
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
@@ -106,22 +107,55 @@
                                             <div class="modal-body row g-3">
                                                 <!-- Campo oculto para asignar el id del registro al momento de modificar -->
                                                 <input type="hidden" id="idProducto" name="idProducto">
-                                                <div class="col-sm-12 col-md-6">
-                                                    <label for="nombreProducto" class="form-label">Nombre</label>
+                                                <div class="col-12">
+                                                    <label for="nombreProducto" class="form-label">Nombre del
+                                                        Producto</label>
                                                     <input id="nombreProducto" type="text" name="nombreProducto"
                                                         class="form-control" required>
                                                 </div>
 
-                                                <div class="col-sm-12 col-md-6">
-                                                    <label for="RetroDisponible" class="form-label">Retro</label>
-                                                    <input id="RetroDisponible" type="text" name="RetroDisponible"
-                                                        min="1" step="1" class="form-control" required>
+                                                <div class="col-12">
+                                                    <label for="descripcionProducto" class="form-label">Descripción del
+                                                        Producto</label>
+                                                    <textarea id="descripcionProducto" name="descripcionProducto"
+                                                        class="form-control" rows="4" required></textarea>
                                                 </div>
 
-                                                <div class="col-sm-12 col-md-6">
-                                                    <label for="imagenProducto" class="form-label">Imagen</label>
-                                                    <input id="imagenProducto" type="file" name="imagenProducto"
-                                                        class="form-control" accept=".png, .jpg">
+
+                                                <div class="col-12">
+                                                    <label for="precioProducto" class="form-label">Precio del
+                                                        Producto</label>
+                                                    <input id="precioProducto" type="number" name="precioProducto"
+                                                        min="0" step="0.01" class="form-control" required>
+
+
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <label for="stockProducto" class="form-label">Stock
+                                                        Disponible</label>
+                                                    <input id="stockProducto" type="number" name="stockProducto" min="0"
+                                                        step="1" class="form-control" required>
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <label for="categoriaProducto" class="form-label">Categoría del
+                                                        Producto</label>
+                                                    <select id="categoriaProducto" name="categoriaProducto"
+                                                        class="form-control" required>
+                                                        <option value="">Seleccionar categoría</option>
+                                                        <option value="Hombre">Hombre</option>
+                                                        <option value="Mujer">Mujer</option>
+                                                        <option value="Infantil">Infantil</option>
+                                                        <!-- Agregar más opciones según tus necesidades -->
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <label for="imagenProd" class="form-label">Imagen del Producto</label>
+                                                    <input id="imagenProd" type="file" name="imagenProd" class="form-control" accept=".png, .jpg">
+                                                    <!-- Vista previa de la imagen -->
+                                                    <img id="vistaPreviaImagen" src="#" alt="Vista previa" style="max-width: 100%; max-height: 100px; display: none;">
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -136,7 +170,6 @@
                             </div>
                         </div>
                     </div>
-                    
                 </div>
 
                 <!-- Tabla para mostrar los registros existentes -->
@@ -149,7 +182,9 @@
                         <tr>
                             <th>Imagen</th>
                             <th>Nombre</th>
-                            <th>Retro</th>
+                            <th>Genero</th>
+                            <th>Precio</th>
+                            <th>Stock disponible</th>
                             <th>Acciones</th>
 
                         </tr>
@@ -157,9 +192,13 @@
                     <!-- Cuerpo de la tabla para mostrar un registro por fila -->
                     <tbody id="tableBody">
                         <tr>
-                            <th scope="row"><img src="../../resources/img/futbol.png"></th>
-                            <td>Fútbol</td>
-                            <td>si</td>
+                            <th scope="row"><img class="imagenProducto" src="../../resources/img/magic20.jpg"></th>
+                            <td>Jersey Orlando magic
+                                dorsal #20 Flurtz
+                            </td>
+                            <td>Hombre</td>
+                            <td>$45</td>
+                            <td>20</td>
                             <td>
                                 <button class="edit-button">
                                     <img src="../../resources/img/Edit.png">
@@ -171,9 +210,11 @@
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><img src="../../resources/img/baloncesto.png"></th>
-                            <td>Baloncesto</td>
-                            <td>Si</td>
+                            <th scope="row"><img class="imagenProducto" src="../../resources/img/bucks0.png"></th>
+                            <td>Jersey Milwaukee Bucks Dorsal #0 Lillard</td>
+                            <td>Hombre</td>
+                            <td>$60</td>
+                            <td>10</td>
                             <td>
                                 <button class="edit-button">
                                     <img src="../../resources/img/Edit.png">
@@ -185,9 +226,11 @@
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><img src="../../resources/img/voleibol.png"></th>
-                            <td>Voleibol</td>
-                            <td>No</td>
+                            <th scope="row"><img class="imagenProducto" src="../../resources/img/balonVoley.jpg"></th>
+                            <td>Balón de voleibol MIKASA</td>
+                            <td>--</td>
+                            <td>$30</td>
+                            <td>25</td>
                             <td>
                                 <button class="edit-button">
                                     <img src="../../resources/img/Edit.png">
@@ -205,96 +248,89 @@
 
 
 
-                <!-- form para agregar un nuevo registro-->
-                <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                    aria-labelledby="modalTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-lg modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="modalTitle"></h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <!-- Formulario para crear o actualizar un registro -->
-                            <form id="saveForm">
-                                <div class="modal-body row g-3">
-                                    <!-- Campo oculto para asignar el id del registro al momento de modificar -->
-                                    <input type="hidden" id="idProducto" name="idProducto">
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="nombreProducto" class="form-label">Nombre</label>
-                                        <input id="nombreProducto" type="text" name="nombreProducto"
-                                            class="form-control" required>
-                                    </div>
-
-
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="RetroDisponible" class="form-label">Retro</label>
-                                        <input id="RetroDisponible" type="text" name="RetroDisponible" min="1" step="1"
-                                            class="form-control" required>
-                                    </div>
-
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="imagenProducto" class="form-label">Imagen</label>
-                                        <input id="imagenProducto" type="file" name="imagenProducto"
-                                            class="form-control" accept=".png, .jpg">
-                                    </div>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-primary">Guardar</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                
 
                 <!--Form para editar productos-->
-                <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Producto</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <!-- Aquí se integra el formulario -->
-                                <form id="editForm">
-                                    <div class="modal-body row g-3">
-                                        <div class="col-sm-12 col-md-6">
-                                            <label for="editNombreProducto" class="form-label">Nombre</label>
-                                            <input id="editNombreProducto" type="text" name="editNombreProducto"
-                                                class="form-control" required>
-                                        </div>
-                                        <div class="col-sm-12 col-md-6">
-                                            <label for="editRetroDisponible" class="form-label">Retro</label>
-                                            <input id="editRetroDisponible" type="text" name="editRetroDisponible"
-                                                class="form-control" required>
-                                        </div>
-                                        <div class="col-sm-12 col-md-6">
-                                            <label for="editImagenProducto" class="form-label">Imagen</label>
-                                            <input id="editImagenProducto" type="file" name="editImagenProducto"
-                                                class="form-control" accept=".png, .jpg">
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="submit" id="editarBtn" class="btn btn-primary">Guardar
-                                            Cambios</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Producto</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="editForm">
+                <div class="modal-body row g-3">
+                    <!-- Campo oculto para asignar el id del registro al momento de modificar -->
+                    <input type="hidden" id="idProducto" name="idProducto">
+                    <div class="col-12">
+                        <label for="nombreProductoEditar" class="form-label">Nombre del
+                            Producto</label>
+                        <input id="nombreProductoEditar" type="text" name="nombreProductoEditar"
+                            class="form-control" required>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="descripcionProductoEditar" class="form-label">Descripción del
+                            Producto</label>
+                        <textarea id="descripcionProductoEditar" name="descripcionProductoEditar"
+                            class="form-control" rows="4" required></textarea>
+                    </div>
+
+
+                    <div class="col-12">
+                        <label for="precioProductoEditar" class="form-label">Precio del
+                            Producto</label>
+                        <input id="precioProductoEditar" type="number" name="precioProductoEditar"
+                            min="0" step="0.01" class="form-control" required>
+
+
+                    </div>
+
+                    <div class="col-12">
+                        <label for="stockProductoEditar" class="form-label">Stock
+                            Disponible</label>
+                        <input id="stockProductoEditar" type="number" name="stockProductoEditar" min="0"
+                            step="1" class="form-control" required>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="categoriaProductoEditar" class="form-label">Categoría del
+                            Producto</label>
+                        <select id="categoriaProductoEditar" name="categoriaProductoEditar"
+                            class="form-control" required>
+                            <option value="">Seleccionar categoría</option>
+                            <option value="Hombre">Hombre</option>
+                            <option value="Mujer">Mujer</option>
+                            <option value="Infantil">Infantil</option>
+                            <!-- Agregar más opciones según tus necesidades -->
+                        </select>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="imagenProdEditar" class="form-label">Imagen del Producto</label>
+                        <input id="imagenProdEditar" type="file" name="imagenProdEditar" class="form-control" accept=".png, .jpg">
+                        <!-- Vista previa de la imagen -->
+                        <img id="vistaPreviaImagenEditar" src="#" alt="Vista previa" style="max-width: 100%; max-height: 100px; display: none;">
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" id="editarBtn" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
             </div>
         </div>
     </div>
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-        crossorigin="anonymous"></script>
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
+        </script>
     <script src="../../controllers/admin/dashboard.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Scripts de JavaScript -->
@@ -314,17 +350,10 @@
     <script type="text/javascript" src="../../controllers/utils/components.js"></script>
     <!-- Llamada al controlador del sitio privado -->
     <script type="text/javascript" src="../../controllers/utils/js/admin.js"></script>
+
     <!-- Llamada al controlador de la página web -->
-    <script type="text/javascript" src="../../controllers/admin/deportes.js"></script>
-
-
-
-   
-    
-    
-
+    <script type="text/javascript" src="../../controllers/admin/productos.js"></script>
 
 </body>
-
 
 </html>

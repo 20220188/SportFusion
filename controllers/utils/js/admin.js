@@ -1,3 +1,5 @@
+
+//Plantilla para el footer del sitio privado
 const footerHTML = `
   <footer class="footer">
     <p style="color: white">&copy; SportsFusion</p>
