@@ -6,85 +6,86 @@
 
 body{
   background-image: linear-gradient(to right, white 0%, white 50%, #0B3B47 50%, #0B3B47 100%);
-  min-height: 90vh;
+  min-height: 100vh;
 }
 
 .contenedor {
-  display: flex;
-  height: 100vh;
-}
+    display: flex;
+    height: 100vh;
+  }
+  
+  .seccion {
+    width: 50%;
+    height: 100%;
+  }
 
-.seccion {
-  width: 50%;
-  height: 100%;
-}
-
-.container {
-  text-align: center;
-  margin-top: 0px;
-}
-
-img {
-  margin-top: 150px;
-  width: 100px;
-  height: 100px;
-}
-
-.logo{
-  margin-top: 150px;
-  width: auto;
-  height: auto;
-}
-.logo_login{
-  margin-top: 250px;
-  width: 350px;
-  height: 300px;
-}
-
-p {
-  text-align: center;
-}
-
-form {
-  margin-top: 50px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.form-container {
-  width: 49%;
-}
-
-
-label {
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="confirmPassword"] {
-  width: 500px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-bottom: 10px;
-}
-
-.btn.btn-success.btn-success{
-  background-color: #25A18E;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 100px 100px 100px 100px;
-  cursor: pointer;
-}
+  .container {
+    text-align: center;
+    margin-top: 0px;
+  }
+  
+  img {
+    margin-top: 150px;
+    width: 100px;
+    height: 100px;
+  }
+  .logo_login{
+    margin-top: 300px;
+    width: 350px;
+    height: 300px;
+  }
+  .logo{
+    margin-top: 150px;
+    width: auto;
+    height: auto;
+  }
+  
+  p {
+    text-align: center;
+  }
+  
+  h1 {
+    margin-top: 20px;
+    font-size: 2em;
+  }
+  
+  form {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  label {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    width: 500px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  .btn.btn-success.btn-success{
+    background-color: #25A18E;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 100px 100px 100px 100px;
+    cursor: pointer;
+  }
+  
+  
+  button:hover {
+    background-color: #25A18E;
+  }
 
 
-button:hover {
-  background-color: #25A18E;
-}
+  /* Original styles remain here */
 
 @media only screen and (max-width: 768px) {
   /* Styles for screens less than 768px wide */
@@ -109,8 +110,7 @@ button:hover {
 
   input[type="text"],
   input[type="email"],
-  input[type="password"],
-  input[type="confirmPassword"] {
+  input[type="password"] {
     width: 100%; /* Make input fields full width on small screens */
   }
 }
@@ -138,8 +138,7 @@ button:hover {
 
   input[type="text"],
   input[type="email"],
-  input[type="password"],
-  input[type="confirmPassword"] {
+  input[type="password"] {
     width: 100%; /* Make input fields full width on small screens */
   }
 }
@@ -168,8 +167,7 @@ button:hover {
 
   input[type="text"],
   input[type="email"],
-  input[type="password"],
-  input[type="confirmPassword"] {
+  input[type="password"] {
     width: 100%; /* Make input fields full width on small screens */
   }
 }
@@ -197,8 +195,7 @@ button:hover {
 
   input[type="text"],
   input[type="email"],
-  input[type="password"],
-  input[type="confirmPassword"] {
+  input[type="password"] {
     width: 100%; /* Make input fields full width on small screens */
   }
 }
@@ -226,8 +223,7 @@ button:hover {
 
   input[type="text"],
   input[type="email"],
-  input[type="password"],
-  input[type="confirmPassword"] {
+  input[type="password"] {
     width: 100%; /* Make input fields full width on small screens */
   }
 }
@@ -256,8 +252,7 @@ button:hover {
 
   input[type="text"],
   input[type="email"],
-  input[type="password"],
-  input[type="confirmPassword"] {
+  input[type="password"] {
     width: 100%; /* Make input fields full width on small screens */
   }
 }
@@ -286,8 +281,7 @@ button:hover {
 
   input[type="text"],
   input[type="email"],
-  input[type="password"],
-  input[type="confirmPassword"] {
+  input[type="password"] {
     width: 100%; /* Make input fields full width on small screens */
   }
 }

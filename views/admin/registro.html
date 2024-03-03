@@ -20,21 +20,16 @@
 
 <body>
     <!-- Contenido principal del documento -->
-    <main>
+    <main class="container-fluid">
         <!-- Título del contenido principal -->
         <h3 id="mainTitle"></h3>
 
-
         <!-- Formulario para crear el primer administrador -->
-
-        <div class="contenedor">
-            <div class="seccion derecha">
-
-                <img src="../../resources/img/logoSF.png" alt="Logo"
-                    style="width: 550px; height: 500px; margin-top: 200px; margin-left: 175px; margin-right: 285px;">
-
+        <div class="row">
+            <div class="col-md-6 d-flex justify-content-center align-items-center">
+                <img src="../../resources/img/logoSF.png" alt="Logo" class="logo_login" style="max-width: 100%">
             </div>
-            <div class="seccion izquierda">
+            <div class="col-md-6 form-container">
                 <div class="container">
                     <img src="../../resources/img/usuarioSF.png" alt="Logo">
                     <form action="/signup" method="post">
@@ -48,8 +43,10 @@
                         <label for="confirmPassword" style="color: white;">Confirmar Contraseña:</label>
                         <input type="password" id="confirmPassword" name="confirmPassword"
                             placeholder="Confirme su contraseña">
-                            <p style="color: white;">¿Ya tienes una cuenta?, da click <a href="index.html" class="link-primary">aquí</a> para ingresar</p>
-                        <button type="submit" style="border-radius: 100px; margin-top: 75px;width: 100px;">Entrar</button>
+                        <p style="color: white;">¿Ya tienes una cuenta?, da click <a href="index.html"
+                                class="link-primary">aquí</a> para ingresar</p>
+                        <a href="index.html"><button type="button" class="btn btn-success"
+                                style="background-color: #25A18E">Siguiente</button></a>
                     </form>
                 </div>
             </div>

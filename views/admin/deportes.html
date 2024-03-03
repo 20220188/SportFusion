@@ -201,6 +201,53 @@
                     </tbody>
                 </table>
 
+
+
+
+
+                <!-- form para aguregar un nuevo registro-->
+                <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                    aria-labelledby="modalTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="modalTitle"></h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <!-- Formulario para crear o actualizar un registro -->
+                            <form id="saveForm">
+                                <div class="modal-body row g-3">
+                                    <!-- Campo oculto para asignar el id del registro al momento de modificar -->
+                                    <input type="hidden" id="idProducto" name="idProducto">
+                                    <div class="col-sm-12 col-md-6">
+                                        <label for="nombreProducto" class="form-label">Nombre</label>
+                                        <input id="nombreProducto" type="text" name="nombreProducto"
+                                            class="form-control" required>
+                                    </div>
+
+
+                                    <div class="col-sm-12 col-md-6">
+                                        <label for="RetroDisponible" class="form-label">Retro</label>
+                                        <input id="RetroDisponible" type="text" name="RetroDisponible" min="1" step="1"
+                                            class="form-control" required>
+                                    </div>
+
+                                    <div class="col-sm-12 col-md-6">
+                                        <label for="imagenProducto" class="form-label">Imagen</label>
+                                        <input id="imagenProducto" type="file" name="imagenProducto"
+                                            class="form-control" accept=".png, .jpg">
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
                 <!--Form para editar productos-->
                 <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
@@ -268,7 +315,70 @@
     <!-- Llamada al controlador del sitio privado -->
     <script type="text/javascript" src="../../controllers/utils/admin.js"></script>
     <!-- Llamada al controlador de la página web -->
-    <script type="text/javascript" src="../../resources/js/deportes.js"></script>
+    <script type="text/javascript" src="../../controllers/admin/index.js"></script>
+
+
+    <!-- Script personalizado para mostrar la alerta de SweetAlert2 -->
+    <script>
+        // Selecciona todos los botones de eliminación por su clase y agrega un evento de clic a cada uno
+        document.querySelectorAll('.remove-button').forEach(button => {
+            button.addEventListener('click', function () {
+                // Muestra la alerta de SweetAlert2
+                Swal.fire({
+                    title: "¿Estás seguro?",
+                    text: "¡No podrás revertir esto!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Sí, eliminarlo"
+                }).then((result) => {
+                    // Si el usuario confirma, muestra una alerta de éxito
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            title: "¡Eliminado!",
+                            text: "Tu archivo ha sido eliminado.",
+                            icon: "success"
+                        });
+                        // Aquí puedes agregar la lógica para eliminar el registro
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- Script personalizado para abrir el modal al hacer clic en el botón de editar -->
+    <script>
+        // Agrega un evento de clic a todos los botones de editar
+        $('.edit-button').click(function () {
+            // Abre el modal al hacer clic en el botón de editar
+            $('#exampleModal1').modal('show');
+
+            document.getElementById("editForm").addEventListener("submit", function (event) {
+        // Prevenimos el comportamiento por defecto (envío del formulario)
+        event.preventDefault();
+
+        // Simulamos un guardado exitoso
+        // Aquí podrías realizar una llamada Ajax para guardar los datos
+
+        // Mostramos la alerta de SweetAlert
+        Swal.fire({
+            icon: "success",
+            text: "Actualizado exitosamente"
+
+        });
+
+        // Cerramos el modal
+        $('#exampleModal').modal('hide')
+        
+    });
+        });
+
+
+        
+    </script>
+    
+
 
 </body>
 

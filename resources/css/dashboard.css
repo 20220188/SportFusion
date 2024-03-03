@@ -131,7 +131,7 @@ a.sidebar-link:hover {
     padding: 2px;
     position: absolute;
     right: 1.5rem;
-    top: 1.4rem;
+    top: 1.5rem;
     transform: rotate(-135deg);
     transition: all .2s ease-out;
 }
@@ -144,3 +144,41 @@ a.sidebar-link:hover {
     background-color: #25A18E;
 }
 
+.footer {
+    background-color: #292F36;
+    color: #666; /* adjust for better contrast */
+    text-align: center;
+    padding: 15px 0; /* add some padding */
+    position:-webkit-sticky;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+  
+  .footer p {
+    line-height: 1.5; /* improve readability */
+    margin-bottom: 0; /* remove unnecessary margin */
+  }
+  
+  .footer ul {
+    display: flex; /* use flexbox for alignment */
+    justify-content: center; /* center elements horizontally */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .footer li {
+    margin-right: 20px; /* adjust spacing as needed */
+  }
+  
+  
+  .footer a {
+    color: #333;
+    text-decoration: none;
+  }
+  
+  .footer a:hover {
+    color: #666;
+  }
+  
