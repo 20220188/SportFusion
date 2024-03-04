@@ -82,14 +82,14 @@
                     </form>
 
                     <div class="col-sm-12 col-md-6 text-end">
-                        <!-- Botón para abrir el formulario para abrir -->
+                        
                         <!-- Botón para abrir el formulario -->
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
                             Agregar
                         </button>
     
-                        <!-- Modal -->
+                        <!-- Modal para agregar registros-->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">
                             <div class="modal-dialog">
@@ -112,16 +112,12 @@
                                                 </div>
     
                                                 <div class="col-sm-12 col-md-6">
-                                                    <label for="RetroDisponible" class="form-label">Retro</label>
+                                                    <label for="RetroDisponible" class="form-label">Nivel de usuario</label>
                                                     <input id="RetroDisponible" type="text" name="RetroDisponible"
                                                         min="1" step="1" class="form-control" required>
                                                 </div>
     
-                                                <div class="col-sm-12 col-md-6">
-                                                    <label for="imagenProducto" class="form-label">Imagen</label>
-                                                    <input id="imagenProducto" type="file" name="imagenProducto"
-                                                        class="form-control" accept=".png, .jpg">
-                                                </div>
+                                                
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
@@ -163,10 +159,10 @@
                             <td>Jafet</td>
                             <td>Administrador</td>
                             <td>
-                                <button>
+                                <button class="edit-button">
                                     <img src="../../resources/img/Edit.png">
                                 </button>
-                                <button>
+                                <button class="remove-button">
                                     <img src="../../resources/img/Remove.png">
                                 </button>
                             </td>
@@ -179,10 +175,10 @@
                             <td class=>Dominc</td>
                             <td>Cliente</td>
                             <td>
-                                <button>
+                                <button class="edit-button">
                                     <img src="../../resources/img/Edit.png">
                                 </button>
-                                <button>
+                                <button class="remove-button">
                                     <img src="../../resources/img/Remove.png">
                                 </button>
                             </td>
@@ -195,10 +191,10 @@
                             <td>Kevin</td>
                             <td>Cliente</td>
                             <td>
-                                <button>
+                                <button class="edit-button">
                                     <img src="../../resources/img/Edit.png">
                                 </button>
-                                <button>
+                                <button class="remove-button">
                                     <img src="../../resources/img/Remove.png">
                                 </button>
                             </td>
@@ -208,88 +204,42 @@
                     </tbody>
                 </table>
 
-                <!-- form para agregar un nuevo registro-->
-                <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                    aria-labelledby="modalTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                
+
+                <!--Form para editar usuarios-->
+                <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="modalTitle"></h1>
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Producto</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
-                            <!-- Formulario para crear o actualizar un registro -->
-                            <form id="saveForm">
-                                <div class="modal-body row g-3">
-                                    <!-- Campo oculto para asignar el id del registro al momento de modificar -->
-                                    <input type="hidden" id="idProducto" name="idProducto">
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="nombreProducto" class="form-label">Nombre</label>
-                                        <input id="nombreProducto" type="text" name="nombreProducto"
-                                            class="form-control" required>
+                            <div class="modal-body">
+                                <!-- Aquí se integra el formulario -->
+                                <form id="editForm">
+                                    <div class="modal-body row g-3">
+                                        <div class="col-sm-12 col-md-6">
+                                            <label for="editNombreProducto" class="form-label">Nombre</label>
+                                            <input id="editNombreProducto" type="text" name="editNombreProducto"
+                                                class="form-control" required>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <label for="editRetroDisponible" class="form-label">Nivel de usuario</label>
+                                            <input id="editRetroDisponible" type="text" name="editRetroDisponible"
+                                                class="form-control" required>
+                                        </div>
+                                        
                                     </div>
-
-
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="RetroDisponible" class="form-label">Retro</label>
-                                        <input id="RetroDisponible" type="text" name="RetroDisponible" min="1" step="1"
-                                            class="form-control" required>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" id="editarBtn" class="btn btn-primary">Guardar
+                                            Cambios</button>
                                     </div>
-
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="imagenProducto" class="form-label">Imagen</label>
-                                        <input id="imagenProducto" type="file" name="imagenProducto"
-                                            class="form-control" accept=".png, .jpg">
-                                    </div>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-primary">Guardar</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Componente Modal para guardar un registro -->
-                <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                    aria-labelledby="modalTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-lg modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="modalTitle"></h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                </form>
                             </div>
-                            <!-- Formulario para crear o actualizar un registro -->
-                            <form id="saveForm">
-                                <div class="modal-body row g-3">
-                                    <!-- Campo oculto para asignar el id del registro al momento de modificar -->
-                                    <input type="hidden" id="idProducto" name="idProducto">
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="nombreProducto" class="form-label">Nombre</label>
-                                        <input id="nombreProducto" type="text" name="nombreProducto"
-                                            class="form-control" required>
-                                    </div>
-
-
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="RetroDisponible" class="form-label">Retro</label>
-                                        <input id="RetroDisponible" type="text" name="RetroDisponible" min="1" step="1"
-                                            class="form-control" required>
-                                    </div>
-
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="imagenProducto" class="form-label">Imagen</label>
-                                        <input id="imagenProducto" type="file" name="imagenProducto"
-                                            class="form-control" accept=".png, .jpg">
-                                    </div>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-primary">Guardar</button>
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -297,15 +247,24 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-        crossorigin="anonymous"></script>
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
+        </script>
+    <script src="../../controllers/admin/dashboard.js"></script>
+    <!-- Scripts de JavaScript -->
+    <!-- Agrega los enlaces a los scripts de Bootstrap y SweetAlert2 -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 
     <!-- IMPORTACIÓN DE ARCHIVOS JAVASCRIPT -->
     <!-- Llamada al framework y librería de mensajes -->
     <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
     <script src="../../resources/css/bootstrap.min.css"></script>
     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
-    <script src="../../controllers/admin/dashboard.js"></script>
+    <!-- Llamada al controlador general de la aplicación -->
+    <script type="text/javascript" src="../../controllers/utils/components.js"></script>
     <!-- Llamada al controlador del sitio privado -->
     <script type="text/javascript" src="../../controllers/utils/js/admin.js"></script>
     <!-- Llamada al controlador de la página web -->
