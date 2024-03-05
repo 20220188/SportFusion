@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -152,17 +152,20 @@
                                                 </div>
 
                                                 <div class="col-12">
-                                                    <label for="imagenProd" class="form-label">Imagen del Producto</label>
-                                                    <input id="imagenProd" type="file" name="imagenProd" class="form-control" accept=".png, .jpg">
+                                                    <label for="imagenProd" class="form-label">Imagen del
+                                                        Producto</label>
+                                                    <input id="imagenProd" type="file" name="imagenProd"
+                                                        class="form-control" accept=".png, .jpg">
                                                     <!-- Vista previa de la imagen -->
-                                                    <img id="vistaPreviaImagen" src="#" alt="Vista previa" style="max-width: 100%; max-height: 100px; display: none;">
+                                                    <img id="vistaPreviaImagen" src="#" alt="Vista previa"
+                                                        style="max-width: 100%; max-height: 100px; display: none;">
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
                                                     data-bs-dismiss="modal">Cancelar</button>
-                                                <button type="submit" id="guardarBtn"
-                                                    class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Guardar</button>
+                                                <button type="submit" id="guardarBtn" class="btn btn-primary"
+                                                    data-bs-dismiss="modal" aria-label="Close">Guardar</button>
                                             </div>
                                         </form>
                                     </div>
@@ -248,79 +251,85 @@
 
 
 
-                
+
 
                 <!--Form para editar productos-->
-<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Producto</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form id="editForm">
-                <div class="modal-body row g-3">
-                    <!-- Campo oculto para asignar el id del registro al momento de modificar -->
-                    <input type="hidden" id="idProducto" name="idProducto">
-                    <div class="col-12">
-                        <label for="nombreProductoEditar" class="form-label">Nombre del
-                            Producto</label>
-                        <input id="nombreProductoEditar" type="text" name="nombreProductoEditar"
-                            class="form-control" required>
-                    </div>
+                <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Producto</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <form id="editForm">
+                                <div class="modal-body row g-3">
+                                    <!-- Campo oculto para asignar el id del registro al momento de modificar -->
+                                    <input type="hidden" id="idProducto" name="idProducto">
+                                    <div class="col-12">
+                                        <label for="nombreProductoEditar" class="form-label">Nombre del
+                                            Producto</label>
+                                        <input id="nombreProductoEditar" type="text" name="nombreProductoEditar"
+                                            class="form-control" required>
+                                    </div>
 
-                    <div class="col-12">
-                        <label for="descripcionProductoEditar" class="form-label">Descripción del
-                            Producto</label>
-                        <textarea id="descripcionProductoEditar" name="descripcionProductoEditar"
-                            class="form-control" rows="4" required></textarea>
-                    </div>
-
-
-                    <div class="col-12">
-                        <label for="precioProductoEditar" class="form-label">Precio del
-                            Producto</label>
-                        <input id="precioProductoEditar" type="number" name="precioProductoEditar"
-                            min="0" step="0.01" class="form-control" required>
+                                    <div class="col-12">
+                                        <label for="descripcionProductoEditar" class="form-label">Descripción del
+                                            Producto</label>
+                                        <textarea id="descripcionProductoEditar" name="descripcionProductoEditar"
+                                            class="form-control" rows="4" required></textarea>
+                                    </div>
 
 
-                    </div>
+                                    <div class="col-12">
+                                        <label for="precioProductoEditar" class="form-label">Precio del
+                                            Producto</label>
+                                        <input id="precioProductoEditar" type="number" name="precioProductoEditar"
+                                            min="0" step="0.01" class="form-control" required>
 
-                    <div class="col-12">
-                        <label for="stockProductoEditar" class="form-label">Stock
-                            Disponible</label>
-                        <input id="stockProductoEditar" type="number" name="stockProductoEditar" min="0"
-                            step="1" class="form-control" required>
-                    </div>
 
-                    <div class="col-12">
-                        <label for="categoriaProductoEditar" class="form-label">Categoría del
-                            Producto</label>
-                        <select id="categoriaProductoEditar" name="categoriaProductoEditar"
-                            class="form-control" required>
-                            <option value="">Seleccionar categoría</option>
-                            <option value="Hombre">Hombre</option>
-                            <option value="Mujer">Mujer</option>
-                            <option value="Infantil">Infantil</option>
-                            <!-- Agregar más opciones según tus necesidades -->
-                        </select>
-                    </div>
+                                    </div>
 
-                    <div class="col-12">
-                        <label for="imagenProdEditar" class="form-label">Imagen del Producto</label>
-                        <input id="imagenProdEditar" type="file" name="imagenProdEditar" class="form-control" accept=".png, .jpg">
-                        <!-- Vista previa de la imagen -->
-                        <img id="vistaPreviaImagenEditar" src="#" alt="Vista previa" style="max-width: 100%; max-height: 100px; display: none;">
+                                    <div class="col-12">
+                                        <label for="stockProductoEditar" class="form-label">Stock
+                                            Disponible</label>
+                                        <input id="stockProductoEditar" type="number" name="stockProductoEditar" min="0"
+                                            step="1" class="form-control" required>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="categoriaProductoEditar" class="form-label">Categoría del
+                                            Producto</label>
+                                        <select id="categoriaProductoEditar" name="categoriaProductoEditar"
+                                            class="form-control" required>
+                                            <option value="">Seleccionar categoría</option>
+                                            <option value="Hombre">Hombre</option>
+                                            <option value="Mujer">Mujer</option>
+                                            <option value="Infantil">Infantil</option>
+                                            <!-- Agregar más opciones según tus necesidades -->
+                                        </select>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="imagenProdEditar" class="form-label">Imagen del Producto</label>
+                                        <input id="imagenProdEditar" type="file" name="imagenProdEditar"
+                                            class="form-control" accept=".png, .jpg">
+                                        <!-- Vista previa de la imagen -->
+                                        <img id="vistaPreviaImagenEditar" src="#" alt="Vista previa"
+                                            style="max-width: 100%; max-height: 100px; display: none;">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="submit" id="editarBtn" class="btn btn-primary">Guardar
+                                        Cambios</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" id="editarBtn" class="btn btn-primary">Guardar Cambios</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
 
             </div>
@@ -345,7 +354,7 @@
     <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
     <script src="../../resources/css/bootstrap.min.css"></script>
     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
-    
+
     <!-- Llamada al controlador del sitio privado -->
     <script type="text/javascript" src="../../controllers/utils/js/admin.js"></script>
 
