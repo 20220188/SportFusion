@@ -117,9 +117,14 @@
                                                         min="1" step="1" class="form-control" required>
                                                 </div>
                                                 <div class="col-sm-12 col-md-6">
-                                                    <label for="ContraPerfil" class="form-label">Contraseña</label>
-                                                    <input id="ContraPerfil" type="password" name="ContraPerfil"
-                                                        min="1" step="1" class="form-control" required>
+                                                    <label for="NivelUsuario" class="form-label">Nivel de usuario</label>
+                                                    <select id="NivelUsuario" name="NivelUsuario"
+                                                        class="form-control" required>
+                                                        <option value="">Seleccionar nivel de usuario</option>
+                                                        <option value="Hombre">Administrador</option>
+                                                        <option value="Mujer">Clinente</option>
+                                                        <!-- Agregar más opciones según tus necesidades -->
+                                                    </select>
                                                 </div>
                                                 
                                             </div>
@@ -148,7 +153,7 @@
                         <tr>
                             <th>Nombre</th>
                             <th>Correo</th>
-                            <th>Contraseña</th>
+                            <th>Nivel de usuario</th>
                             <th>Acciones</th>
             
                         </tr>
@@ -160,7 +165,7 @@
                             
                             <th>Dominic</th>
                             <td>dominic@gmail.com</td>
-                            <td>123456</td>
+                            <td>administrador</td>
                             <td>
                                 <button class="edit-button">
                                     <img src="../../resources/img/Edit.png">
@@ -197,9 +202,14 @@
                                                 class="form-control" required>
                                         </div>
                                         <div class="col-sm-12 col-md-6">
-                                            <label for="editContraPerfil" class="form-label">Contraseña</label>
-                                            <input id="editContraPerfil" type="password" name="editContraPerfil"
+                                            <label for="EditNivelUsuario" class="form-label">Nivel de usuario</label>
+                                            <select id="EditNivelUsuario" name="EditNivelUsuario"
                                                 class="form-control" required>
+                                                <option value="">Seleccionar nivel de usuario</option>
+                                                <option value="Hombre">Administrador</option>
+                                                <option value="Mujer">Clinente</option>
+                                                <!-- Agregar más opciones según tus necesidades -->
+                                            </select>
                                         </div>
                                         
                                     </div>

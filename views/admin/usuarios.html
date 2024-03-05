@@ -112,9 +112,13 @@
                                                 </div>
     
                                                 <div class="col-sm-12 col-md-6">
-                                                    <label for="RetroDisponible" class="form-label">Nivel de usuario</label>
-                                                    <input id="RetroDisponible" type="text" name="RetroDisponible"
-                                                        min="1" step="1" class="form-control" required>
+                                                    <label for="categoriaUsuario" class="form-label">Nivel de usuario</label>
+                                                    <select id="categoriaUsuario" name="categoriaUsuario"
+                                                    class="form-control" required>
+                                                    <option value="">Seleccionar nivel de usuario</option>
+                                                    <option value="Hombre">Administrador</option>
+                                                    <option value="Mujer">cliente</option>
+                                                    </select>
                                                 </div>
     
                                                 
@@ -221,14 +225,20 @@
                                 <form id="editForm">
                                     <div class="modal-body row g-3">
                                         <div class="col-sm-12 col-md-6">
-                                            <label for="editNombreProducto" class="form-label">Nombre</label>
-                                            <input id="editNombreProducto" type="text" name="editNombreProducto"
+                                            <label for="editNombreUsuario" class="form-label">Nombre</label>
+                                            <input id="editNombreUsuario" type="text" name="editNombreUsuario"
                                                 class="form-control" required>
                                         </div>
-                                        <div class="col-sm-12 col-md-6">
-                                            <label for="editRetroDisponible" class="form-label">Nivel de usuario</label>
-                                            <input id="editRetroDisponible" type="text" name="editRetroDisponible"
+                                        <div class="col-12">
+                                            <label for="EditcategoriaUsuario" class="form-label">Categoría del
+                                                Producto</label>
+                                            <select id="EditcategoriaUsuario" name="EditcategoriaUsuario"
                                                 class="form-control" required>
+                                                <option value="">Seleccionar nivel de usuario</option>
+                                                <option value="Hombre">Administrador</option>
+                                                <option value="Mujer">cliente</option>
+                                                
+                                            </select>
                                         </div>
                                         
                                     </div>
