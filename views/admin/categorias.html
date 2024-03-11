@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+<link rel="stylesheet" href="../../resources/css/dashboard.css">
+
+<body>
+
+    <div class="wrapper">
+        <aside id="sidebar">
+            <div class="d-flex">
+                <button class="toggle-btn" type="button">
+                    <i class="lni lni-grid-alt"></i>
+
+                </button>
+                <div class="sidebar-logo">
+                    <a href="dashboard.html">SportFusion</a>
+                </div>
+            </div>
+            <ul class="sidebar-nav">
+                <li class="sidebar-item">
+                    <a href="administrador.html" class="sidebar-link">
+                        <i class="lni lni-user"></i>
+                        <span>Administradores</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a href="clientes.html" class="sidebar-link">
+                        <i class="lni lni-users"></i>
+                        <span>clientes</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="productos.html" class="sidebar-link">
+                        <i class="lni lni-agenda"></i>
+                        <span>productos</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="pedidos.html" class="sidebar-link">
+                        <i class="lni lni lni-users"></i>
+                        <span>Pedidos</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="usuarios.html" class="sidebar-link">
+                        <i class="lni lni lni-users"></i>
+                        <span>Usuarios</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="deportes.html" class="sidebar-link">
+                        <i class="lni lni-basketball"></i>
+                        <span>Deportes</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="nivel_usuarios.html" class="sidebar-link">
+                        <i class="lni lni-basketball"></i>
+                        <span>Niveles de usuario</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="categorias.html" class="sidebar-link">
+                        <i class="lni lni-basketball"></i>
+                        <span>categorias</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="index.html" class="sidebar-link">
+                    <i class="lni lni-exit"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+        <div class="main p-3">
+            <div class="text-center">
+                <h1>
+                    Categoria
+                </h1>
+
+                <div class="row">
+
+                    <!-- formulario de busqueda-->
+                    <form class="col-sm-12 col-md-6" id="searchForm">
+                        <div class="row">
+                            <div class="col-6">
+                                <input type="search" class="form-control" name="search" placeholder="Buscar" required>
+                            </div>
+                            <div class="col-6">
+                                <button type="submit" class="btn btn-success">
+                                    <i class="lni lni-search-alt"></i>
+                                </button>
+                                <button type="reset" class="btn btn-secondary" onclick="fillTable()">
+                                    <i class="lni lni-eraser"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+
+                    <div class="col-sm-12 col-md-6 text-end">
+                        <!-- modal para agregar categorias-->
+                        <button type="button" class="btn btn-primary" onclick="openCreate()">
+                            Agregar
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="CreateModal" tabindex="-1" aria-labelledby="modalTitle"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="modalTitle"></h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <form id="saveForm">
+
+                                        <div class="modal-body">
+
+                                            <div class="modal-body row g-3">
+                                                <!-- Campo oculto para asignar el id del registro al momento de modificar -->
+                                                <input type="hidden" id="idCategoria" name="idCategoria">
+
+
+                                                <div class="col-sm-12 col-md-6">
+                                                    <label for="NivelUsuario" class="form-label">Categorías</label>
+                                                    <select id="NivelUsuario" name="NivelUsuario" class="form-control"
+                                                        required>
+                                                        <option value="">Seleccionar categoría</option>
+                                                        <option value="Zapatillas">Zapatillas</option>
+                                                        <option value="Jerseys">Jerseys</option>
+                                                        <option value="shorts">shorts</option>
+                                                        <option value="Sneakers">Sneakers</option>
+                                                        <option value="implementes">implementes</option>
+                                                        <!-- Agregar más opciones según tus necesidades -->
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" id="guardarBtn" class="btn btn-primary"
+                                            data-bs-dismiss="modal" aria-label="Close">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <table class="table table-striped">
+                    <!-- Cabeza de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
+                    <thead>
+                        <tr>
+                            <td colspan="6" id="rowsFound"></td>
+                        </tr>
+                        <tr>
+                            <th>Categoria</th>
+                            <th>Acciones</th>
+
+                        </tr>
+                    </thead>
+
+                    <!-- Cuerpo de la tabla para mostrar un registro por fila -->
+                    <tbody id="tableBody">
+                        <tr>
+
+                            <th>Jerseys</th>
+                            <td>
+                                <button class="edit-button">
+                                    <img src="../../resources/img/Edit.png">
+                                </button>
+                                <!-- Agrega un identificador al botón de eliminación -->
+                                <button class="remove-button">
+                                    <img src="../../resources/img/Remove.png">
+                                </button>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+    <script src="../../controllers/admin/dashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Scripts de JavaScript -->
+    <!-- Agrega los enlaces a los scripts de Bootstrap y SweetAlert2 -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+    <!-- IMPORTACIÓN DE ARCHIVOS JAVASCRIPT -->
+    <!-- Llamada al framework y librería de mensajes -->
+    <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
+    <script src="../../resources/css/bootstrap.min.css"></script>
+    <!-- Llamada al controlador del sitio privado -->
+    <script type="text/javascript" src="../../controllers/utils/js/admin.js"></script>
+    <!-- Llamada al controlador de la página web -->
+    <script type="text/javascript" src="../../controllers/admin/categorias.js"></script>
+</body>
+
+</html>
