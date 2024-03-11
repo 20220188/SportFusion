@@ -12,6 +12,8 @@ const footerHTML = `
   
 `;
 
+document.querySelector('title').textContent = 'SportFusion - sitio privado';
+
 // Create a new element
 const footerElement = document.createElement('div');
 footerElement.classList.add('footer'); // Add class for styling
