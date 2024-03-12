@@ -4,7 +4,7 @@ MODAL_TITLE = document.getElementById('modalTitle');
 const openCreate = () => {
     // Se muestra la caja de diálogo con su título.
     SAVE_MODAL.show();
-    MODAL_TITLE.textContent = 'Crear nivel de usuario';
+    MODAL_TITLE.textContent = 'Ingresar nivel de usuario';
     // Se prepara el formulario.
     SAVE_FORM.reset();
 }

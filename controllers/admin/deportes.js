@@ -1,3 +1,14 @@
+const SAVE_MODAL =  new bootstrap.Modal('#CreateModal'),
+MODAL_TITLE = document.getElementById('modalTitle');
+
+const openCreate = () => {
+    // Se muestra la caja de diálogo con su título.
+    SAVE_MODAL.show();
+    MODAL_TITLE.textContent = 'Ingresar deporte';
+    // Se prepara el formulario.
+    SAVE_FORM.reset();
+}
+
 document.querySelectorAll('.remove-button').forEach(button => {
     button.addEventListener('click', function () {
         // Muestra la alerta de SweetAlert2
@@ -48,21 +59,3 @@ $('.edit-button').click(function () {
 });
 
 
-// Escuchamos el evento submit del formulario
-document.getElementById("saveForm").addEventListener("submit", function (event) {
-    // Prevenimos el comportamiento por defecto (envío del formulario)
-    event.preventDefault();
-
-    // Simulamos un guardado exitoso
-    // Aquí podrías realizar una llamada Ajax para guardar los datos
-
-    // Mostramos la alerta de SweetAlert
-    Swal.fire({
-        icon: "success",
-        text: "Guardado exitosamente"
-
-    });
-
-    // Cerramos el modal
-    $('#exampleModal').modal('hide');
-});
