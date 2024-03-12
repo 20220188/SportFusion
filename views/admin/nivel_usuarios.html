@@ -132,7 +132,8 @@
 
 
                                                 <div class="col-sm-12 col-md-6">
-                                                    <label for="NivelUsuario" class="form-label">Nivel de usuario</label>
+                                                    <label for="NivelUsuario" class="form-label">Nivel de
+                                                        usuario</label>
                                                     <select id="NivelUsuario" name="NivelUsuario" class="form-control"
                                                         required>
                                                         <option value="">Seleccionar nivel de usuario</option>
@@ -200,43 +201,44 @@
                     </tbody>
                 </table>
 
-<!--Form para editar niveles de usuario-->
-<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
-aria-hidden="true">
-<div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Editar nivel de usuario</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <!-- Aquí se integra el formulario -->
-            <form id="editForm">
-                <div class="modal-body row g-3">
-                    <div class="col-12">
-                        <label for="EditcategoriaUsuario" class="form-label">Nivel de usuario</label>
-                        <select id="EditcategoriaUsuario" name="EditcategoriaUsuario"
-                            class="form-control" required>
-                            <option value="">Seleccionar nivel de usuario</option>
-                            <option value="Administrador">Administrador</option>
-                            <option value="cliente">cliente</option>
-                            
-                        </select>
+                <!--Form para editar niveles de usuario-->
+                <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar nivel de usuario</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- Aquí se integra el formulario -->
+                                <form id="editForm">
+                                    <div class="modal-body row g-3">
+                                        <div class="col-sm-12 col-md-12">
+                                            <label for="EditcategoriaUsuario" class="form-label">Nivel de
+                                                usuario</label>
+                                            <select id="EditcategoriaUsuario" name="EditcategoriaUsuario"
+                                                class="form-control" required>
+                                                <option value="">Seleccionar nivel de usuario</option>
+                                                <option value="Administrador">Administrador</option>
+                                                <option value="cliente">cliente</option>
+
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" id="editarBtn" class="btn btn-primary">Guardar
+                                            Cambios</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                    
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" id="editarBtn" class="btn btn-primary">Guardar
-                        Cambios</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-</div>
 
 
             </div>
