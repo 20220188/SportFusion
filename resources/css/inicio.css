@@ -126,3 +126,74 @@ header .buscar
     opacity: 0;
     visibility: hidden;
 }
+
+
+/*ajustar los tamaños del carrusel*/
+#carouselExampleAutoplaying{
+    margin-top: 8%;
+}
+
+#carouselExampleAutoplaying .carousel-item{
+    height: 30em;
+    width: 100em;
+}
+
+
+.section_padding_b {
+    padding-bottom: 56px;
+}
+
+.container-tc{
+    margin-top: 30px;
+    margin-left: 7%;
+    margin-right: 5%;
+}
+
+.card{
+    border-radius: 0%;
+}
+
+
+.price {
+    line-height: 22px;
+    margin-bottom: 5px;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+}
+
+/* decoración de los precios nuevos*/
+.price span.org_price {
+    color: #fd3d57;
+    margin-right: 5px; 
+}
+
+/* decoración de los precios antiguos*/
+.price span.prev_price {
+    font-size: 14px;
+    color: #687188;
+    text-decoration: line-through;
+}
+
+#btn-card{
+    border-radius: 0%;
+    width: 75%;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: space-between; /* Alinear los botones al extremo opuesto */
+    align-items: center; /* Centrar verticalmente los botones */
+    margin-top: 10px; /* Agregar espacio entre los botones y el texto */
+}
+
+.add-to-favorites-btn {
+    border: none;
+    background: none;
+    padding: 0;
+}
+
+.add-to-favorites-btn img {
+    width: 30px; /* Ajusta el tamaño de la imagen según sea necesario */
+    height: auto;
+}
