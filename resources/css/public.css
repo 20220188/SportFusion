@@ -1,295 +1,298 @@
-*{
-    padding: 0;
+@import url('https://fonts.googleapis.com/css2? family=Poppins:wght@200;300;400;500;600;700;800;900& display=swap');
+
+*, *::after, *::before{
     margin: 0;
+    padding: 0;
     box-sizing: border-box;
-  }
-  
-  body{
-    background-image: linear-gradient(to  right, white 0%, white 50%, #9181F4 50%, #9181F4 100%);
+    font-family: 'Poppins' sans-serif;
+
+}
+body{
+    background: #dee1e2;
     min-height: 100vh;
-    
+    overflow-x: hidden;
+}
+header{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: #292F36;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 15px 15px rgba(0,0,0,0.05);
+}
+img{
+  height: 75px;
+  width: 80px;
+}
+.logo{
+    color: #300;
+    text-decoration: none;
+    font-size: 1.5em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+.group
+{
+    display: flex;
+    align-items: center;
+}
+header ul
+{
+    position: relative;
+    display: flex;
+    gap: 30px;
+}
+header ul li
+{
+    list-style: none;
+}
+header ul li a{
+    position: relative;
+    text-decoration: none;
+    font-size: 1em;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+header ul li a::before
+{
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    width: 100%;
+    height: 2px;
+    background: #ffffff;
+    transform: scaleX(0);
+    transition: 0.5s ease-in-out;
+    transform-origin: right;
+}
+
+header ul li a:hover::before{
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 200ms ease-in-out;
+  border: 1px solid black;
+  border-radius: 10px;
+  z-index: 10;
+  background-color: white;
+  width: 500px;
+  max-width: 80%;
+}
+
+.modal.active {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header {
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+
+.modal-header .title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.modal-header .close-button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.modal-body {
+  padding: 10px 15px;
+}
+
+#overlay {
+  position: fixed;
+  opacity: 0;
+  transition: 200ms ease-in-out;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .5);
+  pointer-events: none;
+}
+
+#overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.hero-section {
+  height: 100vh;
+  background: white;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.hero-section .content {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  color: #000000;
+  margin-left: 200px;
+}
+.hero-section .content h2 {
+  font-size: 3rem;
+  max-width: 600px;
+  line-height: 70px;
+  font-family:Arial, Helvetica, sans-serif;
+}
+.hero-section .content p {
+  font-weight: 300;
+  max-width: 600px;
+  margin-top: 15px;
+  font-family:Arial, Helvetica, sans-serif;
+}
+.hero-section .content button {
+  background: #fff;
+  padding: 12px 30px;
+  border: none;
+  font-size: 1.5rem;
+  font-family:Arial, Helvetica, sans-serif;
+  border-radius: 6px;
+  margin-top: 38px;
+  cursor: pointer;
+  font-weight: 200;
+  transition: 0.2s ease;
+}
+.hero-section .content button:hover {
+  color: #fff;
+  background: #000000;
+  border: none;
+  padding: 1px 3px;
+}
+.imagenFondo{
+  height: 750px;
+  width: 600px;
+  margin-top: 45px;
+}
+.imagenFondo1{
+  height: 450px;
+  width: 800px;
+  margin-top: 400px;
+  margin-left: -100px;
+}
+
+@media (max-width: 768px) {
+  body{
+    background-color: white;
   }
-  
-  .contenedor {
-      display: flex;
-      height: 100vh;
-    }
-    
-    .seccion {
-      width: 50%;
-      height: 100%;
-    }
-  
-    .container {
-      text-align: center;
-      margin-top: 0px;
-    }
-    
-    
-    img {
-      margin-top: 150px;
-      width: 100px;
-      height: 100px;
-    }
-    .logo_login{
-      margin-top: 300px;
-      width: 350px;
-      height: 300px;
-    }
-    .logo{
-      margin-top: 150px;
-      width: auto;
-      height: auto;
-    }
-    
-    p {
-      text-align: center;
-    }
-    
-    h1 {
-      margin-top: 20px;
-      font-size: 2em;
-    }
-    
-    form {
-      margin-top: 50px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    
-    label {
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
-    
-    input[type="text"],
-    input[type="email"],
-    input[type="password"] {
-      width: 500px;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      margin-bottom: 10px;
-    }
-    .btn.btn-success.btn-success{
-      background-color: #25A18E;
-      color: white;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 100px 100px 100px 100px;
-      cursor: pointer;
-    }
-    
-    
-    button:hover {
-      background-color: #25A18E;
-    }
-  
-  
-    /* Original styles remain here */
-  
-  @media only screen and (max-width: 768px) {
-    /* Styles for screens less than 768px wide */
-    .contenedor {
-      flex-direction: column;
-    }
-  
-    .seccion {
-      width: 100%;
-    }
-  
-    .logo_login {
-      display: none; /* Hide logo on small screens */
-    }
-    body{
-        background-image: linear-gradient(to right, white 0%, white 50%, #9181F4 50%, #9181F4 100%);
-        min-height: 100vh;
-        
-      }
-    .container {
-      padding: 20px; /* Add padding for better spacing on small screens */
-    }
-  
-    input[type="text"],
-    input[type="email"],
-    input[type="password"] {
-      width: 100%; /* Make input fields full width on small screens */
-    }
+  .imagenFondo{
+    display: none;
   }
-  
-  @media only screen and (max-width: 950px) {
-    /* Styles for screens less than 768px wide */
-    .contenedor {
-      flex-direction: column;
-    }
-  
-    .seccion {
-      width: 100%;
-    }
-  
-    .logo_login {
-      display:inline-block; /* Hide logo on small screens */
-    }
-    body{
-        background-image: linear-gradient(to right, white 0%, white 50%, #9181F4 50%, #9181F4 100%);
-        min-height: 100vh;
-        
-      }
-    .container {
-      padding: 20px; /* Add padding for better spacing on small screens */
-    }
-  
-    input[type="text"],
-    input[type="email"],
-    input[type="password"] {
-      width: 100%; /* Make input fields full width on small screens */
-    }
+  .imagenFondo1{
+    display: none;
   }
-  
-  
-  @media only screen and (max-width: 960px) {
-    /* Styles for screens less than 768px wide */
-    .contenedor {
-      flex-direction: column;
-    }
-  
-    .seccion {
-      width: 100%;
-    }
-  
-    .logo_login {
-      display:inline-block; /* Hide logo on small screens */
-    }
-    body{
-        background-image: linear-gradient(to right, white 0%, white 50%, #9181F4 50%, #9181F4 100%);
-        min-height: 100vh;
-        
-      }
-    .container {
-      padding: 20px; /* Add padding for better spacing on small screens */
-    }
-  
-    input[type="text"],
-    input[type="email"],
-    input[type="password"] {
-      width: 100%; /* Make input fields full width on small screens */
-    }
+  .hero-section .content h2 {
+    margin-left: -150px;
+    margin-top: -300px;
+    font-size: 25px;
   }
-  
-  @media only screen and (max-width: 764px) {
-    /* Styles for screens less than 768px wide */
-    .contenedor {
-      flex-direction: column;
-    }
-  
-    .seccion {
-      width: 100%;
-    }
-  
-    .logo_login {
-      display:none; /* Hide logo on small screens */
-    }
-    body{
-        background-image: linear-gradient(to right, white 0%, white 50%, #9181F4 50%, #9181F4 100%);
-        min-height: 100vh;
-        
-      }
-    .container {
-      padding: 20px; /* Add padding for better spacing on small screens */
-    }
-  
-    input[type="text"],
-    input[type="email"],
-    input[type="password"] {
-      width: 100%; /* Make input fields full width on small screens */
-    }
+  .hero-section .content p {
+    font-weight: 300;
+    margin-left: -150px;
+    max-width: 600px;
+    margin-top: 15px;
+    font-family:Arial, Helvetica, sans-serif;
   }
-  
-  @media only screen and (max-width: 1610px) {
-    /* Styles for screens less than 768px wide */
-    .contenedor {
-      flex-direction: column;
-    }
-  
-    .seccion {
-      width: 200%;
-    }
-  
-    .logo_login {
-      display:inline; /* Hide logo on small screens */
-    }
-    body{
-        background-image: linear-gradient(to right, white 0%, white 50%, #9181F4 50%, #9181F4 100%);
-        min-height: 100vh;
-        
-      }
-    .container {
-      padding: 80px; /* Add padding for better spacing on small screens */
-    }
-  
-    input[type="text"],
-    input[type="email"],
-    input[type="password"] {
-      width: 100%; /* Make input fields full width on small screens */
-    }
+  .hero-section .content button {
+    background: #fff;
+    padding: 12px 30px;
+    border: none;
+    font-size: 0.9rem;
+    font-family:Arial, Helvetica, sans-serif;
+    border-radius: 6px;
+    margin-top: 38px;
+    margin-left: -150px;
+    cursor: pointer;
+    font-weight: 200;
+    transition: 0.2s ease;
   }
-  
-  
-  @media only screen and (max-width: 746px) {
-    /* Styles for screens less than 768px wide */
-    .contenedor {
-      flex-direction: column;
-    }
-  
-    .seccion {
-      width: 200%;
-    }
-  
-    .logo_login {
-      display:none; /* Hide logo on small screens */
-    }
-    body{
-        background-image: linear-gradient(to right, white 0%, white 50%, #9181F4 50%, #9181F4 100%);
-        min-height: 100vh;
-        
-      }
-    .container {
-      padding: 80px; /* Add padding for better spacing on small screens */
-    }
-  
-    input[type="text"],
-    input[type="email"],
-    input[type="password"] {
-      width: 100%; /* Make input fields full width on small screens */
-    }
+  .hero-section .content button:hover {
+    color: #fff;
+    background: #000000;
+    border: none;
+    padding: 1px 3px;
   }
-  
-  @media only screen and (max-width: 766px) {
-    /* Styles for screens less than 768px wide */
-    .contenedor {
-      flex-direction:column;
-    }
-  
-    .seccion {
-      width: 200%;
-    }
-  
-    .logo_login {
-      display:none; /* Hide logo on small screens */
-    }
-    body{
-      background-image: linear-gradient(to right, white 0%, white 50%, #9181F4 50%, #9181F4 100%);
-      min-height: 100vh;
-      
-    }
-    .container {
-      padding: 80px; /* Add padding for better spacing on small screens */
-    }
-  
-    input[type="text"],
-    input[type="email"],
-    input[type="password"] {
-      width: 100%; /* Make input fields full width on small screens */
-    }
-  }
+
+}
+
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position:static;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #04AA6D;
+  color: black;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}

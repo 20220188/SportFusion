@@ -24,6 +24,10 @@ header{
     align-items: center;
     box-shadow: 0 15px 15px rgba(0,0,0,0.05);
 }
+.imagencita{
+    height: 75px;
+    width: 80px;
+}
 .logo{
     color: #300;
     text-decoration: none;
