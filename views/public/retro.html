@@ -13,28 +13,32 @@
 
 <body>
 
-    <!-- Navbar -->
-    <header class="fixed-top">
-        <a href="#" class="logo"> Logo </a>
-        <div class="group">
-            <ul class="navigation">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Mujeres</a></li>
-                <li><a href="#">Hombres</a></li>
-                <li><a href="#">Comentarios</a></li>
-                <li><a href="#">Sobre Nosotros</a></li>
+   <!-- Navbar -->
+   <header class="fixed-top">
+    <a href="dashboard.html" class="logo"><img src="../../resources/img/logoSF.png" alt="" style="height: 60px; width: 70px;"></a>
+    <div class="group">
+      <ul class="navigation">
+        <li><a href="dashboard.html">Inicio</a></li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Deportes
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="basket.html">Basket</a></li>
+              <li><a class="dropdown-item" href="futbol.html">Fútbol</a></li>
+              <li><a class="dropdown-item" href="raqueta.html">Juegos de raqueta</a></li>
             </ul>
-            <div class="buscar">
-                <span class="icon">
-                    <ion-icon name="search-outline" class="searchBtn"></ion-icon>
-                    <ion-icon name="close-outline" class="closeBtn"></ion-icon>
-                </span>
-            </div>
-        </div>
-        <div class="searchBox">
-            <input type="text" placeholder="Busca aquí...">
-        </div>
-    </header>
+          </li>
+        <li><a href="carrito.html">Carrito</a></li>
+        <li><a href="retro.html">Retro</a></li>
+        <li><a href="retro.html">Perfil</a></li>
+      </ul>
+      
+    </div>
+    <div class="searchBox">
+      <input type="text" placeholder="Busca aquí...">
+    </div>
+  </header>
 
     <!-- Carrusel -->
     <div class="container ">
