@@ -62,7 +62,7 @@ header ul li a
     letter-spacing: 0.2em;
 }
 .nav-item {
-    color: white;
+    color: rgb(255, 255, 255);
 }
 header ul li a::before
 {
@@ -80,6 +80,18 @@ header ul li a:hover::before
 {
     transform: scaleX(1);
     transform-origin: left;
+}
+.searchBox
+{
+    position: absolute;
+    right: -100%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background: #fff;
+    align-items: center;
+    padding: 0 30px;
+    transition: 0.5s ease-in-out;
 }
 
 .searchBox{
