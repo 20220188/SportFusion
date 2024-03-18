@@ -12,20 +12,6 @@ body
     min-height: 100vh;
     overflow-x: hidden;
 }
-header
-{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 80px;
-    background: #fff;
-    padding: 20px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 15px 15px rgba(0,0,0,0.05);
-}
 .logo
 {
     color: #333;
@@ -34,6 +20,21 @@ header
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
+}
+
+header
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: #292F36;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 15px 15px rgba(0,0,0,0.05);
 }
 .group
 {
@@ -55,9 +56,12 @@ header ul li a
     position: relative;
     text-decoration: none;
     font-size: 1em;
-    color: #333;
+    color: #ffffff;
     text-transform: uppercase;
     letter-spacing: 0.2em;
+}
+.nav-item {
+    color: white;
 }
 header ul li a::before
 {
@@ -66,7 +70,7 @@ header ul li a::before
    bottom: -2px;
     width: 100%;
     height: 2px;
-    background: #333;
+    background: #fffefe;
     transform: scaleX(0);
     transition: transform 0.5s ease-in-out;
     transform-origin: right;
@@ -75,16 +79,6 @@ header ul li a:hover::before
 {
     transform: scaleX(1);
     transform-origin: left;
-}
-header .buscar
-{
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5em;
-    z-index: 10;
-    cursor: pointer;
 }
 .searchBox
 {
