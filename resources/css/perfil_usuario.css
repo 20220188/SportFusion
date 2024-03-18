@@ -51,7 +51,7 @@ header ul li a
     letter-spacing: 0.2em;
 }
 .nav-item {
-    color: white;
+    color: black;
 }
 header ul li a::before
 {
