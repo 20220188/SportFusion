@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../resources/css/perfil_usuario.css">
+    <link rel="stylesheet" href="../../resources/css/inicio.css">
+</head>
+
+<body class="bodyp">
+
+    <!-- Navbar -->
+    <header class="fixed-top">
+        <a href="#" class="logo"> Logo </a>
+        <div class="group">
+            <ul class="navigation">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Mujeres</a></li>
+                <li><a href="#">Hombres</a></li>
+                <li><a href="#">Comentarios</a></li>
+                <li><a href="#">Sobre Nosotros</a></li>
+            </ul>
+            <div class="buscar">
+                <span class="icon">
+                    <ion-icon name="search-outline" class="searchBtn"></ion-icon>
+                    <ion-icon name="close-outline" class="closeBtn"></ion-icon>
+                </span>
+            </div>
+        </div>
+        <div class="searchBox">
+            <input type="text" placeholder="Busca aquí...">
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Botón para modificar -->
+                <button class="btn btn-primary mt-3 float-end" data-toggle="modal" data-target="#myModal">Modificar
+                    Perfil</button>
+            </div>
+
+            <!-- Modal para modificar los datos -->
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Encabezado del modal -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Modificar Perfil</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <!-- Cuerpo del modal -->
+                        <div class="modal-body">
+                            <!-- Formulario para editar los datos -->
+                            <form id="editForm">
+                                <!-- Vista previa de la imagen -->
+                                <div class="form-group">
+                                    <label for="profileImage">Foto de Perfil:</label>
+                                    <img id="preview" src="ruta_de_la_imagen.jpg" alt="Vista Previa"
+                                        class="profile-picture">
+                                    <input type="file" class="form-control-file mt-2" id="profileImage">
+                                </div>
+                                <div class="form-group">
+                                    <label for="nombre">Nombre:</label>
+                                    <input type="text" class="form-control" id="nombre" placeholder="Nombre">
+                                </div>
+                                <div class="form-group">
+                                    <label for="direccion">Dirección:</label>
+                                    <input type="text" class="form-control" id="direccion" placeholder="Dirección">
+                                </div>
+                                <div class="form-group">
+                                    <label for="correo">Correo Electrónico:</label>
+                                    <input type="email" class="form-control" id="correo"
+                                        placeholder="Correo Electrónico">
+                                </div>
+                                <div class="form-group">
+                                    <label for="telefono">Teléfono:</label>
+                                    <input type="tel" class="form-control" id="telefono" placeholder="Teléfono">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="profile-image">
+                    <img src="../../resources/img/raptors-1998-99-retro.png" alt="Foto de perfil"
+                        class="img-fluid rounded-circle" style="max-width: 200px;">
+                </div>
+            </div>
+            <div class="col-md-8">
+                <form action="#">
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre:</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" value="Juan Pérez" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="direccion" class="form-label">Dirección:</label>
+                        <input type="text" class="form-control" id="direccion" name="direccion" value="Calle Mayor, 123"
+                            readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="correo" class="form-label">Correo electrónico:</label>
+                        <input type="email" class="form-control" id="correo" name="correo" value="juan.perez@correo.com"
+                            readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="telefono" class="form-label">Teléfono:</label>
+                        <input type="tel" class="form-control" id="telefono" name="telefono" value="123456789" readonly>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Bootstrap JS y jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!--LInk del controlador de la pagina web-->
+<script src="../../controllers/public/perfil_usuario.js"></script>
+
+</body>
+
+</html>

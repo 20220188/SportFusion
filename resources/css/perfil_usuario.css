@@ -1,0 +1,35 @@
+.bodyp{
+    background: #ffffff;
+}
+
+
+.container {
+    max-width: 960px;
+    margin-top: 8%;
+}
+
+.profile-image {
+    margin-bottom: 20px;
+}
+
+/* Estilos para la foto de perfil circular */
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: 20px auto;
+    display: block;
+}
+
+/* Estilos para centrar y hacer no editables los inputs */
+.profile-info input {
+    text-align: center;
+    pointer-events: none;
+    /* Para hacer los inputs no editables */
+    background-color: transparent;
+    /* Para hacer los inputs no editables */
+    border: none;
+    /* Para hacer los inputs no editables */
+    outline: none;
+    /* Para hacer los inputs no editables */
+}
