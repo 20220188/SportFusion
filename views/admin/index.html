@@ -31,9 +31,9 @@
                     <img src="../../resources/img/logoSF.png" alt="Logo" class="logo_login" style="max-width: 100%">
                 </div>
             </div>
+
+            <!--Login-->
             <div class="col-md-6 form-container justify-content-center align-items-center">
-               
-                
                 <form>
                     <img src="../../resources/img/usuarioSF.png" alt="Logo">
                     <br><br>
@@ -47,6 +47,34 @@
                     <a href="dashboard.html"><button type="button" class="btn btn-success"
                             style="background-color: #25A18E">Entrar</button></a>
                 </form>
+            </div>
+            <!--Primer uso-->
+            <div class="row">
+                <div class="col-md-6 d-flex justify-content-center align-items-center">
+                    <img src="../../resources/img/logoSF.png" alt="Logo" class="logo_login" style="max-width: 100%">
+                </div>
+                <div class="col-md-6 form-container">
+                    <div class="container">
+                        <img src="../../resources/img/usuarioSF.png" alt="Logo">
+                        <form action="/signup" method="post">
+
+                            <label for="name" style="color: white;">Nombre:</label>
+                            <input type="text" id="name" name="name" placeholder="Ingrese su nombre">
+                            <label for="email" style="color: white;">Correo:</label>
+                            <input type="email" id="email" name="email" placeholder="Ingrese su correo electrónico">
+                            <label for="password" style="color: white;">Contraseña:</label>
+                            <input type="password" id="password" name="password" placeholder="Ingrese su contraseña">
+                            <label for="confirmPassword" style="color: white;">Confirmar Contraseña:</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword"
+                                placeholder="Confirme su contraseña">
+                            <p style="color: white;">¿Ya tienes una cuenta?, da click <a href="index.html"
+                                    class="link-primary">aquí</a> para ingresar</p>
+                            <a href="index.html"><button type="button" class="btn btn-success"
+                                    style="background-color: #25A18E">Siguiente</button></a>
+                        </form>
+                    </div>
+                </div>
+
             </div>
         </div>
 
