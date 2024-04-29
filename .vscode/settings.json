@@ -1,3 +1,4 @@
 {
-    "livePreview.defaultPreviewPath": "/views/admin/categorias.html"
+    "livePreview.defaultPreviewPath": "/views/admin/categorias.html",
+    "liveServer.settings.port": 5501
 }
