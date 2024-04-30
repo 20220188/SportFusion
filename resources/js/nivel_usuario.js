@@ -13,31 +13,17 @@ const fillTable = async (form = null) => {
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TABLE_BODY.innerHTML += `
             <tr>
-            <td>${row.id_nivel_usuario}</td>
-            <td>${row.id_usuario}<td>
-                <button class="edit-button">
+                <td>${row.id_nivel_usuario}</td>
+                <td>${row.nivel_usuario}</td>
+                <td>
+                    <button class="edit-button" onclick="openUpdate(${row.id_nivel_usuario})">
                     <img src="../../api/images/Edit.png">
-                </button>
-                <!-- Agrega un identificador al botón de eliminación -->
-                <button class="remove-button">
+                    </button>
+                    <button class="edit-button"(${row.id_nivel_usuario})>
                     <img src="../../api/images/Remove.png">
-                </button>
-            </td>
-
-        </tr>
-        <tr>
-            <td>Cliente</td>
-            <td>
-                <button class="edit-button">
-                    <img src="../../api/images/Edit.png">
-                </button>
-                <!-- Agrega un identificador al botón de eliminación -->
-                <button class="remove-button">
-                    <img src="../../api/images/Remove.png">
-                </button>
-            </td>
-
-        </tr>
+                    </button>
+                </td>
+            </tr>
             `;
         });
         // Se muestra un mensaje de acuerdo con el resultado.
