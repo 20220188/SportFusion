@@ -69,4 +69,28 @@ class DeporteData extends DeporteHandler{
             return true;
         }
     }
+
+    public function setFilename()
+    {
+        if ($data = $this->readFilename()) {
+            $this->filename = $data['imagen_producto'];
+            return true;
+        } else {
+            $this->data_error = 'Producto inexistente';
+            return false;
+        }
+    }
+
+    /*
+     *  Métodos para obtener los atributos adicionales.
+     */
+    public function getDataError()
+    {
+        return $this->data_error;
+    }
+
+    public function getFilename()
+    {
+        return $this->filename;
+    }
 }
