@@ -1,5 +1,26 @@
-const SAVE_MODAL =  new bootstrap.Modal('#CreateModal'),
-MODAL_TITLE = document.getElementById('modalTitle');
+//NO BORRAR ESTE ARCHIVO
+
+
+// Constante para completar la ruta de la API.
+const ADMINISTRADOR_API = '../../api/services/admin/administrador.php';
+// Constante para establecer el formulario de buscar.
+const SEARCH_FORM = document.getElementById('searchForm');
+// Constantes para establecer los elementos de la tabla.
+const TABLE_BODY = document.getElementById('tableBody'),
+    ROWS_FOUND = document.getElementById('rowsFound');
+// Constantes para establecer los elementos del componente Modal.
+const SAVE_MODAL = new bootstrap.Modal('#saveModal'),
+    MODAL_TITLE = document.getElementById('modalTitle');
+// Constantes para establecer los elementos del formulario de guardar.
+const SAVE_FORM = document.getElementById('saveForm'),
+    ID_ADMINISTRADOR = document.getElementById('idAdministrador'),
+    NOMBRE_ADMINISTRADOR = document.getElementById('nombreAdministrador'),
+    APELLIDO_ADMINISTRADOR = document.getElementById('apellidoAdministrador'),
+    CORREO_ADMINISTRADOR = document.getElementById('correoAdministrador'),
+    ALIAS_ADMINISTRADOR = document.getElementById('aliasAdministrador'),
+    CLAVE_ADMINISTRADOR = document.getElementById('claveAdministrador'),
+    CONFIRMAR_CLAVE = document.getElementById('confirmarClave');
+
 
 const openCreate = () => {
     // Se muestra la caja de diálogo con su título.

@@ -105,7 +105,7 @@ class AdministradorHandler
     {
         $sql = 'SELECT id_admin, nombre_admin, apellido_admin, correo_admin, alias_admin
                 FROM tb_administradores
-                ORDER BY apellido_admin';
+                ORDER BY nombre_admin';
         return Database::getRows($sql);
     }
 
