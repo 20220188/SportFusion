@@ -48,14 +48,18 @@ const loadTemplate = async () => {
             // Se agrega el encabezado de la página web antes del contenido principal.
             // Se agrega el pie de la página web después del contenido principal.
             MAIN.insertAdjacentHTML('afterend', `
-            <footer class="footer">
-            <p style="color: white">&copy; SportsFusion</p>
-            <ul>
-              <li><p  style="color: white">Jafet Melara</p></li>
-              <li><p  style="color: white">Dominic Mejía</p></li>
-              <li><p  style="color: white">Kevin Roodríguez</p></li>
-            </ul>
-          </footer>
+            <footer>
+            <nav class="navbar fixed-bottom bg-body-tertiary">
+                <div class="container">
+                <p style="color: white">&copy; SportsFusion</p>
+                <ul>
+                  <li><p  style="color: white">Jafet Melara</p></li>
+                  <li><p  style="color: white">Dominic Mejía</p></li>
+                  <li><p  style="color: white">Kevin Roodríguez</p></li>
+                </ul>
+                </div>
+            </nav>
+        </footer>
             `);
         } else {
             location.href = 'index.html';
