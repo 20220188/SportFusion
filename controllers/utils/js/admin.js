@@ -31,7 +31,7 @@ const loadTemplate = async () => {
             // Se agrega el pie de la página web después del contenido principal.
             MAIN.insertAdjacentHTML('afterend', `
             <footer class="footer">
-            <p style="color: black">&copy; SportsFusion</p>
+            <p style="color: white">&copy; SportsFusion</p>
         </footer>
             `);
         } else {
@@ -44,7 +44,7 @@ const loadTemplate = async () => {
             // Se agrega el pie de la página web después del contenido principal.
             MAIN.insertAdjacentHTML('afterend', `
             <footer>
-            <p style="color: black">&copy; SportsFusion</p>
+            <p style="color: white">&copy; SportsFusion</p>
             </footer>
             `);
         } else {
