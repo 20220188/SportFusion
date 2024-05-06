@@ -31,13 +31,8 @@ const loadTemplate = async () => {
             // Se agrega el pie de la página web después del contenido principal.
             MAIN.insertAdjacentHTML('afterend', `
             <footer class="footer">
-            <p style="color: white">&copy; SportsFusion</p>
-            <ul>
-              <li><p  style="color: white">Jafet Melara</p></li>
-              <li><p  style="color: white">Dominic Mejía</p></li>
-              <li><p  style="color: white">Kevin Roodríguez</p></li>
-            </ul>
-          </footer>
+            <p style="color: black">&copy; SportsFusion</p>
+        </footer>
             `);
         } else {
             sweetAlert(3, DATA.error, false, 'index.html');
@@ -49,17 +44,8 @@ const loadTemplate = async () => {
             // Se agrega el pie de la página web después del contenido principal.
             MAIN.insertAdjacentHTML('afterend', `
             <footer>
-            <nav class="navbar fixed-bottom bg-body-tertiary">
-                <div class="container">
-                <p style="color: white">&copy; SportsFusion</p>
-                <ul>
-                  <li><p  style="color: white">Jafet Melara</p></li>
-                  <li><p  style="color: white">Dominic Mejía</p></li>
-                  <li><p  style="color: white">Kevin Roodríguez</p></li>
-                </ul>
-                </div>
-            </nav>
-        </footer>
+            <p style="color: black">&copy; SportsFusion</p>
+            </footer>
             `);
         } else {
             location.href = 'index.html';

@@ -9,95 +9,72 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- LInk de CSS -->
-    <link rel="stylesheet" href="../../resources/css/index.css">
     <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    
+
     
 
 </head>
 
 <body>
     <!-- Contenido principal del documento -->
-    <main class="container-fluid">
+    <main>
         <!-- Título del contenido principal -->
         <h3 id="mainTitle"></h3>
-        <!-- Formulario para el inicio de sesion -->
-        <div class="row">
-            <div class="col-md-6 d-flex justify-content-center align-items-center">
-
-                <div class="container">
-                    <img src="../../resources/img/logoSF.png" alt="Logo" class="logo_login" style="max-width: 100%">
+        <img src="../../resources/img/logoSF.png" class="mx-auto d-block" width="200">
+        <!-- Formulario para iniciar sesión -->
+        <form class="d-none" id="loginForm">
+            <div class="row g-3">
+                <div class="col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+                    <label for="alias" class="form-label">Alias</label>
+                    <input id="alias" type="text" name="alias" class="form-control" required>
+                </div>
+                <div class="col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+                    <label for="clave" class="form-label">Contraseña</label>
+                    <input id="clave" type="password" name="clave" class="form-control" required>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-send"></i> Enviar</button>
                 </div>
             </div>
-
-            <!--Login-->
-            <div class="col-md-6 form-container justify-content-center align-items-center">
-                <form class="d-none" id="loginForm">
-                    <img src="../../resources/img/usuarioSF.png" alt="Logo">
-                        <div class="row g-3">
-                            <div class="col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-                                <label for="alias" class="form-label">Alias</label>
-                                <input id="alias" type="text" name="alias" class="form-control" required>
-                            </div>
-                            <div class="col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-                                <label for="clave" class="form-label">Contraseña</label>
-                                <input id="clave" type="password" name="clave" class="form-control" required>
-                            </div>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary"><i class="bi bi-send"></i> Enviar</button>
-                            </div>
-                        </div>
-                </form>
-            </div>
-            <!--Primer uso-->
-            <div class="row">
-                <div class="col-md-6 d-flex justify-content-center align-items-center">
-
+        </form>
+        <!-- Formulario para crear el primer administrador -->
+        <form class="d-none" id="signupForm">
+            <div class="row g-3">
+                <div class="col-sm-12 col-md-6">
+                    <label for="nombreAdministrador" class="form-label">Nombre</label>
+                    <input id="nombreAdministrador" type="text" name="nombreAdministrador" class="form-control"
+                        required>
                 </div>
-                <div class="col-md-6 form-container">
-                    <div class="container">
-                        <form class="d-none" id="signupForm">
-                            <img src="../../resources/img/usuarioSF.png" alt="Logo">
-                            <div class="row g-3">
-                                <div class="col-sm-12 col-md-6">
-                                    <label for="nombreAdministrador" class="form-label">Nombre</label>
-                                    <input id="nombreAdministrador" type="text" name="nombreAdministrador" class="form-control"
-                                        required>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <label for="apellidoAdministrador" class="form-label">Apellido</label>
-                                    <input id="apellidoAdministrador" type="text" name="apellidoAdministrador" class="form-control"
-                                        required>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <label for="correoAdministrador" class="form-label">Correo</label>
-                                    <input id="correoAdministrador" type="email" name="correoAdministrador" class="form-control"
-                                        required>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <label for="aliasAdministrador" class="form-label">Alias</label>
-                                    <input id="aliasAdministrador" type="text" name="aliasAdministrador" class="form-control" required>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <label for="claveAdministrador" class="form-label">Contraseña</label>
-                                    <input id="claveAdministrador" type="password" name="claveAdministrador" class="form-control"
-                                        required>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <label for="confirmarClave" class="form-label">Confirmar contraseña</label>
-                                    <input id="confirmarClave" type="password" name="confirmarClave" class="form-control" required>
-                                </div>
-                                <div class="text-center">
-                                    <button type="reset" class="btn btn-secondary"><i class="bi bi-x-square"></i> Cancelar</button>
-                                    <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Guardar</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                <div class="col-sm-12 col-md-6">
+                    <label for="apellidoAdministrador" class="form-label">Apellido</label>
+                    <input id="apellidoAdministrador" type="text" name="apellidoAdministrador" class="form-control"
+                        required>
                 </div>
-
+                <div class="col-sm-12 col-md-6">
+                    <label for="correoAdministrador" class="form-label">Correo</label>
+                    <input id="correoAdministrador" type="email" name="correoAdministrador" class="form-control"
+                        required>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <label for="aliasAdministrador" class="form-label">Alias</label>
+                    <input id="aliasAdministrador" type="text" name="aliasAdministrador" class="form-control" required>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <label for="claveAdministrador" class="form-label">Contraseña</label>
+                    <input id="claveAdministrador" type="password" name="claveAdministrador" class="form-control"
+                        required>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <label for="confirmarClave" class="form-label">Confirmar contraseña</label>
+                    <input id="confirmarClave" type="password" name="confirmarClave" class="form-control" required>
+                </div>
+                <div class="text-center">
+                    <button type="reset" class="btn btn-secondary"><i class="bi bi-x-square"></i> Cancelar</button>
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Guardar</button>
+                </div>
             </div>
-        </div>
-
+        </form>
     </main>
 
 <!-- IMPORTACIÓN DE ARCHIVOS JAVASCRIPT -->

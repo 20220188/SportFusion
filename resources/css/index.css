@@ -33,6 +33,10 @@ body{
     margin-top: 300px;
     width: 350px;
     height: 300px;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    
   }
   .logo{
     margin-top: 150px;
