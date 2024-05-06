@@ -79,13 +79,13 @@ const fillTable = async (form = null) => {
                     <td>${row.apellido_admin}</td>
                     <td>${row.nombre_admin}</td>
                     <td>${row.correo_admin}</td>
-                    <td>${row.alias_admini}</td>
+                    <td>${row.alias_admin}</td>
                     <td>
                         <button type="button" class="btn btn-info" onclick="openUpdate(${row.id_admin})">
-                            <i class="bi bi-pencil-fill"></i>
+                        <i class="lni lni-pencil"></i>
                         </button>
                         <button type="button" class="btn btn-danger" onclick="openDelete(${row.id_admin})">
-                            <i class="bi bi-trash-fill"></i>
+                        <i class="lni lni-trash-can"></i>
                         </button>
                     </td>
                 </tr>
