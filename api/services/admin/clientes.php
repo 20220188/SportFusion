@@ -1,45 +1,202 @@
 <?php
-// Se incluyen las clases para la transferencia y acceso a datos.
+// Se incluye la clase del modelo.
 require_once('../../models/data/clientes_data.php');
 
-$clientes = new clientes_data;
-
-if ($clientes_data = $clientes->readAll()) {
-    // Se establece un color de relleno para los encabezados.
-    $pdf->setFillColor(200);
-    // Se establece la fuente para los encabezados.
-    $pdf->setFont('Arial', 'B', 11);
-    // Se imprimen las celdas con los encabezados.
-    $pdf->cell(50, 10, 'Nombre Cliente', 1, 0, 'C', 1);
-    $pdf->cell(30, 10, 'DUI', 1, 0, 'C', 1);
-    $pdf->cell(30, 10, 'Telefono', 1, 0, 'C', 1);
-    $pdf->cell(60, 10, 'Correo', 1, 0, 'C', 1);
-    $pdf->cell(60, 10, 'Direccion', 1, 0, 'C', 1);
-    $pdf->cell(30, 10, 'Alias', 1, 1, 'C', 1);
-
-    // Se establece un color de relleno para mostrar los datos de el cliente.
-    $pdf->setFillColor(240);
-    // Se establece la fuente para los datos de el cliente.
-    $pdf->setFont('Arial', '', 11);
-
-    // Se recorren los registros fila por fila.
-    foreach ($clientes_data as $rowcliente) {
-        $pdf->cell(50, 10, $pdf->encodeString($rowcliente['nombre_cliente']), 1, 0);
-        $pdf->cell(30, 10, $rowcliente['DUI'], 1, 0);
-        $pdf->cell(30, 10, $rowcliente['Telefono'], 1, 0);
-        $pdf->cell(60, 10, $rowcliente['Correo'], 1, 0);
-        $pdf->cell(60, 10, $pdf->encodeString($rowcliente['Direccion']), 1, 0);
-        $pdf->cell(30, 10, $rowcliente['Alias'], 1, 1);
+// Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
+if (isset($_GET['action'])) {
+    // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
+    session_start();
+    // Se instancia la clase correspondiente.
+    $cliente = new Clientes_data;
+    // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
+    $result = array('status' => 0, 'session' => 0, 'message' => null, 'dataset' => null, 'error' => null, 'exception' => null, 'username' => null);
+    // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
+    if (isset($_SESSION['idCliente'])) {
+        $result['session'] = 1;
+        // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
+        switch ($_GET['action']) {
+            case 'searchRows':
+                if (!Validator::validateSearch($_POST['search'])) {
+                    $result['error'] = Validator::getSearchError();
+                } elseif ($result['dataset'] = $cliente->searchRows()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
+                } else {
+                    $result['error'] = 'No hay coincidencias';
                 }
-            } else {
-                $pdf->cell(0, 10, $pdf->encodeString('No hay clientes'), 1, 1);
-            }
-        } else {
-            $pdf->cell(0, 10, $pdf->encodeString('Cliente incorrecto o inexistente'), 1, 1);
+                break;
+            case 'createRow':
+                $_POST = Validator::validateForm($_POST);
+                if (
+                    !$cliente->setNombre($_POST['nombre_ciente']) or
+                    !$cliente->setDUI($_POST['DUI_cliente']) or
+                    !$cliente->setTelefono($_POST['telefono_cliente']) or
+                    !$cliente->setDireccion($_POST['direccion_cliente']) or
+                    !$cliente->setAlias($_POST['alias_cliente'])or
+                    !$cliente->setClave($_POST['clave_cliente'])
+                ) {
+                    $result['error'] = $administrador->getDataError();
+                } elseif ($_POST['claveAdministrador'] != $_POST['confirmarClave']) {
+                    $result['error'] = 'Contraseñas diferentes';
+                } elseif ($administrador->createRow()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Administrador creado correctamente';
+                } else {
+                    $result['error'] = 'Ocurrió un problema al crear el administrador';
+                }
+                break;
+            case 'readAll':
+                if ($result['dataset'] = $administrador->readAll()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                } else {
+                    $result['error'] = 'No existen administradores registrados';
+                }
+                break;
+            case 'readOne':
+                if (!$administrador->setId($_POST['idAdministrador'])) {
+                    $result['error'] = 'Administrador incorrecto';
+                } elseif ($result['dataset'] = $administrador->readOne()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['error'] = 'Administrador inexistente';
+                }
+                break;
+            case 'updateRow':
+                $_POST = Validator::validateForm($_POST);
+                if (
+                    !$administrador->setId($_POST['idAdministrador']) or
+                    !$administrador->setNombre($_POST['nombreAdministrador']) or
+                    !$administrador->setApellido($_POST['apellidoAdministrador']) or
+                    !$administrador->setCorreo($_POST['correoAdministrador'])
+                ) {
+                    $result['error'] = $administrador->getDataError();
+                } elseif ($administrador->updateRow()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Administrador modificado correctamente';
+                } else {
+                    $result['error'] = 'Ocurrió un problema al modificar el administrador';
+                }
+                break;
+            case 'deleteRow':
+                if ($_POST['idAdministrador'] == $_SESSION['idAdministrador']) {
+                    $result['error'] = 'No se puede eliminar a sí mismo';
+                } elseif (!$administrador->setId($_POST['idAdministrador'])) {
+                    $result['error'] = $administrador->getDataError();
+                } elseif ($administrador->deleteRow()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Administrador eliminado correctamente';
+                } else {
+                    $result['error'] = 'Ocurrió un problema al eliminar el administrador';
+                }
+                break;
+            case 'getUser':
+                if (isset($_SESSION['aliasAdministrador'])) {
+                    $result['status'] = 1;
+                    $result['username'] = $_SESSION['aliasAdministrador'];
+                } else {
+                    $result['error'] = 'Alias de administrador indefinido';
+                }
+                break;
+            case 'logOut':
+                if (session_destroy()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Sesión eliminada correctamente';
+                } else {
+                    $result['error'] = 'Ocurrió un problema al cerrar la sesión';
+                }
+                break;
+            case 'readProfile':
+                if ($result['dataset'] = $administrador->readProfile()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['error'] = 'Ocurrió un problema al leer el perfil';
+                }
+                break;
+            case 'editProfile':
+                $_POST = Validator::validateForm($_POST);
+                if (
+                    !$administrador->setNombre($_POST['nombreAdministrador']) or
+                    !$administrador->setApellido($_POST['apellidoAdministrador']) or
+                    !$administrador->setCorreo($_POST['correoAdministrador']) or
+                    !$administrador->setAlias($_POST['aliasAdministrador'])
+                ) {
+                    $result['error'] = $administrador->getDataError();
+                } elseif ($administrador->editProfile()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Perfil modificado correctamente';
+                    $_SESSION['aliasAdministrador'] = $_POST['aliasAdministrador'];
+                } else {
+                    $result['error'] = 'Ocurrió un problema al modificar el perfil';
+                }
+                break;
+            case 'changePassword':
+                $_POST = Validator::validateForm($_POST);
+                if (!$administrador->checkPassword($_POST['claveActual'])) {
+                    $result['error'] = 'Contraseña actual incorrecta';
+                } elseif ($_POST['claveNueva'] != $_POST['confirmarClave']) {
+                    $result['error'] = 'Confirmación de contraseña diferente';
+                } elseif (!$administrador->setClave($_POST['claveNueva'])) {
+                    $result['error'] = $administrador->getDataError();
+                } elseif ($administrador->changePassword()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Contraseña cambiada correctamente';
+                } else {
+                    $result['error'] = 'Ocurrió un problema al cambiar la contraseña';
+                }
+                break;
+            default:
+                $result['error'] = 'Acción no disponible dentro de la sesión';
+        }
+    } else {
+        // Se compara la acción a realizar cuando el administrador no ha iniciado sesión.
+        switch ($_GET['action']) {
+            case 'readUsers':
+                if ($administrador->readAll()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Debe autenticarse para ingresar';
+                } else {
+                    $result['error'] = 'Debe crear un administrador para comenzar';
+                }
+                break;
+            case 'signUp':
+                $_POST = Validator::validateForm($_POST);
+                if (
+                    !$administrador->setNombre($_POST['nombreAdministrador']) or
+                    !$administrador->setApellido($_POST['apellidoAdministrador']) or
+                    !$administrador->setCorreo($_POST['correoAdministrador']) or
+                    !$administrador->setAlias($_POST['aliasAdministrador']) or
+                    !$administrador->setClave($_POST['claveAdministrador'])
+                ) {
+                    $result['error'] = $administrador->getDataError();
+                } elseif ($_POST['claveAdministrador'] != $_POST['confirmarClave']) {
+                    $result['error'] = 'Contraseñas diferentes';
+                } elseif ($administrador->createRow()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Administrador registrado correctamente';
+                } else {
+                    $result['error'] = console_log(Database::getException());
+                }
+                break;
+            case 'logIn':
+                $_POST = Validator::validateForm($_POST);
+                if ($administrador->checkUser($_POST['alias'], $_POST['clave'])) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Autenticación correcta';
+                } else {
+                    $result['error'] = 'Credenciales incorrectas';
+                }
+                break;
+            default:
+                $result['error'] = 'Acción no disponible fuera de la sesión';
         }
     }
+    // Se obtiene la excepción del servidor de base de datos por si ocurrió un problema.
+    $result['exception'] = Database::getException();
+    // Se indica el tipo de contenido a mostrar y su respectivo conjunto de caracteres.
+    header('Content-type: application/json; charset=utf-8');
+    // Se imprime el resultado en formato JSON y se retorna al controlador.
+    print(json_encode($result));
 } else {
-    $pdf->cell(0, 10, $pdf->encodeString('No hay clientes para mostrar'), 1, 1);
+    print(json_encode('Recurso no disponible'));
 }
-// Se llama implícitamente al método footer() y se envía el documento al navegador web.
-$pdf->output('I', 'clientes.pdf');

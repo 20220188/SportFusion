@@ -88,6 +88,8 @@ class Clientes_data extends Clientes
         }
     }
 
+    public function setAlias($)
+
     public function setClave($value)
     {
         if (Validator::validatePassword($value)) {
