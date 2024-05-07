@@ -91,6 +91,7 @@ const fillTable = async (form = null) => {
                 </tr>
             `;
         });
+        
         // Se muestra un mensaje de acuerdo con el resultado.
         ROWS_FOUND.textContent = DATA.message;
     } else {

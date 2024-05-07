@@ -13,9 +13,7 @@ if (isset($_GET['action'])) {
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
     if (isset($_SESSION['idAdministrador'])) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
-
         switch ($_GET['action']) {
-
             case 'searchRows':
                 if (!Validator::validateSearch($_POST['search'])) {
                     $result['error'] = Validator::getSearchError();
@@ -26,21 +24,23 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'No hay coincidencias';
                 }
                 break;
-
             case 'createRow':
                 $_POST = Validator::validateForm($_POST);
                 if (
-                    !$categoria->setNombre($_POST['nombreCategoria']) 
+                    !$categoria->setNombre($_POST['nombreCategoria']) or
+                    !$categoria->setDescripcion($_POST['descripcionCategoria']) or
+                    !$categoria->setImagen($_FILES['imagenCategoria'])
                 ) {
                     $result['error'] = $categoria->getDataError();
                 } elseif ($categoria->createRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Categoría creada correctamente';
+                    // Se asigna el estado del archivo después de insertar.
+                    $result['fileStatus'] = Validator::saveFile($_FILES['imagenCategoria'], $categoria::RUTA_IMAGEN);
                 } else {
                     $result['error'] = 'Ocurrió un problema al crear la categoría';
                 }
                 break;
-
             case 'readAll':
                 if ($result['dataset'] = $categoria->readAll()) {
                     $result['status'] = 1;
@@ -49,7 +49,6 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'No existen categorías registradas';
                 }
                 break;
-
             case 'readOne':
                 if (!$categoria->setId($_POST['idCategoria'])) {
                     $result['error'] = $categoria->getDataError();
@@ -59,23 +58,25 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Categoría inexistente';
                 }
                 break;
-
             case 'updateRow':
                 $_POST = Validator::validateForm($_POST);
                 if (
                     !$categoria->setId($_POST['idCategoria']) or
                     !$categoria->setFilename() or
-                    !$categoria->setNombre($_POST['nombreCategoria'])
+                    !$categoria->setNombre($_POST['nombreCategoria']) or
+                    !$categoria->setDescripcion($_POST['descripcionCategoria']) or
+                    !$categoria->setImagen($_FILES['imagenCategoria'], $categoria->getFilename())
                 ) {
                     $result['error'] = $categoria->getDataError();
                 } elseif ($categoria->updateRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Categoría modificada correctamente';
+                    // Se asigna el estado del archivo después de actualizar.
+                    $result['fileStatus'] = Validator::changeFile($_FILES['imagenCategoria'], $categoria::RUTA_IMAGEN, $categoria->getFilename());
                 } else {
                     $result['error'] = 'Ocurrió un problema al modificar la categoría';
                 }
                 break;
-
             case 'deleteRow':
                 if (
                     !$categoria->setId($_POST['idCategoria']) or
@@ -85,15 +86,15 @@ if (isset($_GET['action'])) {
                 } elseif ($categoria->deleteRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Categoría eliminada correctamente';
-                    } else {
+                    // Se asigna el estado del archivo después de eliminar.
+                    $result['fileStatus'] = Validator::deleteFile($categoria::RUTA_IMAGEN, $categoria->getFilename());
+                } else {
                     $result['error'] = 'Ocurrió un problema al eliminar la categoría';
                 }
                 break;
-
             default:
                 $result['error'] = 'Acción no disponible dentro de la sesión';
         }
-        
         // Se obtiene la excepción del servidor de base de datos por si ocurrió un problema.
         $result['exception'] = Database::getException();
         // Se indica el tipo de contenido a mostrar y su respectivo conjunto de caracteres.

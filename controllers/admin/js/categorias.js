@@ -89,7 +89,7 @@ const fillTable = async (form = null) => {
                         <i class="lni lni-trash-can"></i>
                         </button>
                         <button type="button" class="btn btn-warning" onclick="openReport(${row.id_categoria})">
-                            <i class="bi bi-filetype-pdf"></i>
+                        <i class="lni lni-empty-file"></i>
                         </button>
                     </td>
                 </tr>
@@ -175,11 +175,15 @@ const openDelete = async (id) => {
 *   Parámetros: id (identificador del registro seleccionado).
 *   Retorno: ninguno.
 */
-const openReport = (id) => {
+
+// Esto se mantendrá inactivo hasta que implementemos los reportes 
+
+/*
+    const openReport = (id) => {
     // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
     const PATH = new URL(`${SERVER_URL}reports/admin/productos_categoria.php`);
     // Se agrega un parámetro a la ruta con el valor del registro seleccionado.
     PATH.searchParams.append('idCategoria', id);
     // Se abre el reporte en una nueva pestaña.
     window.open(PATH.href);
-}
+    }*/
