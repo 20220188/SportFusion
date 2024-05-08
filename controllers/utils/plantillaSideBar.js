@@ -41,12 +41,6 @@ const plantillaSideBar =  `
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="nivel_usuarios.html" class="sidebar-link">
-                        <i class="lni lni-network"></i>
-                        <span>Niveles de usuario</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
                     <a href="categorias.html" class="sidebar-link">
                         <i class="lni lni-list"></i>
                         <span>Categorias</span>
