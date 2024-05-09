@@ -16,76 +16,15 @@
 
 <body>
     <div class="wrapper">
-        <aside id="sidebar">
-            <div class="d-flex">
-                <button class="toggle-btn" type="button">
-                    <i class="lni lni-grid-alt"></i>
+        <!-- Sidebar -->
+        <aside id="sidebar"></aside>
 
-                </button>
-                <div class="sidebar-logo">
-                    <a href="dashboard.html">SportFusion</a>
-                </div>
-            </div>
-            <ul class="sidebar-nav">
-                <li class="sidebar-item">
-                    <a href="administrador.html" class="sidebar-link">
-                        <i class="lni lni-user"></i>
-                        <span>Administradores</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a href="clientes.html" class="sidebar-link">
-                        <i class="lni lni-users"></i>
-                        <span>Clientes</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="productos.html" class="sidebar-link">
-                        <i class="lni lni-agenda"></i>
-                        <span>Productos</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="pedidos.html" class="sidebar-link">
-                        <i class="lni lni-delivery"></i>
-                        <span>Pedidos</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="deportes.html" class="sidebar-link">
-                        <i class="lni lni-basketball"></i>
-                        <span>Deportes</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="nivel_usuarios.html" class="sidebar-link">
-                        <i class="lni lni-network"></i>
-                        <span>Niveles de usuario</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="categorias.html" class="sidebar-link">
-                        <i class="lni lni-list"></i>
-                        <span>Categorias</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="sidebar-footer">
-                <a href="index.html" class="sidebar-link">
-                    <i class="lni lni-exit"></i>
-                    <span>Logout</span>
-                </a>
-            </div>
-        </aside>
-        <div class="main p-3">
-            <div class="text-center">
-                <h1>
-                    Clientes
-                </h1>
-
+        <!-- Contenido principal -->
+        <div id="content">
+            <main class="main p-3">
+                <!-- Título del contenido principal -->
+                <h3 id="mainTitle"></h3>
                 <div class="row">
-                    
                     <!-- Formulario de búsqueda -->
                     <form class="col-sm-12 col-md-6" id="searchForm">
                         <div class="row">
@@ -102,152 +41,101 @@
                             </div>
                         </div>
                     </form>
-
                     <div class="col-sm-12 col-md-6 text-end">
-
-                        <!-- Botón para abrir el formulario -->
+                        <!-- Botón para abrir una caja de diálogo al momento de crear un nuevo registro -->
                         <button type="button" class="btn btn-primary" onclick="openCreate()">
-                            Agregar
+                            <i class="lni lni-plus"></i>
                         </button>
-
-                        <!-- Modal para agregar registros-->
-                        <div class="modal fade" id="CreateModal" tabindex="-1" aria-labelledby="modalTitle"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="modalTitle"></h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <!-- Aquí se integra el formulario -->
-                                        <form id="saveForm">
-                                            <div class="modal-body row g-3">
-                                                <!-- Campo oculto para asignar el id del registro al momento de modificar -->
-                                                <input type="hidden" id="idProducto" name="idProducto">
-                                                <div class="col-sm-12 col-md-6">
-                                                    <label for="nombreProducto" class="form-label">Nombre</label>
-                                                    <input id="nombreProducto" type="text" name="nombreProducto"
-                                                        class="form-control" required>
-                                                </div>
-
-                                                <div class="col-sm-12 col-md-6">
-                                                    <label for="categoriaUsuario" class="form-label">Nivel de
-                                                        usuario</label>
-                                                    <select id="categoriaUsuario" name="categoriaUsuario"
-                                                        class="form-control" required>
-                                                        <option value="">Seleccionar nivel de usuario</option>
-                                                        <option value="Hombre">Administrador</option>
-                                                        <option value="Mujer">cliente</option>
-                                                    </select>
-                                                </div>
-
-
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Cancelar</button>
-                                                <button type="submit" id="guardarBtn" class="btn btn-primary"
-                                                    data-bs-dismiss="modal" aria-label="Close">Guardar</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-
                 </div>
 
-
-
-                <!-- Tabla para mostrar los registros existentes -->
-                <table class="table table-striped">
-                    <!-- Cabeza de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
+                <table class="table table-hover">
+                    <!-- Encabezado de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
                     <thead>
                         <tr>
-                            <td colspan="6" id="rowsFound"></td>
+                            <td colspan="4" id="rowsFound"></td>
                         </tr>
                         <tr>
-                            <th>Imagen</th>
-                            <th>Nombre</th>
-                            <th>Nivel de Usuario</th>
-                            <th>Acciones</th>
-
+                            <th>NOMBRE</th>
+                            <th>Telefono</th>
+                            <th>Correo</th>
+                            <th>Alias</th>
+                            <th>ACCIONES</th>
                         </tr>
                     </thead>
-
                     <!-- Cuerpo de la tabla para mostrar un registro por fila -->
-                    <tbody id="tableBody">
-                       
-                    </tbody>
+                    <tbody id="tableBody"></tbody>
                 </table>
 
-
-
-                <!--Form para editar usuarios-->
-                <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
+                <!-- Componente Modal para guardar un registro -->
+                <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                    aria-labelledby="modalTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar cliente</h1>
+                                <h1 class="modal-title fs-5" id="modalTitle"></h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
-                                <!-- Aquí se integra el formulario -->
-                                <form id="editForm">
-                                    <div class="modal-body row g-3">
-                                        <div class="col-sm-12 col-md-6">
-                                            <label for="editNombreUsuario" class="form-label">Nombre</label>
-                                            <input id="editNombreUsuario" type="text" name="editNombreUsuario"
-                                                class="form-control" required>
-                                        </div>
-                                        <div class="col-12">
-                                            <label for="EditcategoriaUsuario" class="form-label">Categoría del
-                                                Producto</label>
-                                            <select id="EditcategoriaUsuario" name="EditcategoriaUsuario"
-                                                class="form-control" required>
-                                                <option value="">Seleccionar nivel de usuario</option>
-                                                <option value="Hombre">Administrador</option>
-                                                <option value="Mujer">cliente</option>
-
-                                            </select>
-                                        </div>
-
+                            <!-- Formulario para guardar un registro -->
+                            <form id="saveForm">
+                                <div class="modal-body row g-3">
+                                    <!-- Campo oculto para asignar el id del registro al momento de modificar -->
+                                    <input type="number" class="d-none" id="idCliente" name="idCliente">
+                                    <div class="col-sm-12 col-md-6">
+                                        <label for="nombreCliente" class="form-label">Nombre</label>
+                                        <input id="nombreCliente" type="text" name="nombreCliente"
+                                            class="form-control" required>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="submit" id="editarBtn" class="btn btn-primary">Guardar
-                                            Cambios</button>
+                                    <div class="col-sm-12 col-md-6">
+                                        <label for="TelefonoCliente" class="form-label">Telefono</label>
+                                        <input id="TelefonoCliente" type="text" name="TelefonoCliente"
+                                            class="form-control" required>
                                     </div>
-                                </form>
-                            </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <label for="CorreoCliente" class="form-label">Correo</label>
+                                        <input id="CorreoCliente" type="text" name="CorreoCliente"
+                                            class="form-control" required>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <label for="AliasCliente" class="form-label">Alias</label>
+                                        <input id="AliasCliente" type="text" name="AliasClientes"
+                                            class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-            </div>
+            </main>
         </div>
     </div>
-    <script src="../../controllers/admin/dashboard.js"></script>
+
+    <!-- Llamada al controlador del sitio privado -->
+    <script src="../../controllers/utils/js/admin.js"></script>
+    <script src="../../controllers/utils/js/components.js"></script>
+    <script src="../../controllers/utils/plantillaSideBar.js"></script>
+
+
     <!-- Scripts de JavaScript -->
     <!-- Agrega los enlaces a los scripts de Bootstrap y SweetAlert2 -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 
     <!-- IMPORTACIÓN DE ARCHIVOS JAVASCRIPT -->
     <!-- Llamada al framework y librería de mensajes -->
     <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
-    <script src="../../resources/css/bootstrap.min.css"></script>
-    <!-- Llamada al controlador del sitio privado -->
-    <script type="text/javascript" src="../../controllers/utils/js/admin.js"></script>
+    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+
+    <!-- Llamada al controlador de la barra lateral -->
+    <script src="../../controllers/admin/js/dashboard.js"></script>
+
     <!-- Llamada al controlador de la página web -->
-    <script type="text/javascript" src="../../controllers/admin/clientes.js"></script>
-     <!-- Llamada al controlador general de la aplicación -->
-     <script type="text/javascript" src="../../controllers/utils/components.js"></script>
+    <script type="text/javascript" src="../../controllers/admin/js/tipo_productos.js"></script>
+    <script src="../../controllers/admin/js/clientes.js"></script>
 
 </body>
 
