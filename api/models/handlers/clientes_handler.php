@@ -17,8 +17,7 @@ class ClienteHandler
     protected $alias = null;
     protected $clave = null;
 
-    // Constante para establecer la ruta de las imágenes.
-    const RUTA_IMAGEN = '../../images/categorias/';
+
 
     /*
      *  Métodos para realizar las operaciones SCRUD (search, create, read, update, and delete).
@@ -36,7 +35,7 @@ class ClienteHandler
 
     public function createRow()
     {
-        $sql = 'INSERT INTO tb_cliente(nombre_ciente, telefono_cliente, correo_cliente, direccion_cliente, alias_cliente, clave_cliente)
+        $sql = 'INSERT INTO tb_clientes(nombre_ciente, telefono_cliente, correo_cliente, direccion_cliente, alias_cliente, clave_cliente)
                 VALUES(?, ?, ?)';
         $params = array($this->nombre, $this->correo, $this->telefono);
         return Database::executeRow($sql, $params);
@@ -45,7 +44,7 @@ class ClienteHandler
     public function readAll()
     {
         $sql = 'SELECT id_cliente, nombre_ciente, telefono_cliente, correo_cliente, direccion_cliente, alias_cliente, clave_cliente
-                FROM tb_cliente
+                FROM tb_clientes
                 ORDER BY nombre_ciente';
         return Database::getRows($sql);
     }
@@ -53,7 +52,7 @@ class ClienteHandler
     public function readOne()
     {
         $sql = 'SELECT id_cliente, nombre_ciente, telefono_cliente, correo_cliente, direccion_cliente, alias_cliente, clave_cliente
-                FROM tb_cliente
+                FROM tb_clientes
                 WHERE id_cliente = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
@@ -62,7 +61,7 @@ class ClienteHandler
     public function readFilename()
     {
         $sql = 'SELECT nombre_ciente
-                FROM tb_cliente
+                FROM tb_clientes
                 WHERE id_cliente = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
@@ -70,7 +69,7 @@ class ClienteHandler
 
     public function updateRow()
     {
-        $sql = 'UPDATE tb_cliente
+        $sql = 'UPDATE tb_clientes
                 SET nombre_ciente = ?, telefono_cliente = ?, correo_cliente = ?
                 WHERE id_cliente = ?';
         $params = array($this->nombre, $this->telefono, $this->correo, $this->id);
