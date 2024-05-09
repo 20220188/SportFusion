@@ -2,12 +2,12 @@
 // Se incluye la clase para validar los datos de entrada.
 require_once('../../helpers/validator.php');
 // Se incluye la clase padre.
-require_once('../../models/handlers/deporte_.php');
+require_once('../../models/handlers/deporte_handler.php');
 /*
  *	Clase para manejar el encapsulamiento de los datos de la tabla PRODUCTO.
  */
-class DeporteData extends DeporteHandler{
-
+class DeporteData extends DeporteHandler
+{
     /*
      *  Atributos adicionales.
      */
@@ -42,17 +42,6 @@ class DeporteData extends DeporteHandler{
         }
     }
 
-    public function setRetro($value)
-    {
-        if (Validator::validateBoolean($value)) {
-            $this->retro = $value;
-            return true;
-        } else {
-            $this->data_error = 'Estado incorrecto';
-            return false;
-        }
-    }
-
     public function setImagen($file, $filename = null)
     {
         if (Validator::validateImageFile($file, 1000)) {
@@ -70,13 +59,24 @@ class DeporteData extends DeporteHandler{
         }
     }
 
+    public function setEstado($value)
+    {
+        if (Validator::validateBoolean($value)) {
+            $this->estado = $value;
+            return true;
+        } else {
+            $this->data_error = 'Estado incorrecto';
+            return false;
+        }
+    }
+
     public function setFilename()
     {
         if ($data = $this->readFilename()) {
-            $this->filename = $data['imagen_producto'];
+            $this->filename = $data['imagen_deporte'];
             return true;
         } else {
-            $this->data_error = 'Producto inexistente';
+            $this->data_error = 'Deporte inexistente';
             return false;
         }
     }

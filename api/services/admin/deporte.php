@@ -7,7 +7,7 @@ if (isset($_GET['action'])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
     session_start();
     // Se instancia la clase correspondiente.
-    $deporte = new ProductoData;
+    $deporte = new DeporteData;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'message' => null, 'dataset' => null, 'error' => null, 'exception' => null, 'fileStatus' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
@@ -27,22 +27,18 @@ if (isset($_GET['action'])) {
             case 'createRow':
                 $_POST = Validator::validateForm($_POST);
                 if (
-                    !$deporte->setNombre($_POST['nombreProducto']) or
-                    !$deporte->setDescripcion($_POST['descripcionProducto']) or
-                    !$deporte->setPrecio($_POST['precioProducto']) or
-                    !$deporte->setExistencias($_POST['existenciasProducto']) or
-                    !$deporte->setCategoria($_POST['categoriaProducto']) or
-                    !$deporte->setEstado(isset($_POST['estadoProducto']) ? 1 : 0) or
-                    !$deporte->setImagen($_FILES['imagenProducto'])
+                    !$deporte->setNombre($_POST['nombreDeporte']) or
+                    !$deporte->setEstado(isset($_POST['estadoDeporte']) ? 1 : 0) or
+                    !$deporte->setImagen($_FILES['imagenDeporte'])
                 ) {
                     $result['error'] = $deporte->getDataError();
                 } elseif ($deporte->createRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Producto creado correctamente';
+                    $result['message'] = 'Deporte creado correctamente';
                     // Se asigna el estado del archivo después de insertar.
-                    $result['fileStatus'] = Validator::saveFile($_FILES['imagenProducto'], $deporte::RUTA_IMAGEN);
+                    $result['fileStatus'] = Validator::saveFile($_FILES['imagenDeporte'], $deporte::RUTA_IMAGEN);
                 } else {
-                    $result['error'] = 'Ocurrió un problema al crear el producto';
+                    $result['error'] = 'Ocurrió un problema al crear el deporte';
                 }
                 break;
             case 'readAll':
@@ -50,67 +46,50 @@ if (isset($_GET['action'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } else {
-                    $result['error'] = 'No existen productos registrados';
+                    $result['error'] = 'No existen deportes registrados';
                 }
                 break;
             case 'readOne':
-                if (!$deporte->setId($_POST['idProducto'])) {
+                if (!$deporte->setId($_POST['idDeporte'])) {
                     $result['error'] = $deporte->getDataError();
                 } elseif ($result['dataset'] = $deporte->readOne()) {
                     $result['status'] = 1;
                 } else {
-                    $result['error'] = 'Producto inexistente';
+                    $result['error'] = 'Deporte inexistente';
                 }
                 break;
             case 'updateRow':
                 $_POST = Validator::validateForm($_POST);
                 if (
-                    !$deporte->setId($_POST['idProducto']) or
+                    !$deporte->setId($_POST['idDeporte']) or
                     !$deporte->setFilename() or
-                    !$deporte->setNombre($_POST['nombreProducto']) or
-                    !$deporte->setDescripcion($_POST['descripcionProducto']) or
-                    !$deporte->setPrecio($_POST['precioProducto']) or
-                    !$deporte->setCategoria($_POST['categoriaProducto']) or
-                    !$deporte->setEstado(isset($_POST['estadoProducto']) ? 1 : 0) or
-                    !$deporte->setImagen($_FILES['imagenProducto'], $deporte->getFilename())
+                    !$deporte->setNombre($_POST['nombreDeporte']) or
+                    !$deporte->setEstado(isset($_POST['estadoDeporte']) ? 1 : 0) or
+                    !$deporte->setImagen($_FILES['imagenDeporte'], $deporte->getFilename())
                 ) {
                     $result['error'] = $deporte->getDataError();
                 } elseif ($deporte->updateRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Producto modificado correctamente';
+                    $result['message'] = 'Deporte modificado correctamente';
                     // Se asigna el estado del archivo después de actualizar.
-                    $result['fileStatus'] = Validator::changeFile($_FILES['imagenProducto'], $deporte::RUTA_IMAGEN, $deporte->getFilename());
+                    $result['fileStatus'] = Validator::changeFile($_FILES['imagenDeporte'], $deporte::RUTA_IMAGEN, $deporte->getFilename());
                 } else {
-                    $result['error'] = 'Ocurrió un problema al modificar el producto';
+                    $result['error'] = 'Ocurrió un problema al modificar el deporte';
                 }
                 break;
             case 'deleteRow':
                 if (
-                    !$deporte->setId($_POST['idProducto']) or
+                    !$deporte->setId($_POST['idDeporte']) or
                     !$deporte->setFilename()
                 ) {
                     $result['error'] = $deporte->getDataError();
                 } elseif ($deporte->deleteRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Producto eliminado correctamente';
+                    $result['message'] = 'Deporte eliminado correctamente';
                     // Se asigna el estado del archivo después de eliminar.
                     $result['fileStatus'] = Validator::deleteFile($deporte::RUTA_IMAGEN, $deporte->getFilename());
                 } else {
-                    $result['error'] = 'Ocurrió un problema al eliminar el producto';
-                }
-                break;
-            case 'cantidadProductosCategoria':
-                if ($result['dataset'] = $deporte->cantidadProductosCategoria()) {
-                    $result['status'] = 1;
-                } else {
-                    $result['error'] = 'No hay datos disponibles';
-                }
-                break;
-            case 'porcentajeProductosCategoria':
-                if ($result['dataset'] = $deporte->porcentajeProductosCategoria()) {
-                    $result['status'] = 1;
-                } else {
-                    $result['error'] = 'No hay datos disponibles';
+                    $result['error'] = 'Ocurrió un problema al eliminar el deporte';
                 }
                 break;
             default:
