@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+<link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="../../resources/css/dashboard.css">
+
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <aside id="sidebar"></aside>
+
+        <!-- Contenido principal -->
+        <div id="content">
+            <main class="main p-3">
+                <!-- Título del contenido principal -->
+                <h3 id="mainTitle"></h3>
+                <div class="row">
+                    <!-- Formulario de búsqueda -->
+                    <form class="col-sm-12 col-md-6" id="searchForm">
+                        <div class="row">
+                            <div class="col-6">
+                                <input type="search" class="form-control" name="search" placeholder="Buscar" required>
+                            </div>
+                            <div class="col-6">
+                                <button type="submit" class="btn btn-success">
+                                    <i class="lni lni-search-alt"></i>
+                                </button>
+                                <button type="reset" class="btn btn-secondary" onclick="fillTable()">
+                                    <i class="lni lni-eraser"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="col-sm-12 col-md-6 text-end">
+                        <!-- Botón para abrir una caja de diálogo al momento de crear un nuevo registro -->
+                        <button type="button" class="btn btn-primary" onclick="openCreate()">
+                            <i class="lni lni-plus"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <table class="table table-hover">
+                    <!-- Encabezado de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
+                    <thead>
+                        <tr>
+                            <td colspan="4" id="rowsFound"></td>
+                        </tr>
+                        <tr>
+                            <th>NOMBRE</th>
+                            <th>ACCIONES</th>
+                        </tr>
+                    </thead>
+                    <!-- Cuerpo de la tabla para mostrar un registro por fila -->
+                    <tbody id="tableBody"></tbody>
+                </table>
+
+                <!-- Componente Modal para guardar un registro -->
+                <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                    aria-labelledby="modalTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="modalTitle"></h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <!-- Formulario para guardar un registro -->
+                            <form id="saveForm">
+                                <div class="modal-body row g-3">
+                                    <!-- Campo oculto para asignar el id del registro al momento de modificar -->
+                                    <input type="number" class="d-none" id="idTipoProducto" name="idTipoProducto">
+                                    <div class="col-sm-12 col-md-6">
+                                        <label for="nombreTipoProducto" class="form-label">Nombre</label>
+                                        <input id="nombreTipoProducto" type="text" name="nombreTipoProducto"
+                                            class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Llamada al controlador del sitio privado -->
+    <script src="../../controllers/utils/js/admin.js"></script>
+    <script src="../../controllers/utils/js/components.js"></script>
+    <script src="../../controllers/utils/plantillaSideBar.js"></script>
+
+    <!-- Scripts de JavaScript -->
+    <!-- Agrega los enlaces a los scripts de Bootstrap y SweetAlert2 -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+
+    <!-- IMPORTACIÓN DE ARCHIVOS JAVASCRIPT -->
+    <!-- Llamada al framework y librería de mensajes -->
+    <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+
+    <!-- Llamada al controlador de la barra lateral -->
+    <script src="../../controllers/admin/js/dashboard.js"></script>
+
+    <!-- Llamada al controlador de la página web -->
+    <script type="text/javascript" src="../../controllers/admin/js/tipo_productos.js"></script>
+</body>
+
+</html>

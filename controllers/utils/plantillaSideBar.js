@@ -29,6 +29,12 @@ const plantillaSideBar =  `
                     </a>
                 </li>
                 <li class="sidebar-item">
+                <a href="tipo_productos.html" class="sidebar-link">
+                <i class="lni lni-layout"></i>
+                    <span>tipo de productos</span>
+                </a>
+            </li>
+                <li class="sidebar-item">
                     <a href="pedidos.html" class="sidebar-link">
                         <i class="lni lni-delivery"></i>
                         <span>Pedidos</span>
