@@ -6,6 +6,7 @@
 <title></title>
     <!-- Llamada al icono de la página web -->
     <link type="image/png" rel="icon" href="../../resources/img/logoSF.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
 <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="../../resources/css/dashboard.css">
@@ -52,7 +53,7 @@
                             <td class="text-start" colspan="2" id="rowsFound"></td>
                         </tr>
                         <tr>
-                            <th>TALLAS</th>
+                            <th>GENEROS</th>
                             <th>ACCIONES</th>
                         </tr>
                     </thead>
@@ -74,10 +75,10 @@
                             <form id="saveForm">
                                 <div class="modal-body row g-3">
                                     <!-- Campo oculto para asignar el id del registro al momento de modificar -->
-                                    <input type="number" class="d-none" id="idTalla" name="idTalla">
+                                    <input type="number" class="d-none" id="idGenero" name="idGenero">
                                     <div class="col-sm-12 col-md-6">
-                                        <label for="nombreTalla" class="form-label">Talla</label>
-                                        <input id="nombreTalla" type="text" name="nombreTalla"
+                                        <label for="nombreGenero" class="form-label">Genero</label>
+                                        <input id="nombreGenero" type="text" name="nombreGenero"
                                             class="form-control" required>
                                     </div>
                                 </div>
@@ -111,7 +112,7 @@
     <script src="../../controllers/admin/js/dashboard.js"></script>
 
     <!-- Llamada al controlador de la página web -->
-    <script type="text/javascript" src="../../controllers/admin/js/talla.js"></script>
+    <script type="text/javascript" src="../../controllers/admin/js/generos.js"></script>
 </body>
 
 </html>

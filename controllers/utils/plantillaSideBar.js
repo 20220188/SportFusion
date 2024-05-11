@@ -58,6 +58,12 @@ const plantillaSideBar =  `
                         <span>Tallas</span>
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a href="generos.html" class="sidebar-link">
+                    <i class="bi bi-gender-ambiguous"></i>
+                        <span>Generos</span>
+                    </a>
+                </li>
             </ul>
             <div class="sidebar-footer">
                 <a href="index.html" class="sidebar-link">

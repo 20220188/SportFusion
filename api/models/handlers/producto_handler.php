@@ -28,7 +28,7 @@ class ProductoHandler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT id_producto, imagen_producto, nombre_producto, descripcion_producto, precio_producto, nombre_categoria, estado_producto
+        $sql = 'SELECT id_producto, imagen, nombre_producto, descripcion, precio, nombre_categoria
                 FROM producto
                 INNER JOIN categoria USING(id_categoria)
                 WHERE nombre_producto LIKE ? OR descripcion_producto LIKE ?
