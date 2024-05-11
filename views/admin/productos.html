@@ -9,8 +9,7 @@
         <!-- Llamada al icono de la página web -->
         <link type="image/png" rel="icon" href="../../resources/img/logoSF.png">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../../resources/css/productos.css">
     <link rel="stylesheet" href="../../resources/css/dashboard.css">
@@ -18,74 +17,14 @@
 
 <body>
     <div class="wrapper">
-        <aside id="sidebar">
-            <div class="d-flex">
-                <button class="toggle-btn" type="button">
-                    <i class="lni lni-grid-alt"></i>
+        <!-- Sidebar -->
+        <aside id="sidebar"></aside>
 
-                </button>
-                <div class="sidebar-logo">
-                    <a href="dashboard.html">SportFusion</a>
-                </div>
-            </div>
-            <ul class="sidebar-nav">
-                <li class="sidebar-item">
-                    <a href="administrador.html" class="sidebar-link">
-                        <i class="lni lni-user"></i>
-                        <span>Administradores</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a href="clientes.html" class="sidebar-link">
-                        <i class="lni lni-users"></i>
-                        <span>Clientes</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="productos.html" class="sidebar-link">
-                        <i class="lni lni-agenda"></i>
-                        <span>Productos</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="pedidos.html" class="sidebar-link">
-                        <i class="lni lni-delivery"></i>
-                        <span>Pedidos</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="deportes.html" class="sidebar-link">
-                        <i class="lni lni-basketball"></i>
-                        <span>Deportes</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="nivel_usuarios.html" class="sidebar-link">
-                        <i class="lni lni-network"></i>
-                        <span>Niveles de usuario</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="categorias.html" class="sidebar-link">
-                        <i class="lni lni-list"></i>
-                        <span>Categorias</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="sidebar-footer">
-                <a href="index.html" class="sidebar-link">
-                    <i class="lni lni-exit"></i>
-                    <span>Logout</span>
-                </a>
-            </div>
-        </aside>
-        <div class="main p-3">
-            <div class="text-center">
-                <h1>
-                    Productos
-                </h1>
-
+        <!-- Contenido principal -->
+        <div id="content">
+            <main class="main p-3">
+                <!-- Título del contenido principal -->
+                <h3 id="mainTitle"></h3>
                 <div class="row">
                     <!-- Formulario de búsqueda -->
                     <form class="col-sm-12 col-md-6" id="searchForm">
@@ -103,277 +42,93 @@
                             </div>
                         </div>
                     </form>
-
-
                     <div class="col-sm-12 col-md-6 text-end">
-                        <!-- Botón para abrir el formulario -->
+                        <!-- Botón para abrir una caja de diálogo al momento de crear un nuevo registro -->
                         <button type="button" class="btn btn-primary" onclick="openCreate()">
-                            Agregar
+                            <i class="lni lni-plus"></i>
                         </button>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="CreateModal" tabindex="-1" aria-labelledby="modalTitle"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="modalTitle"></h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <!-- Aquí se integra el formulario -->
-                                        <form id="saveForm">
-                                            <div class="modal-body row g-3">
-                                                <!-- Campo oculto para asignar el id del registro al momento de modificar -->
-                                                <input type="hidden" id="idProducto" name="idProducto">
-                                                <div class="col-12">
-                                                    <label for="nombreProducto" class="form-label">Nombre del
-                                                        Producto</label>
-                                                    <input id="nombreProducto" type="text" name="nombreProducto"
-                                                        class="form-control" required>
-                                                </div>
-
-                                                <div class="col-12">
-                                                    <label for="descripcionProducto" class="form-label">Descripción del
-                                                        Producto</label>
-                                                    <textarea id="descripcionProducto" name="descripcionProducto"
-                                                        class="form-control" rows="4" required></textarea>
-                                                </div>
-
-
-                                                <div class="col-12">
-                                                    <label for="precioProducto" class="form-label">Precio del
-                                                        Producto</label>
-                                                    <input id="precioProducto" type="number" name="precioProducto"
-                                                        min="0" step="0.01" class="form-control" required>
-                                                </div>
-
-                                                <div class="col-12">
-                                                    <label for="stockProducto" class="form-label">Stock
-                                                        Disponible</label>
-                                                    <input id="stockProducto" type="number" name="stockProducto" min="0"
-                                                        step="1" class="form-control" required>
-                                                </div>
-
-                                                <div class="col-12">
-                                                    <label for="categoriaProducto" class="form-label">Categoría del
-                                                        Producto</label>
-                                                    <select id="categoriaProducto" name="categoriaProducto"
-                                                        class="form-control" required>
-                                                        <option value="">Seleccionar categoría</option>
-                                                        <option value="Hombre">Hombre</option>
-                                                        <option value="Mujer">Mujer</option>
-                                                        <option value="Infantil">Infantil</option>
-                                                        <!-- Agregar más opciones según tus necesidades -->
-                                                    </select>
-                                                </div>
-
-                                                <div class="col-12">
-                                                    <label for="imagenProd" class="form-label">Imagen del
-                                                        Producto</label>
-                                                    <input id="imagenProd" type="file" name="imagenProd"
-                                                        class="form-control" accept=".png, .jpg">
-                                                    <!-- Vista previa de la imagen -->
-                                                    <img id="vistaPreviaImagen" src="#" alt="Vista previa"
-                                                        style="max-width: 100%; max-height: 100px; display: none;">
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Cancelar</button>
-                                                <button type="submit" id="guardarBtn" class="btn btn-primary"
-                                                    data-bs-dismiss="modal" aria-label="Close">Guardar</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
-                <!-- Tabla para mostrar los registros existentes -->
-                <table class="table table-striped">
-                    <!-- Cabeza de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
+                <table class="table table-hover">
+                    <!-- Encabezado de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
                     <thead>
                         <tr>
-                            <td colspan="6" id="rowsFound"></td>
+                            <td colspan="4" id="rowsFound"></td>
                         </tr>
                         <tr>
-                            <th>Imagen</th>
-                            <th>Nombre</th>
-                            <th>Genero</th>
-                            <th>Precio</th>
-                            <th>Stock disponible</th>
-                            <th>Acciones</th>
-
+                            <th>IMAGEN</th>
+                            <th>NOMBRE</th>
+                            <th>COLECCIONABLES</th>
+                            <th>ACCIONES</th>
                         </tr>
                     </thead>
                     <!-- Cuerpo de la tabla para mostrar un registro por fila -->
-                    <tbody id="tableBody">
-                        <tr>
-                            <th scope="row"><img class="imagenProducto" src="../../api/images/magic20.jpg"></th>
-                            <td>Jersey Orlando magic
-                                dorsal #20 Flurtz
-                            </td>
-                            <td>Hombre</td>
-                            <td>$45</td>
-                            <td>20</td>
-                            <td>
-                                <button class="edit-button">
-                                    <img src="../../api/images/Edit.png">
-                                </button>
-                                <!-- Agrega un identificador al botón de eliminación -->
-                                <button class="remove-button">
-                                    <img src="../../api/images/Remove.png">
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><img class="imagenProducto" src="../../api/images/bucks0.png"></th>
-                            <td>Jersey Milwaukee Bucks Dorsal #0 Lillard</td>
-                            <td>Hombre</td>
-                            <td>$60</td>
-                            <td>10</td>
-                            <td>
-                                <button class="edit-button">
-                                    <img src="../../api/images/Edit.png">
-                                </button>
-                                <!-- Agrega un identificador al botón de eliminación -->
-                                <button class="remove-button">
-                                    <img src="../../api/images/Remove.png">
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><img class="imagenProducto" src="../../api/images/balonVoley.jpg"></th>
-                            <td>Balón de voleibol MIKASA</td>
-                            <td>--</td>
-                            <td>$30</td>
-                            <td>25</td>
-                            <td>
-                                <button class="edit-button">
-                                    <img src="../../api/images/Edit.png">
-                                </button>
-                                <!-- Agrega un identificador al botón de eliminación -->
-                                <button class="remove-button">
-                                    <img src="../../api/images/Remove.png">
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
+                    <tbody id="tableBody"></tbody>
                 </table>
 
-
-
-
-
-
-
-                <!--Form para editar productos-->
-                <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
+                <!-- Componente Modal para guardar un registro -->
+                <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                    aria-labelledby="modalTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Producto</h1>
+                                <h1 class="modal-title fs-5" id="modalTitle"></h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
-                            <form id="editForm">
+                            <!-- Formulario para guardar un registro -->
+                            <form id="saveForm">
                                 <div class="modal-body row g-3">
                                     <!-- Campo oculto para asignar el id del registro al momento de modificar -->
-                                    <input type="hidden" id="idProducto" name="idProducto">
-                                    <div class="col-12">
-                                        <label for="nombreProductoEditar" class="form-label">Nombre del
-                                            Producto</label>
-                                        <input id="nombreProductoEditar" type="text" name="nombreProductoEditar"
+                                    <input type="number" class="d-none" id="idDeporte" name="idDeporte">
+                                    <div class="col-sm-12 col-md-6">
+                                        <label for="nombreDeporte" class="form-label">Nombre</label>
+                                        <input id="nombreDeporte" type="text" name="nombreDeporte"
                                             class="form-control" required>
                                     </div>
-
-                                    <div class="col-12">
-                                        <label for="descripcionProductoEditar" class="form-label">Descripción del
-                                            Producto</label>
-                                        <textarea id="descripcionProductoEditar" name="descripcionProductoEditar"
-                                            class="form-control" rows="4" required></textarea>
+                                    <div class="col-sm-12 col-md-6">
+                                        <label for="imagenDeporte" class="form-label">Imagen</label>
+                                        <input id="imagenDeporte" type="file" name="imagenDeporte" class="form-control"
+                                            accept=".png, .jpg">
                                     </div>
-
-
-                                    <div class="col-12">
-                                        <label for="precioProductoEditar" class="form-label">Precio del
-                                            Producto</label>
-                                        <input id="precioProductoEditar" type="number" name="precioProductoEditar"
-                                            min="0" step="0.01" class="form-control" required>
-
-
-                                    </div>
-
-                                    <div class="col-12">
-                                        <label for="stockProductoEditar" class="form-label">Stock
-                                            Disponible</label>
-                                        <input id="stockProductoEditar" type="number" name="stockProductoEditar" min="0"
-                                            step="1" class="form-control" required>
-                                    </div>
-
-                                    <div class="col-12">
-                                        <label for="categoriaProductoEditar" class="form-label">Categoría del
-                                            Producto</label>
-                                        <select id="categoriaProductoEditar" name="categoriaProductoEditar"
-                                            class="form-control" required>
-                                            <option value="">Seleccionar categoría</option>
-                                            <option value="Hombre">Hombre</option>
-                                            <option value="Mujer">Mujer</option>
-                                            <option value="Infantil">Infantil</option>
-                                            <!-- Agregar más opciones según tus necesidades -->
-                                        </select>
-                                    </div>
-
-                                    <div class="col-12">
-                                        <label for="imagenProdEditar" class="form-label">Imagen del Producto</label>
-                                        <input id="imagenProdEditar" type="file" name="imagenProdEditar"
-                                            class="form-control" accept=".png, .jpg">
-                                        <!-- Vista previa de la imagen -->
-                                        <img id="vistaPreviaImagenEditar" src="#" alt="Vista previa"
-                                            style="max-width: 100%; max-height: 100px; display: none;">
+                                    <div class="form-check form-switch form-check-reverse">
+                                        <input class="form-check-input" type="checkbox" id="estadoDeporte"
+                                            name="estadoDeporte" checked>
+                                        <label class="form-check-label" for="estadoDeporte">Estado</label>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="submit" id="editarBtn" class="btn btn-primary">Guardar
-                                        Cambios</button>
+                                    <button type="submit" class="btn btn-primary">Guardar</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-
-
-            </div>
+            </main>
         </div>
     </div>
 
-
-    
+    <!-- Llamada al controlador del sitio privado -->
+    <script src="../../controllers/utils/js/admin.js"></script>
+    <script src="../../controllers/utils/js/components.js"></script>
+    <script src="../../controllers/utils/plantillaSideBar.js"></script>
 
     <!-- Scripts de JavaScript -->
     <!-- Agrega los enlaces a los scripts de Bootstrap y SweetAlert2 -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 
     <!-- IMPORTACIÓN DE ARCHIVOS JAVASCRIPT -->
     <!-- Llamada al framework y librería de mensajes -->
     <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
-    <script src="../../resources/css/bootstrap.min.css"></script>
+    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
 
-    <!-- Llamada al controlador del sitio privado -->
-    <script type="text/javascript" src="../../controllers/utils/js/admin.js"></script>
-    <script src="../../controllers/admin/dashboard.js"></script>
+    <!-- Llamada al controlador de la barra lateral -->
+    <script src="../../controllers/admin/js/dashboard.js"></script>
+
     <!-- Llamada al controlador de la página web -->
-    <script type="text/javascript" src="../../controllers/admin/productos.js"></script>
-
+    <script type="text/javascript" src="../../controllers/admin/js/deportes.js"></script>
 </body>
 
 </html>
