@@ -52,6 +52,12 @@ const plantillaSideBar =  `
                         <span>Categorias</span>
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a href="tallas.html" class="sidebar-link">
+                    <i class="lni lni-sort-amount-asc"></i>
+                        <span>Tallas</span>
+                    </a>
+                </li>
             </ul>
             <div class="sidebar-footer">
                 <a href="index.html" class="sidebar-link">

@@ -4,13 +4,13 @@ require_once('../../helpers/database.php');
 /*
  *  Clase para manejar el comportamiento de los datos de la tabla TIPO_PRODUCTO.
  */
-class TipoProductoHandler
+class TallaHandler
 {
     /*
      *  Declaración de atributos para el manejo de datos.
      */
     protected $id = null;
-    protected $nombre = null;
+    protected $talla = null;
 
 
     /*
@@ -19,35 +19,35 @@ class TipoProductoHandler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT id_tipo_producto, tipo_producto
-                FROM tb_tipo_productos
-                WHERE tipo_producto LIKE ?
-                ORDER BY tipo_producto';
+        $sql = 'SELECT id_talla, talla
+                FROM tb_tallas
+                WHERE talla LIKE ?
+                ORDER BY talla';
         $params = array($value);
         return Database::getRows($sql, $params);
     }
 
     public function createRow()
     {
-        $sql = 'INSERT INTO tb_tipo_productos(tipo_producto)
+        $sql = 'INSERT INTO tb_tallas(talla)
                 VALUES(?)';
-        $params = array($this->nombre);
+        $params = array($this->talla);
         return Database::executeRow($sql, $params);
     }
 
     public function readAll()
     {
-        $sql = 'SELECT id_tipo_producto, tipo_producto 
-                FROM tb_tipo_productos
-                ORDER BY tipo_producto';
+        $sql = 'SELECT id_talla, talla
+                FROM tb_tallas
+                ORDER BY talla';
         return Database::getRows($sql);
     }
 
     public function readOne()
     {
-        $sql = 'SELECT id_tipo_producto, tipo_producto
-                FROM tb_tipo_productos
-                WHERE id_tipo_producto = ?';
+        $sql = 'SELECT id_talla, talla
+                FROM tb_tallas
+                WHERE id_talla = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
     }
@@ -55,17 +55,17 @@ class TipoProductoHandler
 
     public function updateRow()
     {
-        $sql = 'UPDATE tb_tipo_productos
-                SET tipo_producto = ?
-                WHERE id_tipo_producto = ?';
-        $params = array( $this->nombre, $this->id);
+        $sql = 'UPDATE tb_tallas
+                SET talla = ?
+                WHERE id_talla = ?';
+        $params = array( $this->talla, $this->id);
         return Database::executeRow($sql, $params);
     }
 
     public function deleteRow()
     {
-        $sql = 'DELETE FROM tb_tipo_productos
-                WHERE id_tipo_producto = ?';
+        $sql = 'DELETE FROM tb_tallas
+                WHERE id_talla = ?';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
