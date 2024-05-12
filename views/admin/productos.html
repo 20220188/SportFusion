@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
-        <!-- Llamada al icono de la página web -->
-        <link type="image/png" rel="icon" href="../../resources/img/logoSF.png">
+    <!-- Llamada al icono de la página web -->
+    <link type="image/png" rel="icon" href="../../resources/img/logoSF.png">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
@@ -50,16 +50,19 @@
                     </div>
                 </div>
 
+                <!-- Tabla para mostrar los registros existentes -->
                 <table class="table table-hover text-center">
-                    <!-- Encabezado de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
+                    <!-- Cabeza de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
                     <thead>
                         <tr>
-                            <td class="text-start" colspan="4" id="rowsFound"></td>
+                            <td class="text-start" colspan="6" id="rowsFound"></td>
                         </tr>
                         <tr>
                             <th>IMAGEN</th>
                             <th>NOMBRE</th>
-                            <th>COLECCIONABLES</th>
+                            <th>DESCRIPCION</th>
+                            <th>CATEGORÍA</th>
+                            <th>TIPO</th>
                             <th>ACCIONES</th>
                         </tr>
                     </thead>
@@ -77,25 +80,46 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
-                            <!-- Formulario para guardar un registro -->
+                            <!-- Formulario para crear o actualizar un registro -->
                             <form id="saveForm">
                                 <div class="modal-body row g-3">
                                     <!-- Campo oculto para asignar el id del registro al momento de modificar -->
-                                    <input type="number" class="d-none" id="idDeporte" name="idDeporte">
+                                    <input type="number" class="d-none" id="idProducto" name="idProducto">
                                     <div class="col-sm-12 col-md-6">
-                                        <label for="nombreDeporte" class="form-label">Nombre</label>
-                                        <input id="nombreDeporte" type="text" name="nombreDeporte"
+                                        <label for="nombreProducto" class="form-label">Nombre</label>
+                                        <input id="nombreProducto" type="text" name="nombreProducto"
                                             class="form-control" required>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
-                                        <label for="imagenDeporte" class="form-label">Imagen</label>
-                                        <input id="imagenDeporte" type="file" name="imagenDeporte" class="form-control"
-                                            accept=".png, .jpg">
+                                        <label for="descripcionProducto" class="form-label">Descripción</label>
+                                        <input id="descripcionProducto" type="text" name="descripcionProducto"
+                                            class="form-control" required>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <label for="precioProducto" class="form-label">Precio (US$)</label>
+                                        <input id="precioProducto" type="number" name="precioProducto" min="0.01"
+                                            step="0.01" class="form-control" required>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <label for="existenciasProducto" class="form-label">Existencias</label>
+                                        <input id="existenciasProducto" type="number" name="existenciasProducto" min="1"
+                                            step="1" class="form-control" required>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <label for="categoriaProducto" class="form-label">Categoría</label>
+                                        <select id="categoriaProducto" name="categoriaProducto" class="form-select"
+                                            required>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <label for="imagenProducto" class="form-label">Imagen</label>
+                                        <input id="imagenProducto" type="file" name="imagenProducto"
+                                            class="form-control" accept=".png, .jpg">
                                     </div>
                                     <div class="form-check form-switch form-check-reverse">
-                                        <input class="form-check-input" type="checkbox" id="estadoDeporte"
-                                            name="estadoDeporte" checked>
-                                        <label class="form-check-label" for="estadoDeporte">Estado</label>
+                                        <input class="form-check-input" type="checkbox" id="estadoProducto"
+                                            name="estadoProducto" checked>
+                                        <label class="form-check-label" for="estadoProducto">Estado</label>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -114,8 +138,8 @@
     <script src="../../controllers/utils/js/components.js"></script>
     <script src="../../controllers/utils/plantillaSideBar.js"></script>
 
-        <!-- Llamada al kit de font awesome -->
-        <script src="https://kit.fontawesome.com/f6e8d56735.js" crossorigin="anonymous"></script>
+    <!-- Llamada al kit de font awesome -->
+    <script src="https://kit.fontawesome.com/f6e8d56735.js" crossorigin="anonymous"></script>
 
     <!-- Scripts de JavaScript -->
     <!-- Agrega los enlaces a los scripts de Bootstrap y SweetAlert2 -->
