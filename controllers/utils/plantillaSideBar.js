@@ -11,56 +11,56 @@ const plantillaSideBar =  `
             <ul class="sidebar-nav">
                 <li class="sidebar-item">
                     <a href="administrador.html" class="sidebar-link">
-                        <i class="lni lni-user"></i>
+                    <i class="fa-solid fa-user-tie"></i>
                         <span>Administradores</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a href="clientes.html" class="sidebar-link">
-                        <i class="lni lni-users"></i>
+                    <i class="fa-solid fa-users"></i>
                         <span>Clientes</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a href="productos.html" class="sidebar-link">
-                        <i class="lni lni-agenda"></i>
+                    <i class="fa-solid fa-book"></i>
                         <span>Productos</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                 <a href="tipo_productos.html" class="sidebar-link">
-                <i class="lni lni-layout"></i>
+                <i class="fa-solid fa-book-bookmark"></i>
                     <span>tipo de productos</span>
                 </a>
             </li>
                 <li class="sidebar-item">
                     <a href="pedidos.html" class="sidebar-link">
-                        <i class="lni lni-delivery"></i>
+                    <i class="fa-solid fa-truck"></i>
                         <span>Pedidos</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a href="deportes.html" class="sidebar-link">
-                        <i class="lni lni-basketball"></i>
+                    <i class="fa-solid fa-basketball"></i>
                         <span>Deportes</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a href="categorias.html" class="sidebar-link">
-                        <i class="lni lni-list"></i>
+                    <i class="fa-solid fa-list"></i>
                         <span>Categorias</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a href="tallas.html" class="sidebar-link">
-                    <i class="lni lni-sort-amount-asc"></i>
+                    <i class="fa-solid fa-arrow-up-wide-short"></i>
                         <span>Tallas</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a href="generos.html" class="sidebar-link">
-                    <i class="bi bi-gender-ambiguous"></i>
+                    <i class="fa-solid fa-mars-and-venus"></i>
                         <span>Generos</span>
                     </a>
                 </li>

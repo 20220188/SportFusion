@@ -83,13 +83,13 @@ const fillTable = async (form = null) => {
                     <td>${row.descripcion_categoria}</td>
                     <td>
                         <button type="button" class="btn btn-info" onclick="openUpdate(${row.id_categoria})">
-                        <i class="lni lni-pencil"></i>
+                        <i class="fa-solid fa-pencil"></i>
                         </button>
                         <button type="button" class="btn btn-danger" onclick="openDelete(${row.id_categoria})">
-                        <i class="lni lni-trash-can"></i>
+                        <i class="fa-regular fa-trash-can"></i>
                         </button>
                         <button type="button" class="btn btn-warning" onclick="openReport(${row.id_categoria})">
-                        <i class="lni lni-empty-file"></i>
+                        <i class="fa-regular fa-file-pdf"></i>
                         </button>
                     </td>
                 </tr>
