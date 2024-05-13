@@ -69,7 +69,7 @@ if (isset($_GET['action'])) {
                     !$cliente->setTelefono($_POST['telefonoCliente']) or
                     !$cliente->setCorreo($_POST['correoCliente']) or
                     !$cliente->setAlias($_POST)['aliasCliente'] or
-                    !$cliente->setClave($_POST)['aliasCliente'] or
+                    !$cliente->setClave($_POST)['claveCliente'] or
                 ) {
                     $result['error'] = $cliente->getDataError();
                 } elseif ($cliente->updateRow()) {
