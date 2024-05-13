@@ -12,10 +12,10 @@ const SAVE_MODAL = new bootstrap.Modal('#saveModal'),
 const SAVE_FORM = document.getElementById('saveForm'),
     ID_CLIENTE = document.getElementById('idCliente'),
     NOMBRE_CLIENTE = document.getElementById('nombreCliente'),
-    TELEFONO_CLIENTE = document.getElementById('TelefonoCliente'),
-    CORREO_CLIENTE = document.getElementById('CorreoCliente'),
-    ALIAS_CLIENTE = document.getElementById('AliasCliente'),
-    DIRECCION_CLIENTE = document.getElementById('ClienteDireccion'),
+    TELEFONO_CLIENTE = document.getElementById('telefonoCliente'),
+    CORREO_CLIENTE = document.getElementById('correoCliente'),
+    ALIAS_CLIENTE = document.getElementById('aliasCliente'),
+    DIRECCION_CLIENTE = document.getElementById('clienteDireccion'),
     CLAVE_CLIENTE = document.getElementById('claveCliente'),
     CONFIRMAR_CLAVE = document.getElementById('confirmarClave');
 
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Llamada a la función para mostrar el encabezado y pie del documento.
     loadTemplate();
     // Se establece el título del contenido principal.
-    MAIN_TITLE.textContent = 'Gestionar administradores';
+    MAIN_TITLE.textContent = 'Gestionar clientes';
     // Llamada a la función para llenar la tabla con los registros existentes.
     fillTable();
 });

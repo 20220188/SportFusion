@@ -2,7 +2,10 @@
 *   CONTROLADOR DE USO GENERAL EN TODAS LAS PÁGINAS WEB.
 */
 // Constante para establecer la ruta base del servidor.
-const SERVER_URL = 'http://localhost/SportFusion/api/';
+const SERVER_URL = 'http://localhost/SportFusion/SportFusion/api/';
+
+// Constante para establecer la ruta base del servidor.
+//const SERVER_URL = 'http://localhost/SportFusion/api/';
 
 /*
 *   Función para mostrar un mensaje de confirmación.
