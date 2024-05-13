@@ -97,6 +97,28 @@ class ProductoData extends ProductoHandler
         }
     }
 
+    public function setDeporte($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->id_deporte = $value;
+            return true;
+        } else {
+            $this->data_error = 'Deporte incorrecto';
+            return false;
+        }
+    }
+
+    public function setFilename()
+    {
+        if ($data = $this->readFilename()) {
+            $this->filename = $data['imagen_producto'];
+            return true;
+        } else {
+            $this->data_error = 'Producto inexistente';
+            return false;
+        }
+    }
+
     // Métodos para el manejo de la tabla DETALLE_PRODUCTO.
 
 public function setDetalleproducto($value)
@@ -154,16 +176,6 @@ public function setDetalleproducto($value)
         }
     }
 
-    public function setFilename()
-    {
-        if ($data = $this->readFilename()) {
-            $this->filename = $data['imagen_producto'];
-            return true;
-        } else {
-            $this->data_error = 'Producto inexistente';
-            return false;
-        }
-    }
 
     /*
      *  Métodos para obtener los atributos adicionales.

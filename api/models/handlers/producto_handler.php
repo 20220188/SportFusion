@@ -17,7 +17,7 @@ class ProductoHandler
     protected $imagen = null;
     protected $id_categoria = null;
     protected $id_tipo_producto = null;
-    protected 
+    protected $id_deporte = null;
     // Atributos de la tabla DETALLE_PRODUCTO.
     protected $id_detalle_producto = null;
     protected $precio = null;
@@ -29,56 +29,51 @@ class ProductoHandler
     const RUTA_IMAGEN = '../../images/productos/';
 
     /*
-    *   Métodos para realizar las operaciones SCRUD (search, create, read, update, and delete).
+    *   Métodos para realizar las operaciones SCRUD en tabla PRODUCTO (search, create, read, update, and delete).
     */
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT id_producto, imagen, nombre_producto, descripcion, nombre_categoria, tipo_producto
+        $sql = 'SELECT id_producto, imagen, nombre_producto, descripcion, nombre_categoria, tipo_producto, nombre_deporte
                 FROM tb_productos
                 INNER JOIN tb_categoris USING(id_categoria)
                 INNER JOIN tb_tipos_productos USING(id_tipo_producto)
-                WHERE nombre_producto LIKE ? OR descripcion LIKE ? OR nombre_categoria LIKE ? OR tipo_producto LIKE ?
+                INNER JOIN tb_deportes USING(id_deporte)
+                WHERE nombre_producto LIKE ? OR descripcion LIKE ? OR nombre_categoria LIKE ? OR tipo_producto LIKE ? OR nombre_deporte LIKE ?
                 ORDER BY nombre_producto';
-        $params = array($value, $value, $value, $value);
+        $params = array($value, $value, $value, $value, $value);
         return Database::getRows($sql, $params);
     }
 
-        public function createRow()
+        public function createRow_Producto()
         {
-            $sql = 'INSERT INTO tb_productos(nombre_producto, descripcion, imagen, id_categoria,id_tipo_producto)
+            $sql = 'INSERT INTO tb_productos(nombre_producto, descripcion, imagen, id_categoria,id_tipo_producto, id_deporte)
                     VALUES(?, ?, ?, ?, ?)';
-            $params = array($this->nombre, $this->descripcion, $this->imagen, $this->id_categoria, $this->id_tipo_producto);
-            return Database::executeRow($sql, $params);
-        }
-
-        public function createRow_detalleProducto()
-        {
-            $sql = 'INSERT INTO tb_detalle_producto(precio, cantidad_disponible, id_talla, id_genero, id_producto)
-                    VALUES(?, ?, ?, ?)';
-            $params = array($this->precio, $this->existencias, $this->id_talla, $this->id_genero, $this->id);
+            $params = array($this->nombre, $this->descripcion, $this->imagen, $this->id_categoria, $this->id_tipo_producto, $this->id_deporte);
             return Database::executeRow($sql, $params);
         }
 
     public function readAll()
     {
-        $sql = 'SELECT id_producto, imagen_producto, nombre_producto, descripcion, nombre_categoria, tipo_producto
+        $sql = 'SELECT id_producto, imagen_producto, nombre_producto, descripcion, nombre_categoria, tipo_producto, nombre_deporte  
                 FROM tb_productos
-                INNER JOIN categoria USING(id_categoria)
-                INNER JOIN tipo_producto USING(id_tipo_producto)
+                INNER JOIN tb_categorias USING(id_categoria)
+                INNER JOIN tb_tipo_productos USING(id_tipo_producto)
+                INNER JOIN tb_deportes USING(id_deporte)
                 ORDER BY nombre_producto';
         return Database::getRows($sql);
     }
 
     public function readOne()
     {
-        $sql = 'SELECT p.id_producto, p.nombre_producto, p.descripcion, dp.precio, dp.cantidad_disponible, p.id_categoria, p.id_tipo_producto, dp.id_talla, dp.id_genero, p.imagen 
-                FROM tb_productos p
-                INNER JOIN tb_detalle_producto dp USING(id_producto)
+        $sql = 'SELECT id_producto, nombre_producto, descripcion,imagen, id_categoria, id_tipo_producto, id_deporte
+                FROM tb_productos 
                 WHERE id_producto = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
     }
+
+    
 
     public function readFilename()
     {
@@ -119,6 +114,57 @@ class ProductoHandler
         $params = array($this->categoria);
         return Database::getRows($sql, $params);
     }
+
+    /*
+    *   Métodos para realizar las operaciones SCRUD en tabla DETALLE?PRODUCTO (search, create, read, update, and delete).
+    */
+
+    public function createRow_detalleProducto()
+        {
+            $sql = 'INSERT INTO tb_detalle_producto(precio, cantidad_disponible, id_talla, id_genero, id_producto)
+                    VALUES(?, ?, ?, ?, ?)';
+            $params = array($this->precio, $this->existencias, $this->id_talla, $this->id_genero, $this->id);
+            return Database::executeRow($sql, $params);
+        }
+
+        public function readAll_detalle()
+    {
+        $sql = 'SELECT id_detalle_producto, precio, cantidad_disponible, id_talla, id_genero, nombre_producto
+                INNER JOIN tb_productos USING(id_producto)
+                INNER JOIN tb_tallas USING(id_talla)
+                INNER JOIN tb_generos USING(id_genero)
+                FROM tb_detalle_productos
+                ORDER BY nombre_producto';
+        return Database::getRows($sql);
+    }
+
+    public function readOne_detalle()
+    {
+        $sql = 'SELECT id_detalle_producto, precio, cantidad_disponible, id_talla, id_genero, nombre_producto
+                FROM tb_detalle_productos
+                INNER JOIN tb_productos USING(id_producto) 
+                WHERE id_detalle_producto = ?';
+        $params = array($this->id);
+        return Database::getRow($sql, $params);
+    }
+
+    public function updateRow_detalle()
+    {
+        $sql = 'UPDATE tb_productos 
+                SET precio = ?, cantidad_disponible = ?, id_talla = ?, id_genero = ?
+                WHERE id_detalle_producto = ?';
+        $params = array($this->precio, $this->existencias,$this->id_talla,$this->id_genero, $this->id_detalle_producto);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function deleteRow_detalle()
+    {
+        $sql = 'DELETE FROM tb_detalle_productos
+                WHERE id_detalle_producto = ?';
+        $params = array($this->id_detalle_producto);
+        return Database::executeRow($sql, $params);
+    }
+
 
     /*
     *   Métodos para generar gráficos.
