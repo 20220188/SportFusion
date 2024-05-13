@@ -174,7 +174,7 @@ if (isset($_GET['action'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Administrador registrado correctamente';
                 } else {
-                    $result['error'] = console_log(Database::getException());
+                    $result['error'] = 'Ocurrio un problema al crear el usuario';
                 }
                 break;
             case 'logIn':

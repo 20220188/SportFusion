@@ -25,7 +25,7 @@ class ClienteHandler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT id_cliente, nombre_ciente, telefono_cliente, correo_cliente, direccion_cliente, alias_cliente, clave_cliente
+        $sql = 'SELECT id_cliente, nombre_ciente, telefono_cliente, correo_cliente, dirección_cliente, alias_cliente, clave_cliente
                 FROM tb_clientes
                 WHERE nombre_ciente LIKE ? OR correo_cliente LIKE ?
                 ORDER BY nombre_ciente';
@@ -35,15 +35,15 @@ class ClienteHandler
 
     public function createRow()
     {
-        $sql = 'INSERT INTO tb_clientes(nombre_ciente, telefono_cliente, correo_cliente, direccion_cliente, alias_cliente, clave_cliente)
-                VALUES(?, ?, ?)';
-        $params = array($this->nombre, $this->correo, $this->telefono);
+        $sql = 'INSERT INTO tb_clientes(nombre_ciente, telefono_cliente, correo_cliente, dirección_cliente, alias_cliente, clave_cliente)
+                VALUES(?, ?, ?, ?, ?, ?)';
+        $params = array($this->nombre, $this->telefono, $this->correo, $this->direccion, $this->alias, $this->clave);
         return Database::executeRow($sql, $params);
     }
 
     public function readAll()
     {
-        $sql = 'SELECT id_cliente, nombre_ciente, telefono_cliente, correo_cliente, direccion_cliente, alias_cliente, clave_cliente
+        $sql = 'SELECT id_cliente, nombre_ciente, telefono_cliente, correo_cliente, dirección_cliente, alias_cliente, clave_cliente
                 FROM tb_clientes
                 ORDER BY nombre_ciente';
         return Database::getRows($sql);
@@ -51,7 +51,7 @@ class ClienteHandler
 
     public function readOne()
     {
-        $sql = 'SELECT id_cliente, nombre_ciente, telefono_cliente, correo_cliente, direccion_cliente, alias_cliente, clave_cliente
+        $sql = 'SELECT id_cliente, nombre_ciente, telefono_cliente, correo_cliente, dirección_cliente, alias_cliente, clave_cliente
                 FROM tb_clientes
                 WHERE id_cliente = ?';
         $params = array($this->id);

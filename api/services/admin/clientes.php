@@ -28,10 +28,15 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 if (
                     !$cliente->setNombre($_POST['nombreCliente']) or
-                    !$cliente->setCorreo($_POST['CorreoCliente']) or
-                    !$cliente->setTelefono($_FILES['telefonoCliente'])
+                    !$cliente->setTelefono($_POST['telefonoCliente']) or
+                    !$cliente->setCorreo($_POST['correoCliente']) or
+                    !$cliente->setAlias($_POST['aliasCliente']) or
+                    !$cliente->setDireccion($_POST['clienteDireccion']) or
+                    !$cliente->setClave($_POST['claveCliente'])
                 ) {
                     $result['error'] = $cliente->getDataError();
+                } elseif ($_POST['claveCliente'] != $_POST['confirmarClave']) {
+                    $result['error'] = 'Contraseñas diferentes';
                 } elseif ($cliente->createRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Cliente creado correctamente';
@@ -62,8 +67,8 @@ if (isset($_GET['action'])) {
                     !$cliente->setId($_POST['idCliente']) or
                     !$cliente->setNombre($_POST['NombreCliente']) or
                     !$cliente->setTelefono($_POST['TelefonoCliente']) or
-                    !$cliente->setCorreo($_FILES['CorreoCliente']) or
-                    !$cliente->setCliente($_FILES)['AliasCliente']
+                    !$cliente->setCorreo($_POST['CorreoCliente']) or
+                    !$cliente->setCliente($_POST)['AliasCliente']
                 ) {
                     $result['error'] = $cliente->getDataError();
                 } elseif ($cliente->updateRow()) {
@@ -82,7 +87,7 @@ if (isset($_GET['action'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Cliente eliminado correctamente';
                 } else {
-                    $result['error'] = 'Ocurrió un problema al eliminar la categoría';
+                    $result['error'] = 'Ocurrió un problema al eliminar el cliente';
                 }
                 break;
             default:
