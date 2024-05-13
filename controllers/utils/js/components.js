@@ -7,6 +7,8 @@ const SERVER_URL = 'http://localhost/SportFusion/SportFusion/api/';
 // Constante para establecer la ruta base del servidor.
 //const SERVER_URL = 'http://localhost/SportFusion/api/';
 
+
+
 /*
 *   Función para mostrar un mensaje de confirmación.
 *   Requiere la librería sweetalert para funcionar.

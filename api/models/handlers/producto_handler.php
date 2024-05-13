@@ -45,17 +45,18 @@ class ProductoHandler
         return Database::getRows($sql, $params);
     }
 
-        public function createRow_Producto()
+        public function createRow()
         {
             $sql = 'INSERT INTO tb_productos(nombre_producto, descripcion, imagen, id_categoria,id_tipo_producto, id_deporte)
-                    VALUES(?, ?, ?, ?, ?)';
+                    VALUES(?, ?, ?, ?, ?, ?)';
             $params = array($this->nombre, $this->descripcion, $this->imagen, $this->id_categoria, $this->id_tipo_producto, $this->id_deporte);
+            //esto funciona para ver los valores que toma el arreglo print_r($params);
             return Database::executeRow($sql, $params);
         }
 
     public function readAll()
     {
-        $sql = 'SELECT id_producto, imagen_producto, nombre_producto, descripcion, nombre_categoria, tipo_producto, nombre_deporte  
+        $sql = 'SELECT id_producto, imagen, nombre_producto, descripcion, nombre_categoria, tipo_producto, nombre_deporte  
                 FROM tb_productos
                 INNER JOIN tb_categorias USING(id_categoria)
                 INNER JOIN tb_tipo_productos USING(id_tipo_producto)
@@ -97,7 +98,6 @@ class ProductoHandler
     public function deleteRow()
     {
         $sql = 'DELETE FROM tb_productos
-                INNER JOIN tb_detalle_producto USING(id_producto)
                 WHERE id_producto = ?';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
@@ -111,7 +111,7 @@ class ProductoHandler
                 INNER JOIN tb_tipo_producto USING(id_tipo_producto)
                 WHERE id_categoria = ?
                 ORDER BY nombre_producto';
-        $params = array($this->categoria);
+        $params = array($this->id_categoria);
         return Database::getRows($sql, $params);
     }
 
@@ -129,7 +129,7 @@ class ProductoHandler
 
         public function readAll_detalle()
     {
-        $sql = 'SELECT id_detalle_producto, precio, cantidad_disponible, id_talla, id_genero, nombre_producto
+        $sql = 'SELECT id_detalle_producto, precio, cantidad_disponible, talla, genero, nombre_producto
                 INNER JOIN tb_productos USING(id_producto)
                 INNER JOIN tb_tallas USING(id_talla)
                 INNER JOIN tb_generos USING(id_genero)
@@ -140,7 +140,7 @@ class ProductoHandler
 
     public function readOne_detalle()
     {
-        $sql = 'SELECT id_detalle_producto, precio, cantidad_disponible, id_talla, id_genero, nombre_producto
+        $sql = 'SELECT id_detalle_producto, precio, cantidad_disponible, id_talla, id_genero, id_producto
                 FROM tb_detalle_productos
                 INNER JOIN tb_productos USING(id_producto) 
                 WHERE id_detalle_producto = ?';
