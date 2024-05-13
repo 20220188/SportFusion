@@ -28,7 +28,7 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 if (
                     !$cliente->setNombre($_POST['nombreCliente']) or
-                    !$cliente->setCorreo($_POST['correoCliente']) or
+                    !$cliente->setCorreo($_POST['CorreoCliente']) or
                     !$cliente->setTelefono($_FILES['telefonoCliente'])
                 ) {
                     $result['error'] = $cliente->getDataError();

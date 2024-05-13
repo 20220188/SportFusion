@@ -1,4 +1,4 @@
-// Constante para completar la ruta de la API.
+// Constante para completar la ruta de la API
 const ADMINISTRADOR_API = 'services/admin/clientes.php';
 // Constante para establecer el formulario de buscar.
 const SEARCH_FORM = document.getElementById('searchForm');

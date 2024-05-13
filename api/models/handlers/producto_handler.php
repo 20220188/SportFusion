@@ -17,6 +17,7 @@ class ProductoHandler
     protected $imagen = null;
     protected $id_categoria = null;
     protected $id_tipo_producto = null;
+    protected 
     // Atributos de la tabla DETALLE_PRODUCTO.
     protected $id_detalle_producto = null;
     protected $precio = null;
