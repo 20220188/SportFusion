@@ -256,6 +256,7 @@ const fillTableDetails = async (form = null) => {
                     <td>${row.cantidad_disponible}</td>
                     <td>${row.talla}</td>
                     <td>${row.genero}</td>
+                    <td>${row.nombre_producto}</td>
                     <td>
                         <button type="button" class="btn btn-info" onclick="openUpdateDetails(${row.id_detalle_producto})">
                         <i class="fa-solid fa-pencil"></i>

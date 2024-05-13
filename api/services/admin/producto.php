@@ -115,7 +115,7 @@ if (isset($_GET['action'])) {
                 $result['exception'] = Database::getException();
             }
                 break;
-            case 'readAll_detalleProducto':
+            case 'readAll_detalle':
                 if ($result['dataset'] = $producto->readAll_detalle()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
@@ -166,7 +166,7 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'No hay datos disponibles';
                 }
                 break;
-                
+
             case 'porcentajeProductosCategoria':
                 if ($result['dataset'] = $producto->porcentajeProductosCategoria()) {
                     $result['status'] = 1;
