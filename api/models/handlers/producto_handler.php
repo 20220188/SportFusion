@@ -121,7 +121,7 @@ class ProductoHandler
 
     public function createRow_detalleProducto()
         {
-            $sql = 'INSERT INTO tb_detalle_producto(precio, cantidad_disponible, id_talla, id_genero, id_producto)
+            $sql = 'INSERT INTO tb_detalle_productos(precio, cantidad_disponible, id_talla, id_genero, id_producto)
                     VALUES(?, ?, ?, ?, ?)';
             $params = array($this->precio, $this->existencias, $this->id_talla, $this->id_genero, $this->id);
             return Database::executeRow($sql, $params);
@@ -129,12 +129,12 @@ class ProductoHandler
 
         public function readAll_detalle()
     {
-        $sql = 'SELECT id_detalle_producto, precio, cantidad_disponible, talla, genero, nombre_producto
-                INNER JOIN tb_productos USING(id_producto)
-                INNER JOIN tb_tallas USING(id_talla)
-                INNER JOIN tb_generos USING(id_genero)
-                FROM tb_detalle_productos
-                ORDER BY nombre_producto';
+        $sql = 'SELECT dp.id_detalle_producto, dp.precio, dp.cantidad_disponible, t.talla, g.genero, p.nombre_producto
+        FROM tb_detalle_productos dp
+        INNER JOIN tb_tallas t USING(id_talla)
+        INNER JOIN tb_generos g USING(id_genero)
+        INNER JOIN tb_productos p USING(id_producto)
+        ORDER BY nombre_producto';
         return Database::getRows($sql);
     }
 
@@ -144,7 +144,7 @@ class ProductoHandler
                 FROM tb_detalle_productos
                 INNER JOIN tb_productos USING(id_producto) 
                 WHERE id_detalle_producto = ?';
-        $params = array($this->id);
+        $params = array($this->id_detalle_producto);
         return Database::getRow($sql, $params);
     }
 

@@ -30,7 +30,7 @@ const SAVE_FORM = document.getElementById('saveForm'),
 
 // Constantes para establecer el contenido de la tabla.
 const TABLE_BODY_DETALLE = document.getElementById('tableBodyDetalle'),
-    ROWS_FOUND_DETALLE = document.getElementById('rowsFoundDetlla');
+    ROWS_FOUND_DETALLE = document.getElementById('rowsFoundDetalle');
 // Constantes para establecer los elementos del componente Modal.
 const SAVE_MODAL_DETALLE = new bootstrap.Modal('#saveModalDetalle'),
     MODAL_TITLE_DETALLE = document.getElementById('modalTitleDetalle');
@@ -110,7 +110,7 @@ const fillTable = async (form = null) => {
                     <td>${row.tipo_producto}</td>
                     <td>${row.nombre_deporte}</td>
                     <td>
-                        <button type="button" class="btn btn-success" onclick="openCreateDetails(${row.id_producto})">
+                        <button type="button" class="btn btn-success" onclick="openDetails(${row.id_producto})">
                         <i class="fa-regular fa-square-plus"></i>
                         </button>
                         <button type="button" class="btn btn-info" onclick="openUpdate(${row.id_producto})">
@@ -242,7 +242,7 @@ const fillTableDetails = async (form = null) => {
     ROWS_FOUND_DETALLE.textContent = '';
     TABLE_BODY_DETALLE.innerHTML = '';
     // Se verifica la acción a realizar.
-    (form) ? action = 'searchRows' : action = 'readAll_detalleProducto';
+    (form) ? action = 'searchRows' : action = 'readAll_detalle';
     // Petición para obtener los registros disponibles.
     const DATA = await fetchData(PRODUCTO_API, action, form);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
@@ -280,15 +280,18 @@ const fillTableDetails = async (form = null) => {
 *   Parámetros: ninguno.
 *   Retorno: ninguno.
 */
-const openCreateDetails = () => {
+const openDetails = (id_producto) => {
     // Se muestra la caja de diálogo con su título.
     SAVE_MODAL_DETALLE.show();
     MODAL_TITLE_DETALLE.textContent = 'Crear Detalle producto';
     // Se prepara el formulario.
     SAVE_FORM_DETALLE.reset();
-    ID_PRODUCTO_DETALLE.disabled = false;
-    fillSelect(TALLA_API, 'readAll_detalleProducto', 'tallaDetalle');
-    fillSelect(GENERO_API, 'readAll_detalleProducto', 'generoDetalle');
+
+    ID_PRODUCTO_DETALLE.value = id_producto;
+    fillSelect(TALLA_API, 'readAll', 'tallaDetalle');
+    fillSelect(GENERO_API, 'readAll', 'generoDetalle');
+
+    fillTableDetails();
 }
 
 /*
@@ -296,12 +299,12 @@ const openCreateDetails = () => {
 *   Parámetros: id (identificador del registro seleccionado).
 *   Retorno: ninguno.
 */
-const openUpdateDetails = async (id) => {
+const openUpdateDetails = async (id1) => {
     // Se define un objeto con los datos del registro seleccionado.
-    const FORM = new FormData();
-    FORM.append('idDetalle', id);
+    const FORM_DETALLE = new FormData();
+    FORM_DETALLE.append('idDetalle', id1);
     // Petición para obtener los datos del registro solicitado.
-    const DATA = await fetchData(PRODUCTO_API, 'readOne_detalleProducto', FORM);
+    const DATA = await fetchData(PRODUCTO_API, 'readOne_detalleProducto', FORM_DETALLE);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se muestra la caja de diálogo con su título.
@@ -309,14 +312,13 @@ const openUpdateDetails = async (id) => {
         MODAL_TITLE_DETALLE.textContent = 'Actualizar detalle producto';
         // Se prepara el formulario.
         SAVE_FORM_DETALLE.reset();
-        ID_PRODUCTO_DETALLE.disabled = true;
         // Se inicializan los campos con los datos.
         const ROW = DATA.dataset;
         ID_DETALLE.value = ROW.id_detalle_producto;
         PRECIO_DETALLE.value = ROW.precio;
         EXISTENCIAS_DETALLE.value = ROW.cantidad_disponible;
-        fillSelect(TALLA_API, 'readAll_detalleProducto', 'tallaDetalle', ROW.id_talla);
-        fillSelect(GENERO_API, 'readAll_detalleProducto', 'generoDetalle', ROW.id_genero);
+        fillSelect(TALLA_API, 'readAll', 'tallaDetalle', ROW.id_talla);
+        fillSelect(GENERO_API, 'readAll', 'generoDetalle', ROW.id_genero);
     } else {
         sweetAlert(2, DATA.error, false);
     }
@@ -342,7 +344,7 @@ const openDeleteDetails = async (id) => {
             // Se muestra un mensaje de éxito.
             await sweetAlert(1, DATA.message, true);
             // Se carga nuevamente la tabla para visualizar los cambios.
-            fillTable();
+            fillTableDetails();
         } else {
             sweetAlert(2, DATA.error, false);
         }

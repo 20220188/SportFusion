@@ -102,7 +102,7 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
             if (
                 !$producto->setPrecio($_POST['precioDetalle']) or
-                !$producto->setExistencias($_POST['existenciaDetalle']) or
+                !$producto->setExistencias($_POST['existenciasDetalle']) or
                 !$producto->setTalla($_POST['tallaDetalle']) or
                 !$producto->setGenero($_POST['generoDetalle']) or
                 !$producto->setId($_POST['idProductoDetalle'])
@@ -121,6 +121,7 @@ if (isset($_GET['action'])) {
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } else {
                     $result['error'] = 'No existen detalles registrados';
+                    
                 }
                 break;
             case 'readOne_detalleProducto':
@@ -137,7 +138,7 @@ if (isset($_GET['action'])) {
                 if (
                     !$producto->setDetalleproducto($_POST['idDetalle']) or
                     !$producto->setPrecio($_POST['precioDetalle']) or
-                    !$producto->setExistencias($_POST['existenciaDetalle']) or
+                    !$producto->setExistencias($_POST['existenciasDetalle']) or
                     !$producto->setTalla($_POST['tallaDetalle']) or
                     !$producto->setGenero($_POST['generoDetalle'])
                 ) {
@@ -146,7 +147,7 @@ if (isset($_GET['action'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Detalle modificado correctamente';
                 } else {
-                    $result['error'] = 'Ocurrió un problema al modificar el detalle';
+                    $result['exception'] = 'Ocurrió un problema al modificar el detalle';
                 }
                 break;
             case 'deleteRow_detalleProducto':
