@@ -111,7 +111,7 @@ class ProductoData extends ProductoHandler
     public function setFilename()
     {
         if ($data = $this->readFilename()) {
-            $this->filename = $data['imagen_producto'];
+            $this->filename = $data['imagen'];
             return true;
         } else {
             $this->data_error = 'Producto inexistente';
