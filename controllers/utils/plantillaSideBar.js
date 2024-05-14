@@ -29,12 +29,6 @@ const plantillaSideBar =  `
                     </a>
                 </li>
                 <li class="sidebar-item">
-                <a href="tipo_productos.html" class="sidebar-link">
-                <i class="fa-solid fa-book-bookmark"></i>
-                    <span>tipo de productos</span>
-                </a>
-            </li>
-                <li class="sidebar-item">
                     <a href="pedidos.html" class="sidebar-link">
                     <i class="fa-solid fa-truck"></i>
                         <span>Pedidos</span>
