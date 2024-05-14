@@ -32,7 +32,8 @@ if (isset($_GET['action'])) {
                     !$cliente->setCorreo($_POST['correoCliente']) or
                     !$cliente->setAlias($_POST['aliasCliente']) or
                     !$cliente->setDireccion($_POST['clienteDireccion']) or
-                    !$cliente->setClave($_POST['claveCliente'])
+                    !$cliente->setClave($_POST['claveCliente']) or
+                    !$cliente->setEstado(isset($_POST['estadoCliente']) ? 1 : 0)
                 ) {
                     $result['error'] = $cliente->getDataError();
                 } elseif ($_POST['claveCliente'] != $_POST['confirmarClave']) {
@@ -69,7 +70,8 @@ if (isset($_GET['action'])) {
                     !$cliente->setTelefono($_POST['telefonoCliente']) or
                     !$cliente->setCorreo($_POST['correoCliente']) or
                     !$cliente->setDireccion($_POST['clienteDireccion']) or
-                    !$cliente->setAlias($_POST['aliasCliente'])
+                    !$cliente->setAlias($_POST['aliasCliente']) or
+                    !$cliente->setEstado(isset($_POST['estadoCliente']) ? 1 : 0) 
                 ) {
                     $result['error'] = $cliente->getDataError();
                 } elseif ($cliente->updateRow()) {
