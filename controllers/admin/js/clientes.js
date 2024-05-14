@@ -18,6 +18,7 @@ const SAVE_FORM = document.getElementById('saveForm'),
     DIRECCION_CLIENTE = document.getElementById('clienteDireccion'),
     CLAVE_CLIENTE = document.getElementById('claveCliente'),
     CONFIRMAR_CLAVE = document.getElementById('confirmarClave');
+    ESTADO_CLIENTE = document.getElementById('estadoCliente');
 
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
@@ -74,6 +75,8 @@ const fillTable = async (form = null) => {
     if (DATA.status) {
         // Se recorre el conjunto de registros fila por fila.
         DATA.dataset.forEach(row => {
+
+            (row.estado_producto) ? icon = 'bi bi-eye-fill' : icon = 'bi bi-eye-slash-fill';
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TABLE_BODY.innerHTML += `
                 <tr>
@@ -81,6 +84,7 @@ const fillTable = async (form = null) => {
                     <td>${row.telefono_cliente}</td>
                     <td>${row.correo_cliente}</td>
                     <td>${row.alias_cliente}</td>
+                    <td><i class="${icon}"></i></td>
                     <td>
                         <button type="button" class="btn btn-info" onclick="openUpdate(${row.id_cliente})">
                         <i class="fa-solid fa-pencil"></i>
@@ -144,6 +148,7 @@ const openUpdate = async (id) => {
         CORREO_CLIENTE.value = ROW.correo_cliente;
         DIRECCION_CLIENTE.value = ROW.dirección_cliente;
         ALIAS_CLIENTE.value = ROW.alias_cliente;
+        ESTADO_CLIENTE.checked = ROW.estado_cliente;
     } else {
         sweetAlert(2, DATA.error, false);
     }

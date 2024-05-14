@@ -60,6 +60,7 @@
                             <th>TELEFONO</th>
                             <th>CORREO</th>
                             <th>ALIAS</th>
+                            <th>ESTADO</th>
                             <th>ACCIONES</th>
                         </tr>
                     </thead>
@@ -116,10 +117,10 @@
                                         <input id="confirmarClave" type="password" name="confirmarClave" class="form-control"
                                             required>
                                     </div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="estadoCliente" class="form-label">Estado</label>
-                                        <select id="estadoCliente" name="estadoCliente" class="form-select" required>
-                                        </select>
+                                    <div class="form-check form-switch form-check-reverse">
+                                        <input class="form-check-input" type="checkbox" id="estadoCliente"
+                                            name="estadoCliente" checked>
+                                        <label class="form-check-label" for="estadoCliente">Estado</label>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -152,7 +153,7 @@
     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
 
     <!-- Llamada al controlador de la barra lateral -->
-    <script src="../../controllers/admin/js/dashboard.js"></script>
+    <script src="../../controllers/admin/sidebar.js"></script>
 
     <!-- Llamada al controlador de la página web -->
     <script src="../../controllers/admin/js/clientes.js"></script>
