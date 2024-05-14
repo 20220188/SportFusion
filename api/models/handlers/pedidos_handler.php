@@ -31,7 +31,7 @@ class PedidoHandler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT id_pedido, direccion_pedido, fecha_registro, id_cliente
+        $sql = 'SELECT id_pedido, direccion_pedido, fecha_registro, nombre_ciente
                 FROM tb_pedidos
                 INNER JOIN tb_clientes USING(id_cliente)
                 WHERE direccion_pedido LIKE ? OR fecha_registro LIKE ? OR id_cliente LIKE ? 
@@ -44,14 +44,14 @@ class PedidoHandler
         {
             $sql = 'INSERT INTO tb_pedidos(direccion_pedido, fecha_registro, id_cliente)
                     VALUES(?, ?, ?)';
-            $params = array($this->direccion, $this->fecga, $this->cliente);
+            $params = array($this->direccion_pedido, $this->fecha_registro, $this->id_cliente);
             //esto funciona para ver los valores que toma el arreglo print_r($params);
             return Database::executeRow($sql, $params);
         }
 
     public function readAll()
     {
-        $sql = 'SELECT id_pedido, direccion_pedido, fecha_registro, id_cliente  
+        $sql = 'SELECT id_pedido, direccion_pedido, fecha_registro, nombre_ciente  
                 FROM tb_pedidos
                 INNER JOIN tb_clientes USING(id_cliente)
                 ORDER BY direccion_pedido';
@@ -73,7 +73,7 @@ class PedidoHandler
                 INNER JOIN tb_detalle_pedidos dp USING(id_pedido)
                 SET  p.direccion_pedido = ?, p.direccion_pedido = ?, dp.id_cliente = ?
                 WHERE id_pedido = ?';
-                $params = array($this->direccion, $this->fecga, $this->cliente);        return Database::executeRow($sql, $params);
+                $params = array($this->direccion_pedido, $this->fecha_registro, $this->id_cliente);        return Database::executeRow($sql, $params);
     }
 
     public function deleteRow()
@@ -92,7 +92,7 @@ class PedidoHandler
         {
             $sql = 'INSERT INTO tb_detalle_pedidos(cantidad_pedido, precio_pedido, id_pedido, id_producto, id_estado_pedido)
                     VALUES(?, ?, ?, ?, ?)';
-            $params = array($this->cantidad, $this->precio, $this->id_pedido, $this->id_producto, $this->id_estado_pedido);
+            $params = array($this->cantidad_pedido, $this->precio_pedido, $this->id_pedido, $this->id_producto, $this->id_estado_pedido);
             return Database::executeRow($sql, $params);
         }
 
@@ -122,7 +122,7 @@ class PedidoHandler
         $sql = 'UPDATE tb_detalle 
                 SET cantidad_pedido = ?, precio_pedido = ?, id_pedido = ?, id_producto = ?
                 WHERE id_detalle = ?';
-        $params = array($this->cantidad, $this->precio,$this->id_pedido,$this->id_producto, $this->id_detalle);
+        $params = array($this->cantidad_pedido, $this->precio_pedido,$this->id_pedido,$this->id_producto, $this->id_detalle);
         return Database::executeRow($sql, $params);
     }
 

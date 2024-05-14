@@ -43,42 +43,6 @@ class PedidoData extends PedidoHandler
         }
     }
 
-    public function setFecha($value, $min = 2, $max = 250)
-    {
-        if (!Validator::validateString($value)) {
-            $this->data_error = 'La descripción contiene caracteres prohibidos';
-            return false;
-        } elseif (Validator::validateLength($value, $min, $max)) {
-            $this->fecha_registro = $value;
-            return true;
-        } else {
-            $this->data_error = 'La descripción debe tener una longitud entre ' . $min . ' y ' . $max;
-            return false;
-        }
-    }
-    
-    public function setCategoria($value)
-    {
-        if (Validator::validateNaturalNumber($value)) {
-            $this->id_categoria = $value;
-            return true;
-        } else {
-            $this->data_error = 'El identificador de la categoría es incorrecto';
-            return false;
-        }
-    }
-    
-    public function setTipoProducto($value)
-    {
-        if (Validator::validateNaturalNumber($value)) {
-            $this->id_tipo_producto = $value;
-            return true;
-        } else {
-            $this->data_error = 'Tipo producto incorrecto';
-            return false;
-        }
-    }
-
     // Métodos para el manejo de la tabla DETALLE_PRODUCTO.
 
 public function setDetalleproducto($value)
