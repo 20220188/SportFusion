@@ -106,6 +106,16 @@ class ClienteData extends ClienteHandler
         }
     }
 
+    public function setEstado($value){
+        if(Validator:: validateBoolean($value){
+            $this-> estado=$value;
+            return true;
+        } else{
+            $this->data_error = 'Estado incorrecto';
+            return false;
+        })
+    }
+
     /*
      *  Métodos para obtener los atributos adicionales.
      */
