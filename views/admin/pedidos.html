@@ -90,7 +90,7 @@
                                     </div>
                                     <div class="col-sm-12 col-md-6">
                                         <label for="fechaPedido" class="form-label">Fecha de registro</label>
-                                        <input id="fechaPedido" type="text" name="fechaPedido"
+                                        <input id="fechaPedido" type="date" name="fechaPedido"
                                             class="form-control" required>
                                     </div>
                                 </div>
@@ -119,26 +119,15 @@
                                     <input type="number" class="d-none" id="idDetalle" name="idDetalle">
                                     <input type="number" class="d-none" id="idProductoDetalle" name="idProductoDetalle">
                                     <div class="col-sm-12 col-md-6">
-                                        <label for="precioDetalle" class="form-label">Precio (US$)</label>
-                                        <input id="precioDetalle" type="number" name="precioDetalle" min="0.01" step="0.01"
+                                        <label for="cantidadPedido" class="form-label">Cantidad</label>
+                                        <input id="cantidadPedido" type="number" name="cantidadPedido" min="0.01" step="0.01"
                                             class="form-control" required>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
-                                        <label for="existenciasDetalle" class="form-label">Existencias</label>
+                                        <label for="existenciasDetalle" class="form-label">Precio pedido</label>
                                         <input id="existenciasDetalle" type="number" name="existenciasDetalle" min="1"
                                             step="1" class="form-control" required>
                                     </div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="tallaDetalle" class="form-label">Talla</label>
-                                        <select id="tallaDetalle" name="tallaDetalle" class="form-select" required>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="generoDetalle" class="form-label">Genero</label>
-                                        <select id="generoDetalle" name="generoDetalle" class="form-select" required>
-                                        </select>
-                                    </div>
-                                    
                                 </div>
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-primary">Guardar</button>
@@ -152,11 +141,11 @@
                                         <td class="text-start" colspan="6" id="rowsFoundDetalle"></td>
                                     </tr>
                                     <tr>
-                                        <th>PRECIO</th>
-                                        <th>EXISTENCIAS</th>
-                                        <th>TALLA</th>
-                                        <th>GENERO</th>
+                                        <th>CANTIDAD</th>
+                                        <th>PRECIO </th>
+                                        <th>N. PEDIDO</th>
                                         <th>PRODUCTO</th>
+                                        <th>ESTADO</th>
                                         <th>ACCIONES</th>
                                     </tr>
                                 </thead>

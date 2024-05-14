@@ -1,5 +1,5 @@
 // Constantes para completar las rutas de la API de PRODUCTO.
-const PRODUCTO_API = 'services/admin/producto.php';
+const PEDIDO_API = 'services/admin/producto.php';
 const CATEGORIA_API = 'services/admin/categoria.php';
 const TIPO_PRODUCTO_API = 'services/admin/tipo_producto.php';
 const DEPORTE_API = 'services/admin/deporte.php';
@@ -10,6 +10,8 @@ const TALLA_API = 'services/admin/talla.php';
 /*
 *Elementos para la tabla PRODUCTOS
 */
+
+const TIPOP_API = 'services/admin/tipo_producto.php';
 // Constante para establecer el formulario de buscar.
 const SEARCH_FORM = document.getElementById('searchForm');
 // Constantes para establecer el contenido de la tabla.
@@ -20,9 +22,9 @@ const SAVE_MODAL = new bootstrap.Modal('#saveModal'),
     MODAL_TITLE = document.getElementById('modalTitle');
 // Constantes para establecer los elementos del formulario de guardar.
 const SAVE_FORM = document.getElementById('saveForm'),
-    ID_PRODUCTO = document.getElementById('idProducto'),
-    NOMBRE_PRODUCTO = document.getElementById('nombreProducto'),
-    DESCRIPCION_PRODUCTO = document.getElementById('descripcionProducto')
+    ID_PEDIDO = document.getElementById('idPedido'),
+    DIRECCION_PEDIDO = document.getElementById('direccionPedido'),
+    FECHA_PEDIDO = document.getElementById('fechaPedido')
 
 /*
 *Elementos para la tabla DETALLE_PRODUCTO
@@ -39,14 +41,16 @@ const SAVE_FORM_DETALLE = document.getElementById('saveFormDetalle'),
     ID_DETALLE = document.getElementById('idDetalle'),
     PRECIO_DETALLE = document.getElementById('precioDetalle'),
     EXISTENCIAS_DETALLE = document.getElementById('existenciasDetalle')
-    ID_PRODUCTO_DETALLE = document.getElementById('idProductoDetalle');
+    FECHA_DETALLE = document.getElementById('fechaPedido');
+
+
 
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
     // Llamada a la función para mostrar el encabezado y pie del documento.
     loadTemplate();
     // Se establece el título del contenido principal.
-    MAIN_TITLE.textContent = 'Gestionar pedidos';
+    MAIN_TITLE.textContent = 'Gestionar productos';
     // Llamada a la función para llenar la tabla con los registros existentes.
     fillTable();
 });
@@ -104,6 +108,7 @@ const fillTable = async (form = null) => {
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TABLE_BODY.innerHTML += `
                 <tr>
+                    <td><img src="${SERVER_URL}images/productos/${row.imagen}" height="50"></td>
                     <td>${row.nombre_producto}</td>
                     <td>${row.nombre_categoria}</td>
                     <td>${row.tipo_producto}</td>
@@ -141,7 +146,7 @@ const openCreate = () => {
     // Se prepara el formulario.
     SAVE_FORM.reset();
     fillSelect(CATEGORIA_API, 'readAll', 'categoriaProducto');
-    fillSelect(TIPO_PRODUCTO_API, 'readAll', 'tipoProducto');
+    fillSelect(TIPO_PRODUCTO_API, 'readAll_TipoP', 'tipoProducto');
     fillSelect(DEPORTE_API, 'readAll', 'deporteProducto');
 }
 
@@ -169,7 +174,7 @@ const openUpdate = async (id) => {
         NOMBRE_PRODUCTO.value = ROW.nombre_producto;
         DESCRIPCION_PRODUCTO.value = ROW.descripcion;
         fillSelect(CATEGORIA_API, 'readAll', 'categoriaProducto', ROW.id_categoria);
-        fillSelect(TIPO_PRODUCTO_API, 'readAll', 'tipoProducto', ROW.id_tipo_producto);
+        fillSelect(TIPO_PRODUCTO_API, 'readAll_TipoP', 'tipoProducto', ROW.id_tipo_producto);
         fillSelect(DEPORTE_API, 'readAll', 'deporteProducto', ROW.id_deporte);
     } else {
         sweetAlert(2, DATA.error, false);
@@ -191,6 +196,7 @@ const openDelete = async (id) => {
         FORM.append('idProducto', id);
         // Petición para eliminar el registro seleccionado.
         const DATA = await fetchData(PRODUCTO_API, 'deleteRow', FORM);
+        console.log(DATA);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
         if (DATA.status) {
             // Se muestra un mensaje de éxito.
@@ -221,11 +227,11 @@ SAVE_FORM_DETALLE.addEventListener('submit', async (event) => {
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se cierra la caja de diálogo.
-        SAVE_MODAL_DETALLE.hide();
+        //SAVE_MODAL_DETALLE.hide();
         // Se muestra un mensaje de éxito.
         sweetAlert(1, DATA.message, true);
         // Se carga nuevamente la tabla para visualizar los cambios.
-        fillTable();
+        fillTableDetails();
     } else {
         sweetAlert(2, DATA.error, false);
     }
