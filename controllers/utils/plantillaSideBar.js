@@ -41,6 +41,12 @@ const plantillaSideBar =  `
                     </a>
                 </li>
                 <li class="sidebar-item">
+                    <a href="generos.html" class="sidebar-link">
+                    <i class="fa-solid fa-mars-and-venus"></i>
+                        <span>Estado de pedidos</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
                     <a href="deportes.html" class="sidebar-link">
                     <i class="fa-solid fa-basketball"></i>
                         <span>Deportes</span>

@@ -1,17 +1,17 @@
 // Constante para completar la ruta de la API.
-const TIPO_PRODUCTO_API = 'services/admin/tipo_producto.php';
+const ESTADO_PEDIDO_API = 'services/admin/estado_pedido.php';
 // Constante para establecer el formulario de buscar.
 const SEARCH_FORM = document.getElementById('searchForm');
 // Constantes para establecer los elementos de la tabla.
-const TABLE_BODY_TIPOP = document.getElementById('tableBodyTipoP'),
-    ROWS_FOUND_TIPOP = document.getElementById('rowsFoundTipoP');
+const TABLE_BODY = document.getElementById('tableBody'),
+    ROWS_FOUND = document.getElementById('rowsFound');
 // Constantes para establecer los elementos del componente Modal.
-const SAVE_MODAL_TIPOP = new bootstrap.Modal('#saveModalTipoP'),
-    MODAL_TITLE_TIPOP = document.getElementById('modalTitleTipoP');
+const SAVE_MODAL = new bootstrap.Modal('#saveModal'),
+    MODAL_TITLE = document.getElementById('modalTitle');
 // Constantes para establecer los elementos del formulario de guardar.
-const SAVE_FORM_TIPOP = document.getElementById('saveFormTipoP'),
-    ID_TIPO_PRODUCTO = document.getElementById('idTipoProducto'),
-    NOMBRE_TIPO_PRODUCTO = document.getElementById('nombreTipoProducto')
+const SAVE_FORM = document.getElementById('saveForm'),
+    ID_ESTADO_PEDIDO = document.getElementById('idEstadoPedido'),
+    ESTADO_PEDIDO = document.getElementById('estadoPedido')
 
 
 // Método del evento para cuando el documento ha cargado.
@@ -19,9 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Llamada a la función para mostrar el encabezado y pie del documento.
     loadTemplate();
     // Se establece el título del contenido principal.
-    MAIN_TITLE.textContent = 'Gestionar tipos de productos';
+    MAIN_TITLE.textContent = 'Gestionar estado de pedidos';
     // Llamada a la función para llenar la tabla con los registros existentes.
-    fillTableTipoP();
+    fillTable();
 });
 
 // Método del evento para cuando se envía el formulario de buscar.
@@ -31,7 +31,7 @@ SEARCH_FORM.addEventListener('submit', (event) => {
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(SEARCH_FORM);
     // Llamada a la función para llenar la tabla con los resultados de la búsqueda.
-    fillTableTipoP(FORM);
+    fillTable(FORM);
 });
 
 // Método del evento para cuando se envía el formulario de guardar.
@@ -43,15 +43,15 @@ SAVE_FORM.addEventListener('submit', async (event) => {
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(SAVE_FORM);
     // Petición para guardar los datos del formulario.
-    const DATA = await fetchData(TIPO_PRODUCTO_API, action, FORM);
+    const DATA = await fetchData(ESTADO_PEDIDO_API, action, FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se cierra la caja de diálogo.
-        //SAVE_MODAL.hide();
+        SAVE_MODAL.hide();
         // Se muestra un mensaje de éxito.
         sweetAlert(1, DATA.message, true);
         // Se carga nuevamente la tabla para visualizar los cambios.
-        fillTableTipoP();
+        fillTable();
     } else {
         sweetAlert(2, DATA.error, false);
     }
@@ -62,14 +62,14 @@ SAVE_FORM.addEventListener('submit', async (event) => {
 *   Parámetros: form (objeto opcional con los datos de búsqueda).
 *   Retorno: ninguno.
 */
-const fillTableTipoP = async (form = null) => {
+const fillTable = async (form = null) => {
     // Se inicializa el contenido de la tabla.
     ROWS_FOUND.textContent = '';
     TABLE_BODY.innerHTML = '';
     // Se verifica la acción a realizar.
     (form) ? action = 'searchRows' : action = 'readAll';
     // Petición para obtener los registros disponibles.
-    const DATA = await fetchData(TIPO_PRODUCTO_API, action, form);
+    const DATA = await fetchData(ESTADO_PEDIDO_API, action, form);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se recorre el conjunto de registros fila por fila.
@@ -78,12 +78,12 @@ const fillTableTipoP = async (form = null) => {
             TABLE_BODY.innerHTML += `
                 <tr>
                     
-                    <td>${row.tipo_producto}</td>
+                    <td>${row.estado_pedido}</td>
                     <td>
-                        <button type="button" class="btn btn-info" onclick="openUpdateTipoP(${row.id_tipo_producto})">
+                        <button type="button" class="btn btn-info" onclick="openUpdate(${row.id_estado_pedido})">
                         <i class="fa-solid fa-pencil"></i>
                         </button>
-                        <button type="button" class="btn btn-danger" onclick="openDeleteTipoP(${row.id_tipo_producto})">
+                        <button type="button" class="btn btn-danger" onclick="openDelete(${row.id_estado_pedido})">
                         <i class="fa-regular fa-trash-can"></i>
                         </button>
                     </td>
@@ -102,10 +102,10 @@ const fillTableTipoP = async (form = null) => {
 *   Parámetros: ninguno.
 *   Retorno: ninguno.
 */
-const openTipoP = () => {
+const openCreate = () => {
     // Se muestra la caja de diálogo con su título.
     SAVE_MODAL.show();
-    MODAL_TITLE.textContent = 'Crear tipo de producto';
+    MODAL_TITLE.textContent = 'Crear estado de pedido';
     // Se prepara el formulario.
     SAVE_FORM.reset();
 }
@@ -115,23 +115,23 @@ const openTipoP = () => {
 *   Parámetros: id (identificador del registro seleccionado).
 *   Retorno: ninguno.
 */
-const openUpdateTipoP = async (id) => {
+const openUpdate = async (id) => {
     // Se define una constante tipo objeto con los datos del registro seleccionado.
     const FORM = new FormData();
-    FORM.append('idTipoProducto', id);
+    FORM.append('idEstadoPedido', id);
     // Petición para obtener los datos del registro solicitado.
-    const DATA = await fetchData(TIPO_PRODUCTO_API, 'readOne', FORM);
+    const DATA = await fetchData(ESTADO_PEDIDO_API, 'readOne', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se muestra la caja de diálogo con su título.
         SAVE_MODAL.show();
-        MODAL_TITLE.textContent = 'Actualizar tipo de producto';
+        MODAL_TITLE.textContent = 'Actualizar estado de pedido';
         // Se prepara el formulario.
         SAVE_FORM.reset();
         // Se inicializan los campos con los datos.
         const ROW = DATA.dataset;
-        ID_TIPO_PRODUCTO.value = ROW.id_tipo_producto;
-        NOMBRE_TIPO_PRODUCTO.value = ROW.tipo_producto;
+        ID_ESTADO_PEDIDO.value = ROW.id_estado_pedido;
+        ESTADO_PEDIDO.value = ROW.estado_pedido;
 
     } else {
         sweetAlert(2, DATA.error, false);
@@ -143,22 +143,22 @@ const openUpdateTipoP = async (id) => {
 *   Parámetros: id (identificador del registro seleccionado).
 *   Retorno: ninguno.
 */
-const openDeleteTipoP = async (id) => {
+const openDelete = async (id) => {
     // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
     const RESPONSE = await confirmAction('¿Desea eliminar la categoría de forma permanente?');
     // Se verifica la respuesta del mensaje.
     if (RESPONSE) {
         // Se define una constante tipo objeto con los datos del registro seleccionado.
         const FORM = new FormData();
-        FORM.append('idTipoProducto', id);
+        FORM.append('idEstadoPedido', id);
         // Petición para eliminar el registro seleccionado.
-        const DATA = await fetchData(TIPO_PRODUCTO_API, 'deleteRow', FORM);
+        const DATA = await fetchData(ESTADO_PEDIDO_API, 'deleteRow', FORM);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
         if (DATA.status) {
             // Se muestra un mensaje de éxito.
             await sweetAlert(1, DATA.message, true);
             // Se carga nuevamente la tabla para visualizar los cambios.
-            fillTableTipoP();
+            fillTable();
         } else {
             sweetAlert(2, DATA.error, false);
         }
