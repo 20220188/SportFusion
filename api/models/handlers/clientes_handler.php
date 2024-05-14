@@ -38,7 +38,7 @@ class ClienteHandler
     {
         $sql = 'INSERT INTO tb_clientes(nombre_ciente, telefono_cliente, correo_cliente, dirección_cliente, alias_cliente, clave_cliente, estado_cliente)
                 VALUES(?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->nombre, $this->telefono, $this->correo, $this->direccion, $this->alias, $this->clave);
+        $params = array($this->nombre, $this->telefono, $this->correo, $this->direccion, $this->alias, $this->clave, $this->estado);
         return Database::executeRow($sql, $params);
     }
 

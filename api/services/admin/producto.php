@@ -97,6 +97,7 @@ if (isset($_GET['action'])) {
                 } else {
                     $result['error'] = 'Ocurrió un problema al eliminar el producto';
                 }
+                break;
             //Casos para DETALLE_PRODUCTO
             case 'createRow_detalleProducto':
                 $_POST = Validator::validateForm($_POST);
