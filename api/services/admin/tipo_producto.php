@@ -35,7 +35,7 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Ocurrió un problema al crear el tipo de producto';
                 }
                 break;
-            case 'readAll':
+            case 'readAll_TipoP':
                 if ($result['dataset'] = $tipoProducto->readAll()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';

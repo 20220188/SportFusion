@@ -10,6 +10,8 @@ const TALLA_API = 'services/admin/talla.php';
 /*
 *Elementos para la tabla PRODUCTOS
 */
+
+const TIPOP_API = 'services/admin/tipo_producto.php';
 // Constante para establecer el formulario de buscar.
 const SEARCH_FORM = document.getElementById('searchForm');
 // Constantes para establecer el contenido de la tabla.
@@ -158,7 +160,7 @@ const openCreate = () => {
     // Se prepara el formulario.
     SAVE_FORM.reset();
     fillSelect(CATEGORIA_API, 'readAll', 'categoriaProducto');
-    fillSelect(TIPO_PRODUCTO_API, 'readAll', 'tipoProducto');
+    fillSelect(TIPO_PRODUCTO_API, 'readAll_TipoP', 'tipoProducto');
     fillSelect(DEPORTE_API, 'readAll', 'deporteProducto');
 }
 
@@ -186,7 +188,7 @@ const openUpdate = async (id) => {
         NOMBRE_PRODUCTO.value = ROW.nombre_producto;
         DESCRIPCION_PRODUCTO.value = ROW.descripcion;
         fillSelect(CATEGORIA_API, 'readAll', 'categoriaProducto', ROW.id_categoria);
-        fillSelect(TIPO_PRODUCTO_API, 'readAll', 'tipoProducto', ROW.id_tipo_producto);
+        fillSelect(TIPO_PRODUCTO_API, 'readAll_TipoP', 'tipoProducto', ROW.id_tipo_producto);
         fillSelect(DEPORTE_API, 'readAll', 'deporteProducto', ROW.id_deporte);
     } else {
         sweetAlert(2, DATA.error, false);
@@ -208,6 +210,7 @@ const openDelete = async (id) => {
         FORM.append('idProducto', id);
         // Petición para eliminar el registro seleccionado.
         const DATA = await fetchData(PRODUCTO_API, 'deleteRow', FORM);
+        console.log(DATA);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
         if (DATA.status) {
             // Se muestra un mensaje de éxito.
@@ -368,7 +371,7 @@ const openDeleteDetails = async (id) => {
 }
 
 /*
-*   Funciones para la tabla DETALLE_PRODUCTO
+*   Funciones para la tabla TIPO_PRODUCTO
 */
 
 // Método del evento para cuando se envía el formulario de guardar.
@@ -380,7 +383,7 @@ SAVE_FORM_TIPOP.addEventListener('submit', async (event) => {
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(SAVE_FORM_TIPOP);
     // Petición para guardar los datos del formulario.
-    const DATA = await fetchData(TIPO_PRODUCTO_API, action, FORM);
+    const DATA = await fetchData(TIPOP_API, action, FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se cierra la caja de diálogo.
@@ -404,9 +407,9 @@ const fillTableTipoP = async (form = null) => {
     ROWS_FOUND_TIPOP.textContent = '';
     TABLE_BODY_TIPOP.innerHTML = '';
     // Se verifica la acción a realizar.
-    (form) ? action = 'searchRows' : action = 'readAll';
+    (form) ? action = 'searchRows' : action = 'readAll_TipoP';
     // Petición para obtener los registros disponibles.
-    const DATA = await fetchData(TIPO_PRODUCTO_API, action, form);
+    const DATA = await fetchData(TIPOP_API, action, form);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se recorre el conjunto de registros fila por fila.
@@ -445,6 +448,8 @@ const openCreateTipoP = () => {
     MODAL_TITLE_TIPOP.textContent = 'Crear tipo de producto';
     // Se prepara el formulario.
     SAVE_FORM_TIPOP.reset();
+
+    fillTableTipoP();
 }
 
 /*
@@ -457,7 +462,7 @@ const openUpdateTipoP = async (id) => {
     const FORM_TIPOP = new FormData();
     FORM_TIPOP.append('idTipoProducto', id);
     // Petición para obtener los datos del registro solicitado.
-    const DATA = await fetchData(TIPO_PRODUCTO_API, 'readOne', FORM_TIPOP);
+    const DATA = await fetchData(TIPOP_API, 'readOne', FORM_TIPOP);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se muestra la caja de diálogo con su título.
@@ -489,7 +494,7 @@ const openDeleteTipoP = async (id) => {
         const FORM_TIPOP = new FormData();
         FORM_TIPOP.append('idTipoProducto', id);
         // Petición para eliminar el registro seleccionado.
-        const DATA = await fetchData(TIPO_PRODUCTO_API, 'deleteRow', FORM_TIPOP);
+        const DATA = await fetchData(TIPOP_API, 'deleteRow', FORM_TIPOP);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
         if (DATA.status) {
             // Se muestra un mensaje de éxito.
