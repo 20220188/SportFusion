@@ -150,7 +150,7 @@ class ProductoHandler
 
     public function updateRow_detalle()
     {
-        $sql = 'UPDATE tb_productos 
+        $sql = 'UPDATE tb_detalle_productos 
                 SET precio = ?, cantidad_disponible = ?, id_talla = ?, id_genero = ?
                 WHERE id_detalle_producto = ?';
         $params = array($this->precio, $this->existencias,$this->id_talla,$this->id_genero, $this->id_detalle_producto);
