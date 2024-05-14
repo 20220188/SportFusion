@@ -50,7 +50,7 @@ class ProductoHandler
             $sql = 'INSERT INTO tb_productos(nombre_producto, descripcion, imagen, id_categoria,id_tipo_producto, id_deporte)
                     VALUES(?, ?, ?, ?, ?, ?)';
             $params = array($this->nombre, $this->descripcion, $this->imagen, $this->id_categoria, $this->id_tipo_producto, $this->id_deporte);
-            //esto funciona para ver los valores que toma el arreglo print_r($params);
+            //esto funciona para ver los valores que toma el arreglo print_r($params);.
             return Database::executeRow($sql, $params);
         }
 
