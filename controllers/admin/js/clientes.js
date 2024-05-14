@@ -124,17 +124,16 @@ const openCreate = () => {
 const openUpdate = async (id) => {
     // Se define una constante tipo objeto con los datos del registro seleccionado.
     const FORM = new FormData();
-    FORM.append('idAdministrador', id);
+    FORM.append('idCliente', id);
     // Petición para obtener los datos del registro solicitado.
     const DATA = await fetchData(ADMINISTRADOR_API, 'readOne', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se muestra la caja de diálogo con su título.
         SAVE_MODAL.show();
-        MODAL_TITLE.textContent = 'Actualizar administrador';
+        MODAL_TITLE.textContent = 'Actualizar cliente';
         // Se prepara el formulario.
-        SAVE_FORM.reset();
-        ALIAS_CLIENTE.disabled = true;
+        SAVE_FORM.reset()
         CLAVE_CLIENTE.disabled = true;
         CONFIRMAR_CLAVE.disabled = true;
         // Se inicializan los campos con los datos.
@@ -143,7 +142,7 @@ const openUpdate = async (id) => {
         NOMBRE_CLIENTE.value = ROW.nombre_ciente;
         TELEFONO_CLIENTE.value = ROW.telefono_cliente;
         CORREO_CLIENTE.value = ROW.correo_cliente;
-        DIRECCION_CLIENTE.value = ROW.direccion_cliente;
+        DIRECCION_CLIENTE.value = ROW.dirección_cliente;
         ALIAS_CLIENTE.value = ROW.alias_cliente;
     } else {
         sweetAlert(2, DATA.error, false);
@@ -162,7 +161,7 @@ const openDelete = async (id) => {
     if (RESPONSE) {
         // Se define una constante tipo objeto con los datos del registro seleccionado.
         const FORM = new FormData();
-        FORM.append('idAdministrador', id);
+        FORM.append('idCliente', id);
         // Petición para eliminar el registro seleccionado.
         const DATA = await fetchData(ADMINISTRADOR_API, 'deleteRow', FORM);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
