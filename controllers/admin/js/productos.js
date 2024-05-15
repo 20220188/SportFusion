@@ -283,6 +283,9 @@ const fillTableDetails = async (form = null) => {
                         <button type="button" class="btn btn-danger" onclick="openDeleteDetails(${row.id_detalle_producto})">
                         <i class="fa-regular fa-trash-can"></i>
                         </button>
+                        <button type="button" class="btn btn-warning" onclick="openDeleteDetails(${row.id_detalle_producto})">
+                        <i class="fa-regular fa-comment-dots"></i>
+                        </button>
                     </td>
                 </tr>
             `;
