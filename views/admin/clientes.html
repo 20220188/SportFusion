@@ -40,12 +40,6 @@
                             </div>
                         </div>
                     </form>
-                    <div class="col-sm-12 col-md-6 text-end">
-                        <!-- Botón para abrir una caja de diálogo al momento de crear un nuevo registro -->
-                        <button type="button" class="btn btn-primary" onclick="openCreate()">
-                            <i class="fa-solid fa-plus"></i>
-                        </button>
-                    </div>
                 </div>
         
                 <!-- Tabla para mostrar los registros existentes -->
@@ -82,42 +76,7 @@
                                 <div class="modal-body row g-3">
                                     <!-- Campo oculto para asignar el id del registro al momento de modificar -->
                                     <input type="number" class="d-none" id="idCliente" name="idCliente">
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="nombreCliente" class="form-label">Nombre</label>
-                                        <input id="nombreCliente" type="text" name="nombreCliente"
-                                            class="form-control" required>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="telefonoCliente" class="form-label">Telefono</label>
-                                        <input id="telefonoCliente" type="text" name="telefonoCliente"
-                                            class="form-control" required>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="correoCliente" class="form-label">Correo</label>
-                                        <input id="correoCliente" type="email" name="correoCliente"
-                                            class="form-control" required>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="aliasCliente" class="form-label">Alias</label>
-                                        <input id="aliasCliente" type="text" name="aliasCliente"
-                                            class="form-control" required>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="clienteDireccion" class="form-label">Dirección</label>
-                                        <input id="clienteDireccion" type="text" name="clienteDireccion"
-                                            class="form-control" required>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="claveCliente" class="form-label">Contraseña</label>
-                                        <input id="claveCliente" type="password" name="claveCliente"
-                                            class="form-control" required>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="confirmarClave" class="form-label">Confirmar contraseña</label>
-                                        <input id="confirmarClave" type="password" name="confirmarClave" class="form-control"
-                                            required>
-                                    </div>
-                                    <div class="form-check form-switch form-check-reverse">
+                                    <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" id="estadoCliente"
                                             name="estadoCliente" checked>
                                         <label class="form-check-label" for="estadoCliente">Estado</label>

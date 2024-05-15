@@ -66,11 +66,6 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 if (
                     !$cliente->setId($_POST['idCliente']) or
-                    !$cliente->setNombre($_POST['nombreCliente']) or
-                    !$cliente->setTelefono($_POST['telefonoCliente']) or
-                    !$cliente->setCorreo($_POST['correoCliente']) or
-                    !$cliente->setDireccion($_POST['clienteDireccion']) or
-                    !$cliente->setAlias($_POST['aliasCliente']) or
                     !$cliente->setEstado(isset($_POST['estadoCliente']) ? 1 : 0) 
                 ) {
                     $result['error'] = $cliente->getDataError();

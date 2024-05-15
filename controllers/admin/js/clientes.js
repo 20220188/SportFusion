@@ -89,9 +89,6 @@ const fillTable = async (form = null) => {
                         <button type="button" class="btn btn-info" onclick="openUpdate(${row.id_cliente})">
                         <i class="fa-solid fa-pencil"></i>
                         </button>
-                        <button type="button" class="btn btn-danger" onclick="openDelete(${row.id_cliente})">
-                        <i class="fa-regular fa-trash-can"></i>
-                        </button>
                     </td>
                 </tr>
             `;
@@ -138,16 +135,9 @@ const openUpdate = async (id) => {
         MODAL_TITLE.textContent = 'Actualizar cliente';
         // Se prepara el formulario.
         SAVE_FORM.reset()
-        CLAVE_CLIENTE.disabled = true;
-        CONFIRMAR_CLAVE.disabled = true;
         // Se inicializan los campos con los datos.
         const ROW = DATA.dataset;
         ID_CLIENTE.value = ROW.id_cliente;
-        NOMBRE_CLIENTE.value = ROW.nombre_cliente;
-        TELEFONO_CLIENTE.value = ROW.telefono_cliente;
-        CORREO_CLIENTE.value = ROW.correo_cliente;
-        DIRECCION_CLIENTE.value = ROW.dirección_cliente;
-        ALIAS_CLIENTE.value = ROW.alias_cliente;
         ESTADO_CLIENTE.checked = ROW.estado_cliente;
     } else {
         sweetAlert(2, DATA.error, false);

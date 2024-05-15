@@ -52,7 +52,7 @@ class ClienteHandler
 
     public function readOne()
     {
-        $sql = 'SELECT id_cliente, nombre_cliente, telefono_cliente, correo_cliente, dirección_cliente, alias_cliente, clave_cliente, estado_cliente
+        $sql = 'SELECT id_cliente, estado_cliente
                 FROM tb_clientes
                 WHERE id_cliente = ?';
         $params = array($this->id);
@@ -71,9 +71,9 @@ class ClienteHandler
     public function updateRow()
     {
         $sql = 'UPDATE tb_clientes
-                SET nombre_cliente = ?, telefono_cliente = ?, correo_cliente = ?, dirección_cliente = ?, alias_cliente = ?, estado_cliente = ?
+                SET estado_cliente = ?
                 WHERE id_cliente = ?';
-        $params = array($this->nombre, $this->telefono, $this->correo,$this->direccion, $this->alias, $this->estado ,$this->id);
+        $params = array( $this->estado ,$this->id);
         return Database::executeRow($sql, $params);
     }
 
