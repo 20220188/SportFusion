@@ -11,7 +11,7 @@
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="../../resources/css/productos.css">
+    <link rel="stylesheet" href="../../resources/css/tables.css">
     <link rel="stylesheet" href="../../resources/css/dashboard.css">
 </head>
 
@@ -42,12 +42,6 @@
                             </div>
                         </div>
                     </form>
-                    <div class="col-sm-12 col-md-6 text-end">
-                        <!-- Botón para abrir una caja de diálogo al momento de crear un nuevo registro -->
-                        <button type="button" class="btn btn-primary" onclick="openCreate()">
-                            <i class="fa-solid fa-plus"></i>
-                        </button>
-                    </div>
                 </div>
 
                 <!-- Tabla para mostrar los registros existentes -->
@@ -83,19 +77,6 @@
                                 <div class="modal-body row g-3">
                                     <!-- Campo oculto para asignar el id del registro al momento de modificar -->
                                     <input type="number" class="d-none" id="idPedido" name="idPedido">
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="direccionPedido" class="form-label">Dirección</label>
-                                        <input id="direccionPedido" type="text" name="direccionPedido"
-                                            class="form-control" required>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="fechaPedido" class="form-label">Fecha de registro</label>
-                                        <input id="fechaPedido" type="date" name="fechaPedido"
-                                            class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-primary">Guardar</button>
                                 </div>
                             </form>
                         </div>
@@ -117,41 +98,39 @@
                                 <div class="modal-body row g-3">
                                     <!-- Campo oculto para asignar el id del registro al momento de modificar -->
                                     <input type="number" class="d-none" id="idDetalle" name="idDetalle">
-                                    <input type="number" class="d-none" id="idProductoDetalle" name="idProductoDetalle">
+                                    <input type="number" class="d-none" id="idPedidoDetalle" name="idPedidoDetalle">
                                     <div class="col-sm-12 col-md-6">
-                                        <label for="cantidadPedido" class="form-label">Cantidad</label>
-                                        <input id="cantidadPedido" type="number" name="cantidadPedido" min="0.01" step="0.01"
-                                            class="form-control" required>
+                                        <label for="estadoPedido" class="form-label">Estado del pedido</label>
+                                        <select id="estadoPedido" name="estadoPedido" class="form-select" required>
+                                        </select>
                                     </div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="existenciasDetalle" class="form-label">Precio pedido</label>
-                                        <input id="existenciasDetalle" type="number" name="existenciasDetalle" min="1"
-                                            step="1" class="form-control" required>
-                                    </div>
+
                                 </div>
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-primary">Guardar</button>
                                 </div>
                             </form>
-
-                            <table class="table table-hover text-center">
-                                <!-- Cabeza de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
-                                <thead>
-                                    <tr>
-                                        <td class="text-start" colspan="6" id="rowsFoundDetalle"></td>
-                                    </tr>
-                                    <tr>
-                                        <th>CANTIDAD</th>
-                                        <th>PRECIO </th>
-                                        <th>N. PEDIDO</th>
-                                        <th>PRODUCTO</th>
-                                        <th>ESTADO</th>
-                                        <th>ACCIONES</th>
-                                    </tr>
-                                </thead>
-                                <!-- Cuerpo de la tabla para mostrar un registro por fila -->
-                                <tbody id="tableBodyDetalle"></tbody>
-                            </table>
+                            <div class="table-responsive">
+                                <table class="table table-hover text-center">
+                                    <!-- Cabeza de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
+                                    <thead>
+                                        <tr>
+                                            <td class="text-start" colspan="6" id="rowsFoundDetalle"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>CANTIDAD</th>
+                                            <th>PRECIO </th>
+                                            <th>N. PEDIDO</th>
+                                            <th>PRODUCTO</th>
+                                            <th>ESTADO</th>
+                                            <th>ACCIONES</th>
+                                        </tr>
+                                    </thead>
+                                    <!-- Cuerpo de la tabla para mostrar un registro por fila -->
+                                    <tbody id="tableBodyDetalle"></tbody>
+                                </table>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -178,7 +157,7 @@
     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
     <!-- Kevin Chiquitito estubo aqui -->
     <!-- Llamada al controlador de la barra lateral -->
-    <script src="../../controllers/admin/js/dashboard.js"></script>
+    <script src="../../controllers/admin/js/sidebar.js"></script>
 
     <!-- Llamada al controlador de la página web -->
     <script type="text/javascript" src="../../controllers/admin/js/pedidos.js"></script>

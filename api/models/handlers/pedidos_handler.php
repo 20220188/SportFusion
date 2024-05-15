@@ -19,9 +19,8 @@ class PedidoHandler
     protected $id_detalle = null;
     protected $cantidad_pedido = null;
     protected $precio_pedido = null;
-    protected $id_pedido = null;
-    protected $id_producto = null;
     protected $id_estado_pedido = null;
+    protected $id_producto = null;
 
     
 
@@ -36,7 +35,7 @@ class PedidoHandler
                 INNER JOIN tb_clientes USING(id_cliente)
                 WHERE direccion_pedido LIKE ? OR fecha_registro LIKE ? OR id_cliente LIKE ? 
                 ORDER BY direccion_pedido';
-        $params = array($value, $value, $value);
+        $params = array($value, $value, $value, $value, $value);
         return Database::getRows($sql, $params);
     }
 
@@ -51,42 +50,42 @@ class PedidoHandler
 
     public function readAll()
     {
-        $sql = 'SELECT id_pedido, direccion_pedido, fecha_registro, nombre_ciente  
+        $sql = 'SELECT id_pedido, direccion_pedido, fecha_registro, nombre_cliente  
                 FROM tb_pedidos
                 INNER JOIN tb_clientes USING(id_cliente)
-                ORDER BY nombre_ciente';
+                ORDER BY id_pedido';
         return Database::getRows($sql);
     }
 
     public function readOne()
     {
-        $sql = 'SELECT id_pedido, direccion_pedido, fecha_registro
+        $sql = 'SELECT id_pedido, direccion_pedido, direccion_pedido, id_cliente
                 FROM tb_pedidos 
                 WHERE id_pedido = ?';
-        $params = array($this->id);
+        $params = array($this->id_pedido);
         return Database::getRow($sql, $params);
     }
 
     public function updateRow()
     {
         $sql = 'UPDATE tb_pedidos p
-                SET  p.direccion_pedido = ?, fecha_registro = ?
+                INNER JOIN tb_detalle_pedidos dp USING(id_pedido)
+                SET  p.direccion_pedido = ?, p.direccion_pedido = ?, dp.id_cliente = ?
                 WHERE id_pedido = ?';
-        $params = array($this->direccion_pedido, $this->fecha_registro);        
-        return Database::executeRow($sql, $params);
+                $params = array($this->direccion_pedido, $this->fecha_registro, $this->id_cliente);        return Database::executeRow($sql, $params);
     }
 
     public function deleteRow()
     {
         $sql = 'DELETE FROM tb_pedidos
                 WHERE id_pedido = ?';
-        $params = array($this->id);
+        $params = array($this->id_pedido);
         return Database::executeRow($sql, $params);
     }
 
 
     /*
-    *   Métodos para realizar las operaciones SCRUD en tabla DETALLE_PEDIDO (search, create, read, update, and delete).
+    *   Métodos para realizar las operaciones SCRUD en tabla DETALLE?PRODUCTO (search, create, read, update, and delete).
     */
     public function createRow_detalle()
         {
@@ -109,9 +108,8 @@ class PedidoHandler
 
     public function readOne_detalle()
     {
-        $sql = 'SELECT id_detalle, cantidad_pedido, precio_pedido, id_estado_pedido
+        $sql = 'SELECT id_detalle, id_estado_pedido
                 FROM tb_detalle_pedidos
-                INNER JOIN tb_estado_pedidos USING(id_estado_pedido) 
                 WHERE id_detalle = ?';
         $params = array($this->id_detalle);
         return Database::getRow($sql, $params);
@@ -119,16 +117,16 @@ class PedidoHandler
 
     public function updateRow_detalle()
     {
-        $sql = 'UPDATE tb_detalle_pedidos
-                SET cantidad_pedido = ?, precio_pedido = ?, id_estado_pedido = ?
+        $sql = 'UPDATE tb_detalle_pedidos 
+                SET id_estado_pedido = ?
                 WHERE id_detalle = ?';
-        $params = array($this->cantidad_pedido, $this->precio_pedido, $this->$id_estado_pedido, $this->id_detalle);
+        $params = array($this->id_estado_pedido, $this->id_detalle);
         return Database::executeRow($sql, $params);
     }
 
     public function deleteRow_detalle()
     {
-        $sql = 'DELETE FROM tb_detalle_pedidos
+        $sql = 'DELETE FROM tb_detalle
                 WHERE id_detalle = ?';
         $params = array($this->id_detalle);
         return Database::executeRow($sql, $params);

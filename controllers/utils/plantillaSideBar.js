@@ -35,7 +35,7 @@ const plantillaSideBar =  `
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="generos.html" class="sidebar-link">
+                    <a href="estado_pedido.html" class="sidebar-link">
                     <i class="fa-solid fa-mars-and-venus"></i>
                         <span>Estado de pedidos</span>
                     </a>

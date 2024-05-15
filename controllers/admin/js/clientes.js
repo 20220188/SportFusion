@@ -76,11 +76,11 @@ const fillTable = async (form = null) => {
         // Se recorre el conjunto de registros fila por fila.
         DATA.dataset.forEach(row => {
 
-            (row.estado_producto) ? icon = 'bi bi-eye-fill' : icon = 'bi bi-eye-slash-fill';
+            (row.estado_cliente) ? icon = 'fa-solid fa-eye' : icon = 'fa-solid fa-eye-slash';
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TABLE_BODY.innerHTML += `
                 <tr>
-                    <td>${row.nombre_ciente}</td>
+                    <td>${row.nombre_cliente}</td>
                     <td>${row.telefono_cliente}</td>
                     <td>${row.correo_cliente}</td>
                     <td>${row.alias_cliente}</td>
@@ -143,7 +143,7 @@ const openUpdate = async (id) => {
         // Se inicializan los campos con los datos.
         const ROW = DATA.dataset;
         ID_CLIENTE.value = ROW.id_cliente;
-        NOMBRE_CLIENTE.value = ROW.nombre_ciente;
+        NOMBRE_CLIENTE.value = ROW.nombre_cliente;
         TELEFONO_CLIENTE.value = ROW.telefono_cliente;
         CORREO_CLIENTE.value = ROW.correo_cliente;
         DIRECCION_CLIENTE.value = ROW.dirección_cliente;
