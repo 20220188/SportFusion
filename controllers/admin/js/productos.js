@@ -577,7 +577,7 @@ const fillTableComentario = async (form = null) => {
             TABLE_BODY_COMENTARIO.innerHTML += `
                 <tr>
                     
-                    <td>${row.opinion}</td>
+                    <td>${converRatingToStars(row.opinion)} ${row.opinion}</td>
                     <td>${row.comentario}</td>
                     <td>${row.nombre_cliente}</td>
                     <td><i class="${icon}"></i></td>
@@ -597,6 +597,18 @@ const fillTableComentario = async (form = null) => {
     } else {
         sweetAlert(4, DATA.error, true);
     }
+}
+
+const converRatingToStars = (rating) =>{
+    let stars = '';
+    for (let i = 0; i <5; i++){
+        if (i < rating){
+            stars += '<i class="fas fa-star text-warning text-danger"></i>';
+        }else{
+            stars += '<i class="far fa-star text-warning text-danger"></i>';
+        }
+    }
+    return stars
 }
 
 /*

@@ -166,7 +166,7 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 if (
                     !$producto->setid_valoracion($_POST['idValoracionProducto']) or
-                    !$producto->setEstado_valoracion($_POST['estadoComentario'])
+                    !$producto->setEstado_valoracion(isset($_POST['estadoComentario']) ? 1 : 0)
                 ) {
                     $result['error'] = $producto->getDataError();
                     
