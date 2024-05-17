@@ -63,18 +63,16 @@ const SAVE_FORM_TIPOP = document.getElementById('saveFormTipoP'),
 */
 // Constante para establecer el formulario de buscar.
 // Constantes para establecer los elementos de la tabla.
-const TABLE_BODY_COMENTARIO = document.getElementById('tableBodyTipoP'),
-    ROWS_FOUND_COMENTARIO = document.getElementById('rowsFoundTipoP');
+const TABLE_BODY_COMENTARIO = document.getElementById('tableBodyComentario'),
+    ROWS_FOUND_COMENTARIO = document.getElementById('rowsFoundComentario');
 // Constantes para establecer los elementos del componente Modal.
-const SAVE_MODAL_COMENTARIO = new bootstrap.Modal('#saveModalTipoP'),
-    MODAL_TITLE_COMENTARIO = document.getElementById('modalTitleTipoP');
+const SAVE_MODAL_COMENTARIO = new bootstrap.Modal('#saveModalComentario'),
+    MODAL_TITLE_COMENTARIO = document.getElementById('modalTitleComentario');
 // Constantes para establecer los elementos del formulario de guardar.
-const SAVE_FORM_COMENTARIO = document.getElementById('saveFormTipoP'),
-    ID_VALORACION_PRODUCTO = document.getElementById('idTipoProducto'),
-    ID_OPINION = document.getElementById('nombreTipoProducto');
-    ID_PRODUCTO_VALORADO = document.getElementById('');
-    ID_CLIENTE = document.getElementById('');
-    ESTADO_VALORACION = document.getElementById('');
+const SAVE_FORM_COMENTARIO = document.getElementById('saveFormComentario'),
+    ID_VALORACION_PRODUCTO = document.getElementById('idValoracionProducto'),
+    ID_PRODUCTO_VALORADO = document.getElementById('idDetalleValoracion');
+    ESTADO_VALORACION = document.getElementById('estadoComentario');
 
 
 // Método del evento para cuando el documento ha cargado.
@@ -301,7 +299,7 @@ const fillTableDetails = async (form = null) => {
                         <button type="button" class="btn btn-danger" onclick="openDeleteDetails(${row.id_detalle_producto})">
                         <i class="fa-regular fa-trash-can"></i>
                         </button>
-                        <button type="button" class="btn btn-warning" onclick="openDeleteDetails(${row.id_detalle_producto})">
+                        <button type="button" class="btn btn-warning" onclick="openCreateComentario(${row.id_detalle_producto})">
                         <i class="fa-regular fa-comment-dots"></i>
                         </button>
                     </td>
@@ -534,15 +532,15 @@ const openDeleteTipoP = async (id) => {
 */
 
 // Método del evento para cuando se envía el formulario de guardar.
-SAVE_FORM_TIPOP.addEventListener('submit', async (event) => {
+SAVE_FORM_COMENTARIO.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se verifica la acción a realizar.
-    (ID_TIPO_PRODUCTO.value) ? action = 'updateRow' : action = 'createRow';
+    (ID_VALORACION_PRODUCTO.value) ? action = 'updateRow_valoracion' : action = 'createRow_valoracion';
     // Constante tipo objeto con los datos del formulario.
-    const FORM = new FormData(SAVE_FORM_TIPOP);
+    const FORMC = new FormData(SAVE_FORM_COMENTARIO);
     // Petición para guardar los datos del formulario.
-    const DATA = await fetchData(TIPOP_API, action, FORM);
+    const DATA = await fetchData(PRODUCTO_API, action, FORMC);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se cierra la caja de diálogo.
@@ -550,7 +548,7 @@ SAVE_FORM_TIPOP.addEventListener('submit', async (event) => {
         // Se muestra un mensaje de éxito.
         sweetAlert(1, DATA.message, true);
         // Se carga nuevamente la tabla para visualizar los cambios.
-        fillTableTipoP();
+        fillTableComentario();
     } else {
         sweetAlert(2, DATA.error, false);
     }
@@ -563,26 +561,31 @@ SAVE_FORM_TIPOP.addEventListener('submit', async (event) => {
 */
 const fillTableComentario = async (form = null) => {
     // Se inicializa el contenido de la tabla.
-    ROWS_FOUND_TIPOP.textContent = '';
-    TABLE_BODY_TIPOP.innerHTML = '';
+    ROWS_FOUND_COMENTARIO.textContent = '';
+    TABLE_BODY_COMENTARIO.innerHTML = '';
     // Se verifica la acción a realizar.
-    (form) ? action = 'searchRows' : action = 'readAll_TipoP';
+    (form) ? action = 'searchRows' : action = 'readAll_valoracion';
     // Petición para obtener los registros disponibles.
-    const DATA = await fetchData(TIPOP_API, action, form);
+    const DATA = await fetchData(PRODUCTO_API, action, form);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se recorre el conjunto de registros fila por fila.
         DATA.dataset.forEach(row => {
+
+            (row.estado_valoracion) ? icon = 'fa-solid fa-eye' : icon = 'fa-solid fa-eye-slash';
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
-            TABLE_BODY_TIPOP.innerHTML += `
+            TABLE_BODY_COMENTARIO.innerHTML += `
                 <tr>
                     
-                    <td>${row.tipo_producto}</td>
+                    <td>${row.opinion}</td>
+                    <td>${row.comentario}</td>
+                    <td>${row.nombre_cliente}</td>
+                    <td><i class="${icon}"></i></td>
                     <td>
-                        <button type="button" class="btn btn-info" onclick="openUpdateTipoP(${row.id_tipo_producto})">
+                        <button type="button" class="btn btn-info" onclick="openUpdateComentario(${row.id_valoracion_producto})">
                         <i class="fa-solid fa-pencil"></i>
                         </button>
-                        <button type="button" class="btn btn-danger" onclick="openDeleteTipoP(${row.id_tipo_producto})">
+                        <button type="button" class="btn btn-danger" onclick="openDeleteComentario(${row.id_valoracion_producto})">
                         <i class="fa-regular fa-trash-can"></i>
                         </button>
                     </td>
@@ -590,7 +593,7 @@ const fillTableComentario = async (form = null) => {
             `;
         });
         // Se muestra un mensaje de acuerdo con el resultado.
-        ROWS_FOUND_TIPOP.textContent = DATA.message;
+        ROWS_FOUND_COMENTARIO.textContent = DATA.message;
     } else {
         sweetAlert(4, DATA.error, true);
     }
@@ -603,12 +606,12 @@ const fillTableComentario = async (form = null) => {
 */
 const openCreateComentario = () => {
     // Se muestra la caja de diálogo con su título.
-    SAVE_MODAL_TIPOP.show();
-    MODAL_TITLE_TIPOP.textContent = 'Crear tipo de producto';
+    SAVE_MODAL_COMENTARIO.show();
+    MODAL_TITLE_COMENTARIO.textContent = 'Crear valoracion';
     // Se prepara el formulario.
-    SAVE_FORM_TIPOP.reset();
+    SAVE_FORM_COMENTARIO.reset();
 
-    fillTableTipoP();
+    fillTableComentario();
 }
 
 /*
@@ -616,23 +619,23 @@ const openCreateComentario = () => {
 *   Parámetros: id (identificador del registro seleccionado).
 *   Retorno: ninguno.
 */
-const openUpdateComentario = async (id) => {
+const openUpdateComentario = async (id2) => {
     // Se define una constante tipo objeto con los datos del registro seleccionado.
-    const FORM_TIPOP = new FormData();
-    FORM_TIPOP.append('idTipoProducto', id);
+    const FORM_COMENTARIO= new FormData();
+    FORM_COMENTARIO.append('idValoracionProducto', id2);
     // Petición para obtener los datos del registro solicitado.
-    const DATA = await fetchData(TIPOP_API, 'readOne', FORM_TIPOP);
+    const DATA = await fetchData(PRODUCTO_API, 'readOne_valoracion', FORM_COMENTARIO);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se muestra la caja de diálogo con su título.
-        SAVE_MODAL_TIPOP.show();
-        MODAL_TITLE_TIPOP.textContent = 'Actualizar tipo de producto';
+        SAVE_MODAL_COMENTARIO.show();
+        MODAL_TITLE_COMENTARIO.textContent = 'Actualizar valoracion';
         // Se prepara el formulario.
-        SAVE_FORM_TIPOP.reset();
+        SAVE_FORM_COMENTARIO.reset();
         // Se inicializan los campos con los datos.
         const ROW = DATA.dataset;
-        ID_TIPO_PRODUCTO.value = ROW.id_tipo_producto;
-        NOMBRE_TIPO_PRODUCTO.value = ROW.tipo_producto;
+        ID_VALORACION_PRODUCTO.value = ROW.id_valoracion_producto;
+        ESTADO_VALORACION.value = ROW.estado_valoracion;
 
     } else {
         sweetAlert(2, DATA.error, false);
@@ -646,20 +649,20 @@ const openUpdateComentario = async (id) => {
 */
 const openDeleteComentario = async (id) => {
     // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
-    const RESPONSE = await confirmAction('¿Desea eliminar la categoría de forma permanente?');
+    const RESPONSE = await confirmAction('¿Desea eliminar la valoración de forma permanente?');
     // Se verifica la respuesta del mensaje.
     if (RESPONSE) {
         // Se define una constante tipo objeto con los datos del registro seleccionado.
-        const FORM_TIPOP = new FormData();
-        FORM_TIPOP.append('idTipoProducto', id);
+        const FORM_COMENTARIO = new FormData();
+        FORM_COMENTARIO.append('idValoracionProducto', id);
         // Petición para eliminar el registro seleccionado.
-        const DATA = await fetchData(TIPOP_API, 'deleteRow', FORM_TIPOP);
+        const DATA = await fetchData(PRODUCTO_API, 'deleteRow_valoracion', FORM_COMENTARIO);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
         if (DATA.status) {
             // Se muestra un mensaje de éxito.
             await sweetAlert(1, DATA.message, true);
             // Se carga nuevamente la tabla para visualizar los cambios.
-            fillTableTipoP();
+            fillTableComentario();
         } else {
             sweetAlert(2, DATA.error, false);
         }

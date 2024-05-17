@@ -25,6 +25,12 @@ class ProductoHandler
     protected $id_talla = null;
     protected $id_genero = null;
 
+    //Atributos de la tabla VALORACIONES_PRODUCTOS
+    protected $id_valoracion = null;
+    protected $id_opinion = null;
+    protected $id_cliente = null;
+    protected $estado_valoracion = null;
+
     // Constante para establecer la ruta de las imágenes.
     const RUTA_IMAGEN = '../../images/productos/';
 
@@ -162,6 +168,54 @@ class ProductoHandler
         $sql = 'DELETE FROM tb_detalle_productos
                 WHERE id_detalle_producto = ?';
         $params = array($this->id_detalle_producto);
+        return Database::executeRow($sql, $params);
+    }
+
+    /*
+    *   Métodos para realizar las operaciones SCRUD en tabla tb_valoraciones_productos (search, create, read, update, and delete).
+    */
+
+    public function createRow_valoracion()
+        {
+            $sql = 'INSERT INTO tb_valoraciones_productos(id_opinion, id_detalle_producto, id_cliente, estado_valoracion)
+                    VALUES(?, ?, ?, ?)';
+            $params = array($this->id_opinion, $this->id_detalle_producto, $this->id_cliente, $this->estado_valoracion);
+            return Database::executeRow($sql, $params);
+        }
+
+        public function readAll_valoracion()
+    {
+        $sql = 'SELECT v.id_valoracion_producto, o.comentario, o.opinion, c.nombre_cliente, v.estado_valoracion
+        FROM tb_valoraciones_productos v
+        INNER JOIN tb_opiniones o USING(id_opinion)
+        INNER JOIN tb_clientes c USING(id_cliente)
+        ORDER BY o.opinion DESC';
+        return Database::getRows($sql);
+    }
+
+    public function readOne_valoracion()
+    {
+        $sql = 'SELECT id_valoracion_producto, estado_valoracion
+                FROM tb_valoraciones_productos
+                WHERE id_valoracion_producto = ?';
+        $params = array($this->id_valoracion);
+        return Database::getRow($sql, $params);
+    }
+
+    public function updateRow_valoracion()
+    {
+        $sql = 'UPDATE tb_valoraciones_productos 
+                SET estado_valoracion = ?
+                WHERE id_valoracion_producto = ?';
+        $params = array($this->estado_valoracion, $this->id_valoracion);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function deleteRow_valoracion()
+    {
+        $sql = 'DELETE FROM tb_valoraciones_productos
+                WHERE id_valoracion_producto = ?';
+        $params = array($this->id_valoracion);
         return Database::executeRow($sql, $params);
     }
 

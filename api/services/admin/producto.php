@@ -161,21 +161,64 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Ocurrió un problema al eliminar el detalle';
                 }
                 break;
+            //Casos para VALORACION_PRODUCTOS
+            case 'updateRow_valoracion':
+                $_POST = Validator::validateForm($_POST);
+                if (
+                    !$producto->setid_valoracion($_POST['idValoracionProducto']) or
+                    !$producto->setEstado_valoracion($_POST['estadoComentario'])
+                ) {
+                    $result['error'] = $producto->getDataError();
+                    
+                } elseif ($producto->updateRow_valoracion()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Estado modificado correctamente';
+                } else {
+                    $result['exception'] = 'Ocurrió un problema al modificar el estado';
+                }
+            break;
+                case 'readOne_valoracion':
+                    if (!$producto->setid_valoracion($_POST['idValoracionProducto'])) {
+                        $result['error'] = $producto->getDataError();
+                    } elseif ($result['dataset'] = $producto->readOne_valoracion()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['error'] = 'Valoracion inexistente';
+                    }
+                break;
+                case 'readAll_valoracion':
+                    if ($result['dataset'] = $producto->readAll_valoracion()) {
+                            $result['status'] = 1;
+                            $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                    } else {
+                            $result['error'] = 'No existen valoraciones registrados';
+                            
+                    }
+                break;
+            case 'deleteRow_valoracion':
+                if (!$producto->setid_valoracion($_POST['idValoracionProducto'])) {
+                    $result['error'] = $producto->getDataError();
+                } elseif ($producto->deleteRow_valoracion()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Valoracion eliminado correctamente';
+                } else {
+                    $result['error'] = 'Ocurrió un problema al eliminar la valoracion';
+                }
+            break;
             case 'cantidadProductosCategoria':
                 if ($result['dataset'] = $producto->cantidadProductosCategoria()) {
                     $result['status'] = 1;
                 } else {
                     $result['error'] = 'No hay datos disponibles';
                 }
-                break;
-
+            break;
             case 'porcentajeProductosCategoria':
                 if ($result['dataset'] = $producto->porcentajeProductosCategoria()) {
                     $result['status'] = 1;
                 } else {
                     $result['error'] = 'No hay datos disponibles';
                 }
-                break;
+            break;
             default:
                 $result['error'] = 'Acción no disponible dentro de la sesión';
         }

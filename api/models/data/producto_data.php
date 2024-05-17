@@ -177,6 +177,52 @@ public function setDetalleproducto($value)
     }
 
 
+    // Métodos para el manejo de la tabla VALORACION_PRODUCTOS
+
+    public function setid_valoracion($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->id_valoracion = $value;
+            return true;
+        } else {
+            $this->data_error = 'El identificador de la valoracion es incorrecto';
+            return false;
+        }
+    }
+
+    public function setid_opinion($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->id_opinion = $value;
+            return true;
+        } else {
+            $this->data_error = 'El identificador de la opinion es incorrecto';
+            return false;
+        }
+    }
+
+    public function setid_cliente($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->id_cliente = $value;
+            return true;
+        } else {
+            $this->data_error = 'El identificador del cliente es incorrecto';
+            return false;
+        }
+    }
+
+    public function setEstado_valoracion($value)
+    {
+        if (Validator::validateBoolean($value)) {
+            $this->estado_valoracion = $value;
+            return true;
+        } else {
+            $this->data_error = 'Estado incorrecto';
+            return false;
+        }
+    }
+
     /*
      *  Métodos para obtener los atributos adicionales.
      */
