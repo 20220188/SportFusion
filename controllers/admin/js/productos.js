@@ -72,7 +72,7 @@ const SAVE_MODAL_COMENTARIO = new bootstrap.Modal('#saveModalComentario'),
 const SAVE_FORM_COMENTARIO = document.getElementById('saveFormComentario'),
     ID_VALORACION_PRODUCTO = document.getElementById('idValoracionProducto'),
     ID_PRODUCTO_VALORADO = document.getElementById('idDetalleValoracion');
-    ESTADO_VALORACION = document.getElementById('estadoComentario');
+    ESTADO_OPINION = document.getElementById('estadoComentario');
 
 
 // Método del evento para cuando el documento ha cargado.
@@ -647,7 +647,7 @@ const openUpdateComentario = async (id2) => {
         // Se inicializan los campos con los datos.
         const ROW = DATA.dataset;
         ID_VALORACION_PRODUCTO.value = ROW.id_valoracion_producto;
-        ESTADO_VALORACION.value = ROW.estado_valoracion;
+        ESTADO_OPINION.value = ROW.estado_valoracion;
 
     } else {
         sweetAlert(2, DATA.error, false);
