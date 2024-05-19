@@ -26,7 +26,7 @@ class ClienteHandler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT id_cliente, nombre_cliente, telefono_cliente, correo_cliente, dirección_cliente, alias_cliente, clave_cliente
+        $sql = 'SELECT id_cliente, nombre_cliente, telefono_cliente, correo_cliente, dirección_cliente, alias_cliente, estado_cliente
                 FROM tb_clientes
                 WHERE nombre_cliente LIKE ? OR correo_cliente LIKE ?
                 ORDER BY nombre_cliente';

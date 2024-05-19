@@ -24,6 +24,7 @@ class ProductoHandler
     protected $existencias = null;
     protected $id_talla = null;
     protected $id_genero = null;
+    protected $id_producto = null;
 
     //Atributos de la tabla VALORACIONES_PRODUCTOS
     protected $id_valoracion = null;
@@ -42,8 +43,8 @@ class ProductoHandler
         $value = '%' . Validator::getSearchValue() . '%';
         $sql = 'SELECT id_producto, imagen, nombre_producto, descripcion, nombre_categoria, tipo_producto, nombre_deporte
                 FROM tb_productos
-                INNER JOIN tb_categoris USING(id_categoria)
-                INNER JOIN tb_tipos_productos USING(id_tipo_producto)
+                INNER JOIN tb_categorias USING(id_categoria)
+                INNER JOIN tb_tipo_productos USING(id_tipo_producto)
                 INNER JOIN tb_deportes USING(id_deporte)
                 WHERE nombre_producto LIKE ? OR descripcion LIKE ? OR nombre_categoria LIKE ? OR tipo_producto LIKE ? OR nombre_deporte LIKE ?
                 ORDER BY nombre_producto';
@@ -94,7 +95,7 @@ class ProductoHandler
     public function updateRow()
     {
         $sql = 'UPDATE tb_productos p
-                INNER JOIN tb_detalle_producto dp USING(id_producto)
+                INNER JOIN tb_detalle_productos dp USING(id_producto)
                 SET p.imagen = ?, p.nombre_producto = ?, p.descripcion = ?, dp.precio = ?, dp.cantidad_disponible = ?, p.id_categoria = ?, p.id_tipo_producto = ?, dp.id_talla = ?, dp.id_genero = ?
                 WHERE id_producto = ?';
         $params = array($this->imagen, $this->nombre, $this->descripcion, $this->precio, $this->existencias, $this->id_categoria,$this->id_tipo_producto,$this->id_talla,$this->id_genero, $this->id);
@@ -113,8 +114,8 @@ class ProductoHandler
     {
         $sql = 'SELECT id_producto, imagen, nombre_producto, descripcion, nombre_categoria, tipo_producto
                 FROM tb_productos
-                INNER JOIN tb_categoria USING(id_categoria)
-                INNER JOIN tb_tipo_producto USING(id_tipo_producto)
+                INNER JOIN tb_categorias USING(id_categoria)
+                INNER JOIN tb_tipo_productos USING(id_tipo_producto)
                 WHERE id_categoria = ?
                 ORDER BY nombre_producto';
         $params = array($this->id_categoria);
@@ -135,7 +136,7 @@ class ProductoHandler
 
         public function readAll_detalle()
     {
-        $sql = 'SELECT dp.id_detalle_producto, dp.precio, dp.cantidad_disponible, t.talla, g.genero, p.nombre_producto
+        $sql = 'SELECT dp.id_detalle_producto, dp.precio, dp.cantidad_disponible, t.talla, g.genero, p.nombre_producto,dp.id_talla
         FROM tb_detalle_productos dp
         INNER JOIN tb_tallas t USING(id_talla)
         INNER JOIN tb_generos g USING(id_genero)

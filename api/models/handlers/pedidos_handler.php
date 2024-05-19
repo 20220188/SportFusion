@@ -30,12 +30,12 @@ class PedidoHandler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT id_pedido, direccion_pedido, fecha_registro, nombre_ciente
+        $sql = 'SELECT id_pedido, direccion_pedido, fecha_registro, nombre_cliente
                 FROM tb_pedidos
                 INNER JOIN tb_clientes USING(id_cliente)
-                WHERE direccion_pedido LIKE ? OR fecha_registro LIKE ? OR id_cliente LIKE ? 
+                WHERE direccion_pedido LIKE ? OR fecha_registro LIKE ? OR nombre_cliente LIKE ? 
                 ORDER BY direccion_pedido';
-        $params = array($value, $value, $value, $value, $value);
+        $params = array($value, $value, $value);
         return Database::getRows($sql, $params);
     }
 
@@ -97,7 +97,7 @@ class PedidoHandler
 
         public function readAll_detalle()
     {
-        $sql = 'SELECT dp.id_detalle, dp.cantidad_pedido, dp.precio_pedido, t.id_pedido, g.nombre_producto, p.estado_pedido
+        $sql = 'SELECT dp.id_detalle, dp.cantidad_pedido, dp.precio_pedido, t.id_pedido, g.nombre_producto, p.estado_pedido,dp.id_estado_pedido
         FROM tb_detalle_pedidos dp
         INNER JOIN tb_pedidos t USING(id_pedido)
         INNER JOIN tb_productos g USING(id_producto)
