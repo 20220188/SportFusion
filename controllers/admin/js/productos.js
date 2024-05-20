@@ -619,7 +619,7 @@ const converRatingToStars = (rating) =>{
 const openCreateComentario = () => {
     // Se muestra la caja de diálogo con su título.
     SAVE_MODAL_COMENTARIO.show();
-    MODAL_TITLE_COMENTARIO.textContent = 'Crear valoracion';
+    MODAL_TITLE_COMENTARIO.textContent = 'Crear valoración';
     // Se prepara el formulario.
     SAVE_FORM_COMENTARIO.reset();
 
@@ -641,7 +641,7 @@ const openUpdateComentario = async (id2) => {
     if (DATA.status) {
         // Se muestra la caja de diálogo con su título.
         SAVE_MODAL_COMENTARIO.show();
-        MODAL_TITLE_COMENTARIO.textContent = 'Actualizar valoracion';
+        MODAL_TITLE_COMENTARIO.textContent = 'Actualizar valoración';
         // Se prepara el formulario.
         SAVE_FORM_COMENTARIO.reset();
         // Se inicializan los campos con los datos.
