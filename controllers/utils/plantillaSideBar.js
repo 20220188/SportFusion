@@ -1,3 +1,5 @@
+const ADMIN_API = 'services/admin/administrador.php';
+
 const plantillaSideBar =  `
 <div class="d-flex">
                 <button class="toggle-btn" type="button">
@@ -66,7 +68,7 @@ const plantillaSideBar =  `
                 </li>
             </ul>
             <div class="sidebar-footer">
-                <a href="index.html" class="sidebar-link">
+                <a href="index.html" class="sidebar-link" onclick="logOut()">
                     <i class="lni lni-exit"></i>
                     <span>Logout</span>
                 </a>
