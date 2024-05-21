@@ -249,7 +249,7 @@ SAVE_FORM_DETALLE.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se verifica la acción a realizar.
-    (ID_DETALLE.value) ? action = 'updateRow_detalleProducto' : action = 'createRow_detalleProducto';
+    (ID_DETALLE.value) ? action = 'updateRowDetalleProducto' : action = 'createRowDetalleProducto';
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(SAVE_FORM_DETALLE);
     // Petición para guardar los datos del formulario.
@@ -277,7 +277,7 @@ const fillTableDetails = async (form = null) => {
     ROWS_FOUND_DETALLE.textContent = '';
     TABLE_BODY_DETALLE.innerHTML = '';
     // Se verifica la acción a realizar.
-    (form) ? action = 'searchRows' : action = 'readAll_detalle';
+    (form) ? action = 'searchRows' : action = 'readAllDetalle';
     // Petición para obtener los registros disponibles.
     const DATA = await fetchData(PRODUCTO_API, action, form);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
@@ -342,7 +342,7 @@ const openUpdateDetails = async (id1) => {
     const FORM_DETALLE = new FormData();
     FORM_DETALLE.append('idDetalle', id1);
     // Petición para obtener los datos del registro solicitado.
-    const DATA = await fetchData(PRODUCTO_API, 'readOne_detalleProducto', FORM_DETALLE);
+    const DATA = await fetchData(PRODUCTO_API, 'readOneDetalleProducto', FORM_DETALLE);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se muestra la caja de diálogo con su título.
@@ -376,7 +376,7 @@ const openDeleteDetails = async (id) => {
         const FORM = new FormData();
         FORM.append('idDetalle', id);
         // Petición para eliminar el registro seleccionado.
-        const DATA = await fetchData(PRODUCTO_API, 'deleteRow_detalleProducto', FORM);
+        const DATA = await fetchData(PRODUCTO_API, 'deleteRowDetalleProducto', FORM);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
         if (DATA.status) {
             // Se muestra un mensaje de éxito.
@@ -536,7 +536,7 @@ SAVE_FORM_COMENTARIO.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se verifica la acción a realizar.
-    (ID_VALORACION_PRODUCTO.value) ? action = 'updateRow_valoracion' : action = 'createRow_valoracion';
+    (ID_VALORACION_PRODUCTO.value) ? action = 'updateRowValoracion' : action = 'createRowValoracion';
     // Constante tipo objeto con los datos del formulario.
     const FORMC = new FormData(SAVE_FORM_COMENTARIO);
     // Petición para guardar los datos del formulario.
@@ -564,7 +564,7 @@ const fillTableComentario = async (form = null) => {
     ROWS_FOUND_COMENTARIO.textContent = '';
     TABLE_BODY_COMENTARIO.innerHTML = '';
     // Se verifica la acción a realizar.
-    (form) ? action = 'searchRows' : action = 'readAll_valoracion';
+    (form) ? action = 'searchRows' : action = 'readAllValoracion';
     // Petición para obtener los registros disponibles.
     const DATA = await fetchData(PRODUCTO_API, action, form);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
@@ -636,7 +636,7 @@ const openUpdateComentario = async (id2) => {
     const FORM_COMENTARIO= new FormData();
     FORM_COMENTARIO.append('idValoracionProducto', id2);
     // Petición para obtener los datos del registro solicitado.
-    const DATA = await fetchData(PRODUCTO_API, 'readOne_valoracion', FORM_COMENTARIO);
+    const DATA = await fetchData(PRODUCTO_API, 'readOneValoracion', FORM_COMENTARIO);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se muestra la caja de diálogo con su título.
@@ -668,7 +668,7 @@ const openDeleteComentario = async (id) => {
         const FORM_COMENTARIO = new FormData();
         FORM_COMENTARIO.append('idValoracionProducto', id);
         // Petición para eliminar el registro seleccionado.
-        const DATA = await fetchData(PRODUCTO_API, 'deleteRow_valoracion', FORM_COMENTARIO);
+        const DATA = await fetchData(PRODUCTO_API, 'deleteRowValoracion', FORM_COMENTARIO);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
         if (DATA.status) {
             // Se muestra un mensaje de éxito.

@@ -99,7 +99,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
             //Casos para DETALLE_PRODUCTO
-            case 'createRow_detalleProducto':
+            case 'createRowDetalleProducto':
                 $_POST = Validator::validateForm($_POST);
             if (
                 !$producto->setPrecio($_POST['precioDetalle']) or
@@ -109,15 +109,15 @@ if (isset($_GET['action'])) {
                 !$producto->setId($_POST['idProductoDetalle'])
             ) {
                 $result['error'] = $producto->getDataError();
-            } elseif ($producto->createRow_detalleProducto()) {
+            } elseif ($producto->createRowDetalleProducto()) {
                 $result['status'] = 1;
                 $result['message'] = 'Detalle creado correctamente';
             } else {
                 $result['exception'] = Database::getException();
             }
                 break;
-            case 'readAll_detalle':
-                if ($result['dataset'] = $producto->readAll_detalle()) {
+            case 'readAllDetalle':
+                if ($result['dataset'] = $producto->readAllDetalle()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } else {
@@ -125,16 +125,16 @@ if (isset($_GET['action'])) {
                     
                 }
                 break;
-            case 'readOne_detalleProducto':
+            case 'readOneDetalleProducto':
                 if (!$producto->setDetalleproducto($_POST['idDetalle'])) {
                     $result['error'] = $producto->getDataError();
-                } elseif ($result['dataset'] = $producto->readOne_detalle()) {
+                } elseif ($result['dataset'] = $producto->readOneDetalle()) {
                     $result['status'] = 1;
                 } else {
                     $result['error'] = 'Detalle inexistente';
                 }
                 break;
-            case 'updateRow_detalleProducto':
+            case 'updateRowDetalleProducto':
                 $_POST = Validator::validateForm($_POST);
                 if (
                     !$producto->setDetalleproducto($_POST['idDetalle']) or
@@ -144,17 +144,17 @@ if (isset($_GET['action'])) {
                     !$producto->setGenero($_POST['generoDetalle'])
                 ) {
                     $result['error'] = $producto->getDataError();
-                } elseif ($producto->updateRow_detalle()) {
+                } elseif ($producto->updateRowDetalle()) {
                     $result['status'] = 1;
                     $result['message'] = 'Detalle modificado correctamente';
                 } else {
                     $result['exception'] = 'Ocurrió un problema al modificar el detalle';
                 }
                 break;
-            case 'deleteRow_detalleProducto':
+            case 'deleteRowDetalleProducto':
                 if (!$producto->setDetalleproducto($_POST['idDetalle'])) {
                     $result['error'] = $producto->getDataError();
-                } elseif ($producto->deleteRow_detalle()) {
+                } elseif ($producto->deleteRowDetalle()) {
                     $result['status'] = 1;
                     $result['message'] = 'Detalle eliminado correctamente';
                 } else {
@@ -162,7 +162,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
             //Casos para VALORACION_PRODUCTOS
-            case 'updateRow_valoracion':
+            case 'updateRowValoracion':
                 $_POST = Validator::validateForm($_POST);
                 if (
                     !$producto->setid_valoracion($_POST['idValoracionProducto']) or
@@ -170,24 +170,24 @@ if (isset($_GET['action'])) {
                 ) {
                     $result['error'] = $producto->getDataError();
                     
-                } elseif ($producto->updateRow_valoracion()) {
+                } elseif ($producto->updateRowValoracion()) {
                     $result['status'] = 1;
                     $result['message'] = 'Estado modificado correctamente';
                 } else {
                     $result['exception'] = 'Ocurrió un problema al modificar el estado';
                 }
             break;
-                case 'readOne_valoracion':
+                case 'readOneValoracion':
                     if (!$producto->setid_valoracion($_POST['idValoracionProducto'])) {
                         $result['error'] = $producto->getDataError();
-                    } elseif ($result['dataset'] = $producto->readOne_valoracion()) {
+                    } elseif ($result['dataset'] = $producto->readOneValoracion()) {
                         $result['status'] = 1;
                     } else {
                         $result['error'] = 'Valoracion inexistente';
                     }
                 break;
-                case 'readAll_valoracion':
-                    if ($result['dataset'] = $producto->readAll_valoracion()) {
+                case 'readAllValoracion':
+                    if ($result['dataset'] = $producto->readAllValoracion()) {
                             $result['status'] = 1;
                             $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                     } else {
@@ -195,10 +195,10 @@ if (isset($_GET['action'])) {
                             
                     }
                 break;
-            case 'deleteRow_valoracion':
+            case 'deleteRowValoracion':
                 if (!$producto->setid_valoracion($_POST['idValoracionProducto'])) {
                     $result['error'] = $producto->getDataError();
-                } elseif ($producto->deleteRow_valoracion()) {
+                } elseif ($producto->deleteRowValoracion()) {
                     $result['status'] = 1;
                     $result['message'] = 'Valoracion eliminado correctamente';
                 } else {

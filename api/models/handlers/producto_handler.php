@@ -94,11 +94,10 @@ class ProductoHandler
 
     public function updateRow()
     {
-        $sql = 'UPDATE tb_productos p
-                INNER JOIN tb_detalle_productos dp USING(id_producto)
-                SET p.imagen = ?, p.nombre_producto = ?, p.descripcion = ?, dp.precio = ?, dp.cantidad_disponible = ?, p.id_categoria = ?, p.id_tipo_producto = ?, dp.id_talla = ?, dp.id_genero = ?
+        $sql = 'UPDATE tb_productos 
+                SET imagen = ?, nombre_producto = ?, descripcion = ?, id_categoria = ?, id_tipo_producto = ?, id_deporte = ?
                 WHERE id_producto = ?';
-        $params = array($this->imagen, $this->nombre, $this->descripcion, $this->precio, $this->existencias, $this->id_categoria,$this->id_tipo_producto,$this->id_talla,$this->id_genero, $this->id);
+        $params = array($this->imagen, $this->nombre, $this->descripcion, $this->id_categoria,$this->id_tipo_producto,$this->id_deporte, $this->id);
         return Database::executeRow($sql, $params);
     }
 
@@ -126,7 +125,7 @@ class ProductoHandler
     *   Métodos para realizar las operaciones SCRUD en tabla DETALLE?PRODUCTO (search, create, read, update, and delete).
     */
 
-    public function createRow_detalleProducto()
+    public function createRowDetalleProducto()
         {
             $sql = 'INSERT INTO tb_detalle_productos(precio, cantidad_disponible, id_talla, id_genero, id_producto)
                     VALUES(?, ?, ?, ?, ?)';
@@ -134,7 +133,7 @@ class ProductoHandler
             return Database::executeRow($sql, $params);
         }
 
-        public function readAll_detalle()
+        public function readAllDetalle()
     {
         $sql = 'SELECT dp.id_detalle_producto, dp.precio, dp.cantidad_disponible, t.talla, g.genero, p.nombre_producto,dp.id_talla
         FROM tb_detalle_productos dp
@@ -145,7 +144,7 @@ class ProductoHandler
         return Database::getRows($sql);
     }
 
-    public function readOne_detalle()
+    public function readOneDetalle()
     {
         $sql = 'SELECT id_detalle_producto, precio, cantidad_disponible, id_talla, id_genero, id_producto
                 FROM tb_detalle_productos
@@ -155,7 +154,7 @@ class ProductoHandler
         return Database::getRow($sql, $params);
     }
 
-    public function updateRow_detalle()
+    public function updateRowDetalle()
     {
         $sql = 'UPDATE tb_detalle_productos 
                 SET precio = ?, cantidad_disponible = ?, id_talla = ?, id_genero = ?
@@ -164,7 +163,7 @@ class ProductoHandler
         return Database::executeRow($sql, $params);
     }
 
-    public function deleteRow_detalle()
+    public function deleteRowDetalle()
     {
         $sql = 'DELETE FROM tb_detalle_productos
                 WHERE id_detalle_producto = ?';
@@ -176,7 +175,7 @@ class ProductoHandler
     *   Métodos para realizar las operaciones SCRUD en tabla tb_valoraciones_productos (search, create, read, update, and delete).
     */
 
-    public function createRow_valoracion()
+    public function createRowValoracion()
         {
             $sql = 'INSERT INTO tb_valoraciones_productos(id_opinion, id_detalle_producto, id_cliente, estado_valoracion)
                     VALUES(?, ?, ?, ?)';
@@ -184,7 +183,7 @@ class ProductoHandler
             return Database::executeRow($sql, $params);
         }
 
-        public function readAll_valoracion()
+        public function readAllValoracion()
     {
         $sql = 'SELECT v.id_valoracion_producto, o.comentario, o.opinion, c.nombre_cliente, v.estado_valoracion
         FROM tb_valoraciones_productos v
@@ -194,7 +193,7 @@ class ProductoHandler
         return Database::getRows($sql);
     }
 
-    public function readOne_valoracion()
+    public function readOneValoracion()
     {
         $sql = 'SELECT id_valoracion_producto, estado_valoracion
                 FROM tb_valoraciones_productos
@@ -203,7 +202,7 @@ class ProductoHandler
         return Database::getRow($sql, $params);
     }
 
-    public function updateRow_valoracion()
+    public function updateRowValoracion()
     {
         $sql = 'UPDATE tb_valoraciones_productos 
                 SET estado_valoracion = ?
@@ -212,7 +211,7 @@ class ProductoHandler
         return Database::executeRow($sql, $params);
     }
 
-    public function deleteRow_valoracion()
+    public function deleteRowValoracion()
     {
         $sql = 'DELETE FROM tb_valoraciones_productos
                 WHERE id_valoracion_producto = ?';
