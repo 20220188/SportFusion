@@ -87,7 +87,7 @@ class PedidoHandler
     /*
     *   Métodos para realizar las operaciones SCRUD en tabla DETALLE?PRODUCTO (search, create, read, update, and delete).
     */
-    public function createRow_detalle()
+    public function createRowDetalle()
         {
             $sql = 'INSERT INTO tb_detalle_pedidos(cantidad_pedido, precio_pedido, id_pedido, id_producto, id_estado_pedido)
                     VALUES(?, ?, ?, ?, ?)';
@@ -95,7 +95,7 @@ class PedidoHandler
             return Database::executeRow($sql, $params);
         }
 
-        public function readAll_detalle()
+        public function readAllDetalle()
     {
         $sql = 'SELECT dp.id_detalle, dp.cantidad_pedido, dp.precio_pedido, t.id_pedido, g.nombre_producto, p.estado_pedido,dp.id_estado_pedido
         FROM tb_detalle_pedidos dp
@@ -106,7 +106,7 @@ class PedidoHandler
         return Database::getRows($sql);
     }
 
-    public function readOne_detalle()
+    public function readOneDetalle()
     {
         $sql = 'SELECT id_detalle, id_estado_pedido
                 FROM tb_detalle_pedidos
@@ -115,7 +115,7 @@ class PedidoHandler
         return Database::getRow($sql, $params);
     }
 
-    public function updateRow_detalle()
+    public function updateRowDetalle()
     {
         $sql = 'UPDATE tb_detalle_pedidos 
                 SET id_estado_pedido = ?
@@ -124,7 +124,7 @@ class PedidoHandler
         return Database::executeRow($sql, $params);
     }
 
-    public function deleteRow_detalle()
+    public function deleteRowDetalle()
     {
         $sql = 'DELETE FROM tb_detalle
                 WHERE id_detalle = ?';

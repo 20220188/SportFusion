@@ -83,7 +83,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
             //Casos para DETALLE_pedido
-            case 'createRow_detalle':
+            case 'createRowDetalle':
                 $_POST = Validator::validateForm($_POST);
             if (
                 !$pedido->setDetallePedido($_POST['idDetalle']) or
@@ -93,15 +93,15 @@ if (isset($_GET['action'])) {
                 !$pedido->setId_estado($_POST['estadoPedido'])
             ) {
                 $result['error'] = $pedido->getDataError();
-            } elseif ($pedido->createRow_detalle()) {
+            } elseif ($pedido->createRowDetalle()) {
                 $result['status'] = 1;
                 $result['message'] = 'Detalle creado correctamente';
             } else {
                 $result['exception'] = Database::getException();
             }
                 break;
-            case 'readAll_detalle':
-                if ($result['dataset'] = $pedido->readAll_detalle()) {
+            case 'readAllDetalle':
+                if ($result['dataset'] = $pedido->readAllDetalle()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } else {
@@ -109,33 +109,33 @@ if (isset($_GET['action'])) {
                     
                 }
                 break;
-            case 'readOne_detalle':
+            case 'readOneDetalle':
                 if (!$pedido->setDetallePedido($_POST['idDetalle'])) {
                     $result['error'] = $pedido->getDataError();
-                } elseif ($result['dataset'] = $pedido->readOne_detalle()) {
+                } elseif ($result['dataset'] = $pedido->readOneDetalle()) {
                     $result['status'] = 1;
                 } else {
                     $result['error'] = 'Detalle inexistente';
                 }
                 break;
-            case 'updateRow_detalle':
+            case 'updateRowDetalle':
                 $_POST = Validator::validateForm($_POST);
                 if (
                     !$pedido->setDetallePedido($_POST['idDetalle']) or
                     !$pedido->setId_estado($_POST['estadoPedido'])
                 ) {
                     $result['error'] = $pedido->getDataError();
-                } elseif ($pedido->updateRow_detalle()) {
+                } elseif ($pedido->updateRowDetalle()) {
                     $result['status'] = 1;
                     $result['message'] = 'Detalle modificado correctamente';
                 } else {
                     $result['exception'] = 'Ocurrió un problema al modificar el detalle';
                 }
                 break;
-            case 'deleteRow_detalle':
+            case 'deleteRowDetalle':
                 if (!$pedido->setDetallePedido($_POST['idDetalle'])) {
                     $result['error'] = $pedido->getDataError();
-                } elseif ($pedido->deleteRow_detalle()) {
+                } elseif ($pedido->deleteRowDetalle()) {
                     $result['status'] = 1;
                     $result['message'] = 'Detalle eliminado correctamente';
                 } else {

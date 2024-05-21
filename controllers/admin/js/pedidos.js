@@ -202,7 +202,7 @@ SAVE_FORM_DETALLE.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se verifica la acción a realizar.
-    (ID_DETALLEP.value) ? action = 'updateRow_detalle' : action = 'createRow_detalle';
+    (ID_DETALLEP.value) ? action = 'updateRowDetalle' : action = 'createRowDetalle';
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(SAVE_FORM_DETALLE);
     // Petición para guardar los datos del formulario.
@@ -230,7 +230,7 @@ const fillTableDetails = async (form = null) => {
     ROWS_FOUND_DETALLE.textContent = '';
     TABLE_BODY_DETALLE.innerHTML = '';
     // Se verifica la acción a realizar.
-    (form) ? action = 'searchRows' : action = 'readAll_detalle';
+    (form) ? action = 'searchRows' : action = 'readAllDetalle';
     // Petición para obtener los registros disponibles.
     const DATA = await fetchData(PEDIDO_API, action, form);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
@@ -288,7 +288,7 @@ const openUpdateDetails = async (id1) => {
     const FORM_DETALLE = new FormData();
     FORM_DETALLE.append('idDetalle', id1);
     // Petición para obtener los datos del registro solicitado.
-    const DATA = await fetchData(PEDIDO_API, 'readOne_detalle', FORM_DETALLE);
+    const DATA = await fetchData(PEDIDO_API, 'readOneDetalle', FORM_DETALLE);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se muestra la caja de diálogo con su título.
@@ -321,7 +321,7 @@ const openDeleteDetails = async (id) => {
         const FORM = new FormData();
         FORM.append('idDetalle', id);
         // Petición para eliminar el registro seleccionado.
-        const DATA = await fetchData(PEDIDO_API, 'deleteRow_detalle', FORM);
+        const DATA = await fetchData(PEDIDO_API, 'deleteRowDetalle', FORM);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
         if (DATA.status) {
             // Se muestra un mensaje de éxito.
