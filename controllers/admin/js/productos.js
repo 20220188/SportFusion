@@ -272,14 +272,14 @@ SAVE_FORM_DETALLE.addEventListener('submit', async (event) => {
 *   Parámetros: form (objeto opcional con los datos de búsqueda).
 *   Retorno: ninguno.
 */
-const fillTableDetails = async (form = null) => {
+const fillTableDetails = async (id) => {
     // Se inicializa el contenido de la tabla.
     ROWS_FOUND_DETALLE.textContent = '';
     TABLE_BODY_DETALLE.innerHTML = '';
-    // Se verifica la acción a realizar.
-    (form) ? action = 'searchRows' : action = 'readAllDetalle';
+    const FORM = new FormData();
+    FORM.append('idDetalles', id);
     // Petición para obtener los registros disponibles.
-    const DATA = await fetchData(PRODUCTO_API, action, form);
+    const DATA = await fetchData(PRODUCTO_API, 'readAllDetalle', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
@@ -319,6 +319,7 @@ const fillTableDetails = async (form = null) => {
 *   Retorno: ninguno.
 */
 const openDetails = (id_producto) => {
+    console.log(id_producto);
     // Se muestra la caja de diálogo con su título.
     SAVE_MODAL_DETALLE.show();
     MODAL_TITLE_DETALLE.textContent = 'Crear Detalle producto';
@@ -329,7 +330,7 @@ const openDetails = (id_producto) => {
     fillSelect(TALLA_API, 'readAll', 'tallaDetalle');
     fillSelect(GENERO_API, 'readAll', 'generoDetalle');
 
-    fillTableDetails();
+    fillTableDetails(id_producto);
 }
 
 /*

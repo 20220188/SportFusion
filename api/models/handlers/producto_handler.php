@@ -135,13 +135,14 @@ class ProductoHandler
 
         public function readAllDetalle()
     {
-        $sql = 'SELECT dp.id_detalle_producto, dp.precio, dp.cantidad_disponible, t.talla, g.genero, p.nombre_producto,dp.id_talla
+        $sql = 'SELECT dp.id_detalle_producto, dp.precio,dp.id_producto, dp.cantidad_disponible, t.talla, g.genero, p.nombre_producto,dp.id_talla
         FROM tb_detalle_productos dp
         INNER JOIN tb_tallas t USING(id_talla)
         INNER JOIN tb_generos g USING(id_genero)
         INNER JOIN tb_productos p USING(id_producto)
-        ORDER BY nombre_producto';
-        return Database::getRows($sql);
+        WHERE dp.id_producto = ?';
+        $params = array($this->id);
+        return Database::getRows($sql, $params);
     }
 
     public function readOneDetalle()

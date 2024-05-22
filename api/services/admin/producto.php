@@ -116,7 +116,7 @@ if (isset($_GET['action'])) {
                 $result['exception'] = Database::getException();
             }
                 break;
-            case 'readAllDetalle':
+            /*case 'readAllDetalle':
                 if ($result['dataset'] = $producto->readAllDetalle()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
@@ -124,6 +124,17 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'No existen detalles registrados';
                     
                 }
+                break;
+                */
+                case 'readAllDetalle':
+                    if(!$producto->setId($_POST['idDetalles'])){
+                        $result['error'] = $producto->getDataError();
+                    }elseif ($result['dataset'] = $producto->readAllDetalle()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                    } else {
+                        $result['error'] = 'No existen detalles registrados';
+                    }
                 break;
             case 'readOneDetalleProducto':
                 if (!$producto->setDetalleproducto($_POST['idDetalle'])) {
