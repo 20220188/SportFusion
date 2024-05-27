@@ -529,47 +529,19 @@ const openDeleteTipoP = async (id) => {
     }
 }
 
-
-/*
-*   Funciones para la tabla tb_VALORACIONES_PRODUCTOS
-*/
-
-// Método del evento para cuando se envía el formulario de guardar.
-SAVE_FORM_COMENTARIO.addEventListener('submit', async (event) => {
-    // Se evita recargar la página web después de enviar el formulario.
-    event.preventDefault();
-    // Se verifica la acción a realizar.
-    (ID_VALORACION_PRODUCTO.value) ? action = 'updateRowValoracion' : action = 'createRowValoracion';
-    // Constante tipo objeto con los datos del formulario.
-    const FORMC = new FormData(SAVE_FORM_COMENTARIO);
-    // Petición para guardar los datos del formulario.
-    const DATA = await fetchData(PRODUCTO_API, action, FORMC);
-    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-    if (DATA.status) {
-        // Se cierra la caja de diálogo.
-        //SAVE_MODAL.hide();
-        // Se muestra un mensaje de éxito.
-        sweetAlert(1, DATA.message, true);
-        // Se carga nuevamente la tabla para visualizar los cambios.
-        fillTableComentario();
-    } else {
-        sweetAlert(2, DATA.error, false);
-    }
-});
-
 /*
 *   Función asíncrona para llenar la tabla con los registros disponibles.
 *   Parámetros: form (objeto opcional con los datos de búsqueda).
 *   Retorno: ninguno.
 */
-const fillTableComentario = async (form = null) => {
+const fillTableComentario = async (id) => {
     // Se inicializa el contenido de la tabla.
     ROWS_FOUND_COMENTARIO.textContent = '';
     TABLE_BODY_COMENTARIO.innerHTML = '';
-    // Se verifica la acción a realizar.
-    (form) ? action = 'searchRows' : action = 'readAllValoracion';
+    const FORM = new FormData();
+    FORM.append('idDetalleV', id);
     // Petición para obtener los registros disponibles.
-    const DATA = await fetchData(PRODUCTO_API, action, form);
+    const DATA = await fetchData(PRODUCTO_API, 'readAllValoracion', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se recorre el conjunto de registros fila por fila.
@@ -585,11 +557,8 @@ const fillTableComentario = async (form = null) => {
                     <td>${row.nombre_cliente}</td>
                     <td><i class="${icon}"></i></td>
                     <td>
-                        <button type="button" class="btn btn-info" onclick="openUpdateComentario(${row.id_valoracion_producto})">
+                        <button type="button" class="btn btn-info" onclick="openEstadoComentario(${row.id_valoracion_producto},${id})">
                         <i class="fa-solid fa-pencil"></i>
-                        </button>
-                        <button type="button" class="btn btn-danger" onclick="openDeleteComentario(${row.id_valoracion_producto})">
-                        <i class="fa-regular fa-trash-can"></i>
                         </button>
                     </td>
                 </tr>
@@ -619,65 +588,42 @@ const converRatingToStars = (rating) =>{
 *   Parámetros: ninguno.
 *   Retorno: ninguno.
 */
-const openCreateComentario = () => {
+const openCreateComentario = (idDetalleV) => {
+    console.log(idDetalleV);
     // Se muestra la caja de diálogo con su título.
     SAVE_MODAL_COMENTARIO.show();
-    MODAL_TITLE_COMENTARIO.textContent = 'Crear valoración';
+    MODAL_TITLE_COMENTARIO.textContent = 'Valoraciones';
     // Se prepara el formulario.
-    SAVE_FORM_COMENTARIO.reset();
 
-    fillTableComentario();
+
+    // Llenar la tabla de comentarios al abrir el formulario
+    fillTableComentario(idDetalleV);
 }
 
-/*
-*   Función asíncrona para preparar el formulario al momento de actualizar un registro.
-*   Parámetros: id (identificador del registro seleccionado).
-*   Retorno: ninguno.
-*/
-const openUpdateComentario = async (id2) => {
-    // Se define una constante tipo objeto con los datos del registro seleccionado.
-    const FORM_COMENTARIO= new FormData();
-    FORM_COMENTARIO.append('idValoracionProducto', id2);
-    // Petición para obtener los datos del registro solicitado.
-    const DATA = await fetchData(PRODUCTO_API, 'readOneValoracion', FORM_COMENTARIO);
-    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-    if (DATA.status) {
-        // Se muestra la caja de diálogo con su título.
-        SAVE_MODAL_COMENTARIO.show();
-        MODAL_TITLE_COMENTARIO.textContent = 'Actualizar valoración';
-        // Se prepara el formulario.
-        SAVE_FORM_COMENTARIO.reset();
-        // Se inicializan los campos con los datos.
-        const ROW = DATA.dataset;
-        ID_VALORACION_PRODUCTO.value = ROW.id_valoracion_producto;
-        ESTADO_OPINION.value = ROW.estado_valoracion;
 
-    } else {
-        sweetAlert(2, DATA.error, false);
-    }
-}
+
 
 /*
 *   Función asíncrona para eliminar un registro.
 *   Parámetros: id (identificador del registro seleccionado).
 *   Retorno: ninguno.
 */
-const openDeleteComentario = async (id) => {
+const openEstadoComentario = async (id,idDetalle) => {
     // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
-    const RESPONSE = await confirmAction('¿Desea eliminar la valoración de forma permanente?');
+    const RESPONSE = await confirmAction('¿Desea cambiar el estado de la valoración?');
     // Se verifica la respuesta del mensaje.
     if (RESPONSE) {
         // Se define una constante tipo objeto con los datos del registro seleccionado.
         const FORM_COMENTARIO = new FormData();
         FORM_COMENTARIO.append('idValoracionProducto', id);
         // Petición para eliminar el registro seleccionado.
-        const DATA = await fetchData(PRODUCTO_API, 'deleteRowValoracion', FORM_COMENTARIO);
+        const DATA = await fetchData(PRODUCTO_API, 'updateRowValoracion', FORM_COMENTARIO);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
         if (DATA.status) {
             // Se muestra un mensaje de éxito.
             await sweetAlert(1, DATA.message, true);
             // Se carga nuevamente la tabla para visualizar los cambios.
-            fillTableComentario();
+            fillTableComentario(idDetalle);
         } else {
             sweetAlert(2, DATA.error, false);
         }

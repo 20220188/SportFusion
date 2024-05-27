@@ -186,12 +186,14 @@ class ProductoHandler
 
         public function readAllValoracion()
     {
-        $sql = 'SELECT v.id_valoracion_producto, o.comentario, o.opinion, c.nombre_cliente, v.estado_valoracion
+        $sql = 'SELECT v.id_valoracion_producto, o.comentario, o.opinion,v.id_detalle_producto, c.nombre_cliente, v.estado_valoracion
         FROM tb_valoraciones_productos v
         INNER JOIN tb_opiniones o USING(id_opinion)
         INNER JOIN tb_clientes c USING(id_cliente)
-        ORDER BY o.opinion DESC';
-        return Database::getRows($sql);
+        inner join tb_detalle_productos dp using(id_detalle_producto)
+        WHERE v.id_detalle_producto = ?';
+        $params = array($this->id_detalle_producto);
+        return Database::getRows($sql, $params);
     }
 
     public function readOneValoracion()
@@ -205,10 +207,10 @@ class ProductoHandler
 
     public function updateRowValoracion()
     {
-        $sql = 'UPDATE tb_valoraciones_productos 
-                SET estado_valoracion = ?
-                WHERE id_valoracion_producto = ?';
-        $params = array($this->estado_valoracion, $this->id_valoracion);
+        $sql = 'UPDATE tb_valoraciones_productos
+        SET estado_valoracion = !(estado_valoracion )
+        WHERE id_valoracion_producto = ?';
+        $params = array($this->id_valoracion);
         return Database::executeRow($sql, $params);
     }
 

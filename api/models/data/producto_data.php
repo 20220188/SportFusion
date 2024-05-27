@@ -128,7 +128,7 @@ public function setDetalleproducto($value)
             $this->id_detalle_producto = $value;
             return true;
         } else {
-            $this->data_error = 'Tipo producto incorrecto';
+            $this->data_error = 'Detalle producto incorrecto';
             return false;
         }
     }
