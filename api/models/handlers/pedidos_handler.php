@@ -22,7 +22,7 @@ class PedidoHandler
     protected $id_estado_pedido = null;
     protected $id_producto = null;
 
-    
+
 
     /*
     *   Métodos para realizar las operaciones SCRUD en tabla PEDIDO (search, create, read, update, and delete).
@@ -39,28 +39,30 @@ class PedidoHandler
         return Database::getRows($sql, $params);
     }
 
-        public function createRow()
-        {
-            $sql = 'INSERT INTO tb_pedidos(direccion_pedido, fecha_registro, id_cliente)
+    public function createRow()
+    {
+        $sql = 'INSERT INTO tb_pedidos(direccion_pedido, fecha_registro, id_cliente)
                     VALUES(?, ?, ?)';
-            $params = array($this->direccion_pedido, $this->fecha_registro, $this->id_cliente);
-            //esto funciona para ver los valores que toma el arreglo print_r($params);
-            return Database::executeRow($sql, $params);
-        }
+        $params = array($this->direccion_pedido, $this->fecha_registro, $this->id_cliente);
+        //esto funciona para ver los valores que toma el arreglo print_r($params);
+        return Database::executeRow($sql, $params);
+    }
 
     public function readAll()
     {
-        $sql = 'SELECT id_pedido, direccion_pedido, fecha_registro, nombre_cliente  
+        $sql = 'SELECT id_pedido, direccion_pedido, fecha_registro, nombre_cliente, estado_pedido, id_estado_pedido  
                 FROM tb_pedidos
                 INNER JOIN tb_clientes USING(id_cliente)
+                INNER JOIN tb_estado_pedidos USING(id_estado_pedido)
                 ORDER BY id_pedido';
         return Database::getRows($sql);
     }
 
     public function readOne()
     {
-        $sql = 'SELECT id_pedido, direccion_pedido, direccion_pedido, id_cliente
+        $sql = 'SELECT id_pedido, estado_pedido
                 FROM tb_pedidos 
+                INNER JOIN tb_estado_pedidos USING(id_estado_pedido)
                 WHERE id_pedido = ?';
         $params = array($this->id_pedido);
         return Database::getRow($sql, $params);
@@ -69,10 +71,10 @@ class PedidoHandler
     public function updateRow()
     {
         $sql = 'UPDATE tb_pedidos p
-                INNER JOIN tb_detalle_pedidos dp USING(id_pedido)
-                SET  p.direccion_pedido = ?, p.direccion_pedido = ?, dp.id_cliente = ?
+                SET  p.id_estado_pedido = ?
                 WHERE id_pedido = ?';
-                $params = array($this->direccion_pedido, $this->fecha_registro, $this->id_cliente);        return Database::executeRow($sql, $params);
+        $params = array($this->id_estado_pedido, $this->id_pedido);
+        return Database::executeRow($sql, $params);
     }
 
     public function deleteRow()
@@ -88,22 +90,22 @@ class PedidoHandler
     *   Métodos para realizar las operaciones SCRUD en tabla DETALLE?PRODUCTO (search, create, read, update, and delete).
     */
     public function createRowDetalle()
-        {
-            $sql = 'INSERT INTO tb_detalle_pedidos(cantidad_pedido, precio_pedido, id_pedido, id_producto, id_estado_pedido)
-                    VALUES(?, ?, ?, ?, ?)';
-            $params = array($this->cantidad_pedido, $this->precio_pedido, $this->id_pedido, $this->id_producto, $this->id_estado_pedido);
-            return Database::executeRow($sql, $params);
-        }
-
-        public function readAllDetalle()
     {
-        $sql = 'SELECT dp.id_detalle, dp.cantidad_pedido, dp.precio_pedido, t.id_pedido, g.nombre_producto, p.estado_pedido,dp.id_estado_pedido
+        $sql = 'INSERT INTO tb_detalle_pedidos(cantidad_pedido, precio_pedido, id_pedido, id_producto, id_estado_pedido)
+                    VALUES(?, ?, ?, ?, ?)';
+        $params = array($this->cantidad_pedido, $this->precio_pedido, $this->id_pedido, $this->id_producto, $this->id_estado_pedido);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function readAllDetalle()
+    {
+        $sql = 'SELECT dp.id_detalle, dp.cantidad_pedido, dp.precio_pedido, dp.id_pedido, g.nombre_producto
         FROM tb_detalle_pedidos dp
         INNER JOIN tb_pedidos t USING(id_pedido)
         INNER JOIN tb_productos g USING(id_producto)
-        INNER JOIN tb_estado_pedidos p USING(id_estado_pedido)
-        ORDER BY nombre_producto';
-        return Database::getRows($sql);
+        WHERE dp.id_pedido = ?';
+        $params = array($this->id_pedido);
+        return Database::getRows($sql, $params);
     }
 
     public function readOneDetalle()
@@ -148,5 +150,4 @@ class PedidoHandler
         return Database::getRows($sql, $params);
     }
     */
-    
 }

@@ -59,8 +59,8 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 if (
                     !$pedido->setId($_POST['idPedido']) or
-                    !$pedido->setDireccion($_POST['direccionPedido']) or
-                    !$pedido->setFecha($_POST['fechaPedido'])
+                    !$pedido->setId_estado($_POST['estadoPedido'])
+
                 ) {
                     $result['error'] = $pedido->getDataError();
                 } elseif ($pedido->updateRow()) {
@@ -101,12 +101,14 @@ if (isset($_GET['action'])) {
             }
                 break;
             case 'readAllDetalle':
-                if ($result['dataset'] = $pedido->readAllDetalle()) {
+                if (!$pedido->setId($_POST['idPedido'])) {
+                    print_r($_POST );
+                    $result['error'] = $pedido->getDataError();
+                } elseif ($result['dataset'] = $pedido->readAllDetalle()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } else {
                     $result['error'] = 'No existen detalles registrados';
-                    
                 }
                 break;
             case 'readOneDetalle':

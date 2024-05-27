@@ -24,7 +24,7 @@ class PedidoData extends PedidoHandler
             $this->id_pedido = $value;
             return true;
         } else {
-            $this->data_error = 'El identificador del producto es incorrecto';
+            $this->data_error = 'El identificador del pedido es incorrecto';
             return false;
         }
     }

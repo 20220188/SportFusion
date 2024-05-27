@@ -18,7 +18,6 @@ const SAVE_MODAL = new bootstrap.Modal('#saveModal'),
     MODAL_TITLE = document.getElementById('modalTitle');
 // Constantes para establecer los elementos del formulario de guardar.
 const SAVE_FORM = document.getElementById('saveForm'),
-    ID_PEDIDO = document.getElementById('idPedido'),
     DIRECCION_PEDIDO = document.getElementById('direccionPedido'),
     FECHA_PEDIDO = document.getElementById('fechaPedido')
 
@@ -37,8 +36,8 @@ const SAVE_FORM_DETALLE = document.getElementById('saveFormDetalle'),
     ID_DETALLEP = document.getElementById('idDetalle'),
     PRECIO_DETALLE = document.getElementById('precioDetalle'),
     EXISTENCIAS_DETALLE = document.getElementById('existenciasDetalle')
-    FECHA_DETALLE = document.getElementById('estadoPedido');
-    ID_PEDIDOD = document.getElementById('idPedidoDetalle')
+    ESTADO_PEDIDO = document.getElementById('estadoPedido');
+    ID_PEDIDO = document.getElementById('idPedido')
 
 
 
@@ -62,28 +61,6 @@ SEARCH_FORM.addEventListener('submit', (event) => {
     fillTable(FORM);
 });
 
-// Método del evento para cuando se envía el formulario de guardar.
-SAVE_FORM.addEventListener('submit', async (event) => {
-    // Se evita recargar la página web después de enviar el formulario.
-    event.preventDefault();
-    // Se verifica la acción a realizar.
-    (ID_PRODUCTO.value) ? action = 'updateRow' : action = 'createRow';
-    // Constante tipo objeto con los datos del formulario.
-    const FORM = new FormData(SAVE_FORM);
-    // Petición para guardar los datos del formulario.
-    const DATA = await fetchData(PEDIDO_API, action, FORM);
-    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-    if (DATA.status) {
-        // Se cierra la caja de diálogo.
-        SAVE_MODAL.hide();
-        // Se muestra un mensaje de éxito.
-        sweetAlert(1, DATA.message, true);
-        // Se carga nuevamente la tabla para visualizar los cambios.
-        fillTable();
-    } else {
-        sweetAlert(2, DATA.error, false);
-    }
-});
 
 /*
 *   Función asíncrona para llenar la tabla con los registros disponibles.
@@ -108,8 +85,9 @@ const fillTable = async (form = null) => {
                     <td>${row.direccion_pedido}</td>
                     <td>${row.fecha_registro}</td>
                     <td>${row.nombre_cliente}</td>
+                    <td>${row.estado_pedido}</td>
                     <td>
-                        <button type="button" class="btn btn-success" onclick="openDetails(${row.id_pedido})">
+                        <button type="button" class="btn btn-success" onclick="openDetails(${row.id_pedido},${row.id_estado_pedido})">
                         <i class="fa-regular fa-square-plus"></i>
                         </button>
                     </td>
@@ -202,7 +180,7 @@ SAVE_FORM_DETALLE.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se verifica la acción a realizar.
-    (ID_DETALLEP.value) ? action = 'updateRowDetalle' : action = 'createRowDetalle';
+    (ID_PEDIDO.value) ? action = 'updateRow' : action = 'createRow';
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(SAVE_FORM_DETALLE);
     // Petición para guardar los datos del formulario.
@@ -210,11 +188,11 @@ SAVE_FORM_DETALLE.addEventListener('submit', async (event) => {
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se cierra la caja de diálogo.
-        //SAVE_MODAL_DETALLE.hide();
+        SAVE_MODAL_DETALLE.hide();
         // Se muestra un mensaje de éxito.
         sweetAlert(1, DATA.message, true);
         // Se carga nuevamente la tabla para visualizar los cambios.
-        fillTableDetails();
+        fillTable();
     } else {
         sweetAlert(2, DATA.error, false);
     }
@@ -225,14 +203,15 @@ SAVE_FORM_DETALLE.addEventListener('submit', async (event) => {
 *   Parámetros: form (objeto opcional con los datos de búsqueda).
 *   Retorno: ninguno.
 */
-const fillTableDetails = async (form = null) => {
+const fillTableDetails = async (id) => {
     // Se inicializa el contenido de la tabla.
     ROWS_FOUND_DETALLE.textContent = '';
     TABLE_BODY_DETALLE.innerHTML = '';
-    // Se verifica la acción a realizar.
-    (form) ? action = 'searchRows' : action = 'readAllDetalle';
+
+    const FORM = new FormData();
+    FORM.append('idPedido', id);
     // Petición para obtener los registros disponibles.
-    const DATA = await fetchData(PEDIDO_API, action, form);
+    const DATA = await fetchData(PEDIDO_API, 'readAllDetalle', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
@@ -244,12 +223,6 @@ const fillTableDetails = async (form = null) => {
                     <td>${row.precio_pedido}</td>
                     <td>${row.id_pedido}</td>
                     <td>${row.nombre_producto}</td>
-                    <td>${row.estado_pedido}</td>
-                    <td>
-                        <button type="button" class="btn btn-info" onclick="openUpdateDetails(${row.id_detalle})">
-                        <i class="fa-solid fa-pencil"></i>
-                        </button>
-                    </td>
                 </tr>
             `;
         });
@@ -265,17 +238,16 @@ const fillTableDetails = async (form = null) => {
 *   Parámetros: ninguno.
 *   Retorno: ninguno.
 */
-const openDetails = (id_pedido) => {
+const openDetails = (id_pedido,estado_pedido) => {
     // Se muestra la caja de diálogo con su título.
     SAVE_MODAL_DETALLE.show();
-    MODAL_TITLE_DETALLE.textContent = 'Crear Detalle producto';
+    MODAL_TITLE_DETALLE.textContent = 'Detalle producto';
     // Se prepara el formulario.
     SAVE_FORM_DETALLE.reset();
-
-    ID_PEDIDOD.value = id_pedido;
-    fillSelect(ESTADO_PEDIDO_API, 'readAll', 'estadoPedido');
-    fillSelect(PRODUCTO_API, 'readAll', 'nombreProducto');
-    fillTableDetails();
+    
+    ID_PEDIDO.value = id_pedido;
+    fillSelect(ESTADO_PEDIDO_API, 'readAll', 'estadoPedido', estado_pedido);
+    fillTableDetails(id_pedido);
 }
 
 /*
@@ -288,7 +260,7 @@ const openUpdateDetails = async (id1) => {
     const FORM_DETALLE = new FormData();
     FORM_DETALLE.append('idDetalle', id1);
     // Petición para obtener los datos del registro solicitado.
-    const DATA = await fetchData(PEDIDO_API, 'readOneDetalle', FORM_DETALLE);
+    const DATA = await fetchData(PEDIDO_API, 'readOne', FORM_DETALLE);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se muestra la caja de diálogo con su título.
@@ -298,7 +270,7 @@ const openUpdateDetails = async (id1) => {
         SAVE_FORM_DETALLE.reset();
         // Se inicializan los campos con los datos.
         const ROW = DATA.dataset;
-        ID_DETALLEP.value = ROW.id_detalle;
+        ID_PEDIDO.value = ROW.id_pedido;
         fillSelect(ESTADO_PEDIDO_API, 'readAll', 'estadopedido', ROW.id_estado_pedido);
 
 
