@@ -26,7 +26,7 @@ class ProductoData extends ProductoHandler
             return true;
         } else {
             $this->data_error = 'El identificador del producto es incorrecto';
-            print_r($this->id);
+            
             return false;
         }
     }

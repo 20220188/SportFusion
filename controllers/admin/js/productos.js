@@ -261,7 +261,7 @@ SAVE_FORM_DETALLE.addEventListener('submit', async (event) => {
         // Se muestra un mensaje de éxito.
         sweetAlert(1, DATA.message, true);
         // Se carga nuevamente la tabla para visualizar los cambios.
-        fillTableDetails();
+        fillTableDetails(ID_PRODUCTO_DETALLE.value);
     } else {
         sweetAlert(2, DATA.error, false);
     }
@@ -277,7 +277,7 @@ const fillTableDetails = async (id) => {
     ROWS_FOUND_DETALLE.textContent = '';
     TABLE_BODY_DETALLE.innerHTML = '';
     const FORM = new FormData();
-    FORM.append('idDetalles', id);
+    FORM.append('idProducto', id);
     // Petición para obtener los registros disponibles.
     const DATA = await fetchData(PRODUCTO_API, 'readAllDetalle', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
@@ -296,7 +296,7 @@ const fillTableDetails = async (id) => {
                         <button type="button" class="btn btn-info" onclick="openUpdateDetails(${row.id_detalle_producto})">
                         <i class="fa-solid fa-pencil"></i>
                         </button>
-                        <button type="button" class="btn btn-danger" onclick="openDeleteDetails(${row.id_detalle_producto})">
+                        <button type="button" class="btn btn-danger" onclick="openDeleteDetails(${row.id_detalle_producto},${id})">
                         <i class="fa-regular fa-trash-can"></i>
                         </button>
                         <button type="button" class="btn btn-warning" onclick="openCreateComentario(${row.id_detalle_producto})">
@@ -322,7 +322,7 @@ const openDetails = (id_producto) => {
     console.log(id_producto);
     // Se muestra la caja de diálogo con su título.
     SAVE_MODAL_DETALLE.show();
-    MODAL_TITLE_DETALLE.textContent = 'Crear Detalle producto';
+    MODAL_TITLE_DETALLE.textContent = 'Detalle producto';
     // Se prepara el formulario.
     SAVE_FORM_DETALLE.reset();
 
@@ -355,9 +355,11 @@ const openUpdateDetails = async (id1) => {
         const ROW = DATA.dataset;
         ID_DETALLE.value = ROW.id_detalle_producto;
         PRECIO_DETALLE.value = ROW.precio;
+        ID_PRODUCTO_DETALLE.value = ROW.id_producto;
         EXISTENCIAS_DETALLE.value = ROW.cantidad_disponible;
         fillSelect(TALLA_API, 'readAll', 'tallaDetalle', ROW.id_talla);
         fillSelect(GENERO_API, 'readAll', 'generoDetalle', ROW.id_genero);
+
     } else {
         sweetAlert(2, DATA.error, false);
     }
@@ -368,14 +370,14 @@ const openUpdateDetails = async (id1) => {
 *   Parámetros: id (identificador del registro seleccionado).
 *   Retorno: ninguno.
 */
-const openDeleteDetails = async (id) => {
+const openDeleteDetails = async (idDetalle, idProducto) => {
     // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
     const RESPONSE = await confirmAction('¿Desea eliminar el producto de forma permanente?');
     // Se verifica la respuesta del mensaje.
     if (RESPONSE) {
         // Se define una constante tipo objeto con los datos del registro seleccionado.
         const FORM = new FormData();
-        FORM.append('idDetalle', id);
+        FORM.append('idDetalle', idDetalle);
         // Petición para eliminar el registro seleccionado.
         const DATA = await fetchData(PRODUCTO_API, 'deleteRowDetalleProducto', FORM);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
@@ -383,7 +385,7 @@ const openDeleteDetails = async (id) => {
             // Se muestra un mensaje de éxito.
             await sweetAlert(1, DATA.message, true);
             // Se carga nuevamente la tabla para visualizar los cambios.
-            fillTableDetails();
+            fillTableDetails(idProducto);
         } else {
             sweetAlert(2, DATA.error, false);
         }

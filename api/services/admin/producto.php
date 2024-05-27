@@ -127,7 +127,7 @@ if (isset($_GET['action'])) {
                 break;
                 */
                 case 'readAllDetalle':
-                    if(!$producto->setId($_POST['idDetalles'])){
+                    if(!$producto->setId($_POST['idProducto'])){
                         $result['error'] = $producto->getDataError();
                     }elseif ($result['dataset'] = $producto->readAllDetalle()) {
                         $result['status'] = 1;
