@@ -299,7 +299,7 @@ const fillTableDetails = async (id) => {
                         <button type="button" class="btn btn-danger" onclick="openDeleteDetails(${row.id_detalle_producto},${id})">
                         <i class="fa-regular fa-trash-can"></i>
                         </button>
-                        <button type="button" class="btn btn-warning" onclick="openCreateComentario(${row.id_detalle_producto})">
+                        <button type="button" class="btn btn-warning" data-bs-target="#saveModalComentario" data-bs-toggle="modal" onclick="openCreateComentario(${row.id_detalle_producto})">
                         <i class="fa-regular fa-comment-dots"></i>
                         </button>
                     </td>
