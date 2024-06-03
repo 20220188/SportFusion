@@ -1,0 +1,10 @@
+.modal-body {
+    overflow-x: auto;
+}
+.modal-body table {
+    width: 100%;
+    max-width: 100%;
+}
+.table-responsive {
+    overflow-x: auto;
+}

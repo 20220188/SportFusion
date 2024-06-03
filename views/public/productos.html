@@ -16,13 +16,37 @@
 </head>
 
 <body>
-        <!-- Contenido principal del documento -->
-    <main>
-        <!-- Título del contenido principal -->
-        <h4 id="mainTitle"></h4>
-        <!-- Contenedor para mostrar los productos disponibles de la categoría seleccionada -->
-        <div class="row" id="productos"></div>
-    </main>
+    <!-- Contenido principal del documento -->
+    <div style="display: flex;">
+        <aside class="col-lg-2 col-sm-6">
+            <!-- Formulario de búsqueda -->
+            <form class="col-sm-12 col-md-6 col-lg-12" id="searchForm">
+                <div class="row">
+                    <div class="col-sm-12 col-lg-9">
+                        <input type="search" class="form-control" name="search" placeholder="Buscar" required>
+                    </div>
+                    <div class="col-md-6 col-lg-3" >
+                        <button type="reset" class="btn btn-secondary text-end" onclick="fillTable()">
+                            <i class="fa-solid fa-eraser"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <div class="col-sm-12 col-md-6 col-lg-12" style="margin-top: 20px;">
+                <label for="estadoPedido" class="form-label">Categoria</label>
+                <select id="estadoPedido" name="estadoPedido" class="form-select" required >
+                </select>
+            </div>
+        </aside>
+
+        <main class="col-lg-10">
+            <!-- Título del contenido principal -->
+            <h4 id="mainTitle"></h4>
+            <!-- Contenedor para mostrar las categorías disponibles -->
+            <div class="row" id="productos"></div>
+        </main>
+    </div>
+        
 
     <!-- IMPORTACIÓN DE ARCHIVOS JAVASCRIPT -->
     <!-- Llamada al framework y librería de mensajes -->
