@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Llamada a la función para mostrar el encabezado y pie del documento.
     loadTemplate();
     // Se establece el título del contenido principal.
-    MAIN_TITLE.textContent = 'Productos por categoría';
+    MAIN_TITLE.textContent = '';
     // Petición para obtener las categorías disponibles.
     const DATA = await fetchData(CATEGORIA_API, 'readAll');
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
