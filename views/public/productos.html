@@ -12,15 +12,17 @@
     <link type="image/png" rel="icon" href="../../resources/img/logoSF.png">
     <!-- Llamada a las hojas de estilos del framework e iconos -->
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/categoria.css">
 </head>
 
 <body>
-        <main class="col-lg-8 col-sm-6">
-            <!-- Título del contenido principal -->
-            <h4 id="mainTitle"></h4>
-            <!-- Contenedor para mostrar las categorías disponibles -->
-            <div class="row" id="categorias"></div>
-        </main>
+        <!-- Contenido principal del documento -->
+    <main>
+        <!-- Título del contenido principal -->
+        <h4 id="mainTitle"></h4>
+        <!-- Contenedor para mostrar los productos disponibles de la categoría seleccionada -->
+        <div class="row" id="productos"></div>
+    </main>
 
     <!-- IMPORTACIÓN DE ARCHIVOS JAVASCRIPT -->
     <!-- Llamada al framework y librería de mensajes -->
@@ -35,7 +37,7 @@
     <script type="text/javascript" src="../../controllers/utils/js/public.js"></script>
 
     <!-- Llamada al controlador de la página web -->
-    <script type="text/javascript" src="../../controllers/public/deporte.js"></script>
+    <script type="text/javascript" src="../../controllers/public/producto.js"></script>
 </body>
 
 </html>

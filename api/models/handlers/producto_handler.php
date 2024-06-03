@@ -109,15 +109,15 @@ class ProductoHandler
         return Database::executeRow($sql, $params);
     }
 
-    public function readProductosCategoria()
+    public function readProductosDeporte()
     {
-        $sql = 'SELECT id_producto, imagen, nombre_producto, descripcion, nombre_categoria, tipo_producto
+        $sql = 'SELECT id_producto, imagen, nombre_producto, descripcion, tipo_producto, nombre_deporte
                 FROM tb_productos
-                INNER JOIN tb_categorias USING(id_categoria)
+                INNER JOIN tb_deportes USING(id_deporte)
                 INNER JOIN tb_tipo_productos USING(id_tipo_producto)
-                WHERE id_categoria = ?
+                WHERE id_deporte = ?
                 ORDER BY nombre_producto';
-        $params = array($this->id_categoria);
+        $params = array($this->id_deporte);
         return Database::getRows($sql, $params);
     }
 

@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Se establece una palabra para el estado del producto.
             (row.estado_retro) ? estado = 'SI' : estado = 'NO';
             // Se establece la página web de destino con los parámetros.
-            let url = `products.html?id=${row.id_categoria}&nombre=${row.nombre_categoria}`;
+            let url = `productos.html?id=${row.id_deporte}&nombre=${row.nombre_deporte}`;
             // Se crean y concatenan las tarjetas con los datos de cada categoría.
             CATEGORIAS.innerHTML += `
                 <div class="col-sm-12 col-md-6 col-lg-4">
