@@ -2,48 +2,50 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <link href="../../resources/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../resources/css/public.css">
-    <script src="https://kit.fontawesome.com/b7134240d3.js" crossorigin="anonymous"></script>
+    <!-- Título del documento -->
+    <title></title>
+    <!-- Metadatos de la página web -->
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pública</title>
+    <!-- IMPORTACIÓN DE RECURSOS EXTERNOS -->
+    <!-- Llamada al icono de la página web -->
+    <link type="image/png" rel="icon" href="../../resources/img/logoSF.png">
+    <!-- Llamada a las hojas de estilos del framework e iconos -->
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
 </head>
 
 <body>
-
-    <!-- Navbar de el dashboard público-->
-    <header>
-        <a href="dashboard.html" class="logo"><img src="../../resources/img/logoSF.png" alt=""></a>
-        <div class="group">
-            <ul class="navigation">
-                <li><a href="#" id="open">Regístrate o inicia sesion</a></li>
+    <div>
+        <aside>
+            <ul class="list-group">
+                <li class="list-group-item">An item</li>
+                <li class="list-group-item">A second item</li>
+                <li class="list-group-item">A third item</li>
+                <li class="list-group-item">A fourth item</li>
+                <li class="list-group-item">And a fifth one</li>
             </ul>
-        </div>
-    </header>
-
-
+        </aside>
     </div>
-    
-    <div class="content">
-        <h1>Experiencias de compra de nueva generación para ti</h1>
-            <h2>La moda vuelve a sus raíces clásicas</h2>
+    <main>
+        <!-- Título del contenido principal -->
+        <h4 id="mainTitle"></h4>
+        <!-- Contenedor para mostrar las categorías disponibles -->
+        <div class="row" id="categorias"></div>
+    </main>
 
-        <div>
-            <a href="dashboard.html"><button><i class="fa-solid fa-circle-right"></i> Comprar ahora</button></a>
-        </div>
-        <img src="../../resources/img/kps.jpg" alt="" class="imagenFondo">
-    </div>
-        
-    
+    <!-- IMPORTACIÓN DE ARCHIVOS JAVASCRIPT -->
+    <!-- Llamada al framework y librería de mensajes -->
+    <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Llamada al kit de font awesome -->
+    <script src="https://kit.fontawesome.com/f6e8d56735.js" crossorigin="anonymous"></script>
 
-    <script src="../../resources/js/popupLogReg.js"></script>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="../../resources/js/dashboard.js"></script>
+    <!-- Llamada al controlador general de la aplicación -->
+    <script type="text/javascript" src="../../controllers/utils/js/components.js"></script>
+    <!-- Llamada al controlador del sitio público -->
+    <script type="text/javascript" src="../../controllers/utils/js/public.js"></script>
+    <!-- Llamada al controlador de la página web -->
+    <script type="text/javascript" src="../../controllers/public/index.js"></script>
 </body>
 
 </html>
