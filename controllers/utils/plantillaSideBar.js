@@ -1,3 +1,5 @@
+const ADMIN_API = 'services/admin/administrador.php';
+
 const plantillaSideBar =  `
 <div class="d-flex">
                 <button class="toggle-btn" type="button">
@@ -29,20 +31,14 @@ const plantillaSideBar =  `
                     </a>
                 </li>
                 <li class="sidebar-item">
-                <a href="tipo_productos.html" class="sidebar-link">
-                <i class="fa-solid fa-book-bookmark"></i>
-                    <span>tipo de productos</span>
-                </a>
-            </li>
-                <li class="sidebar-item">
                     <a href="pedidos.html" class="sidebar-link">
                     <i class="fa-solid fa-truck"></i>
                         <span>Pedidos</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="generos.html" class="sidebar-link">
-                    <i class="fa-solid fa-mars-and-venus"></i>
+                    <a href="estado_pedido.html" class="sidebar-link">
+                    <i class="fa-solid fa-dolly"></i>
                         <span>Estado de pedidos</span>
                     </a>
                 </li>
@@ -60,7 +56,7 @@ const plantillaSideBar =  `
                 </li>
                 <li class="sidebar-item">
                     <a href="tallas.html" class="sidebar-link">
-                    <i class="fa-solid fa-arrow-up-wide-short"></i>
+                    <i class="fa-solid fa-shirt"></i>
                         <span>Tallas</span>
                     </a>
                 </li>
@@ -72,7 +68,7 @@ const plantillaSideBar =  `
                 </li>
             </ul>
             <div class="sidebar-footer">
-                <a href="index.html" class="sidebar-link">
+                <a href="index.html" class="sidebar-link" onclick="logOut()">
                     <i class="lni lni-exit"></i>
                     <span>Logout</span>
                 </a>

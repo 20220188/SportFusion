@@ -24,6 +24,13 @@ class ProductoHandler
     protected $existencias = null;
     protected $id_talla = null;
     protected $id_genero = null;
+    protected $id_producto = null;
+
+    //Atributos de la tabla VALORACIONES_PRODUCTOS
+    protected $id_valoracion = null;
+    protected $id_opinion = null;
+    protected $id_cliente = null;
+    protected $estado_valoracion = null;
 
     // Constante para establecer la ruta de las imágenes.
     const RUTA_IMAGEN = '../../images/productos/';
@@ -36,8 +43,8 @@ class ProductoHandler
         $value = '%' . Validator::getSearchValue() . '%';
         $sql = 'SELECT id_producto, imagen, nombre_producto, descripcion, nombre_categoria, tipo_producto, nombre_deporte
                 FROM tb_productos
-                INNER JOIN tb_categoris USING(id_categoria)
-                INNER JOIN tb_tipos_productos USING(id_tipo_producto)
+                INNER JOIN tb_categorias USING(id_categoria)
+                INNER JOIN tb_tipo_productos USING(id_tipo_producto)
                 INNER JOIN tb_deportes USING(id_deporte)
                 WHERE nombre_producto LIKE ? OR descripcion LIKE ? OR nombre_categoria LIKE ? OR tipo_producto LIKE ? OR nombre_deporte LIKE ?
                 ORDER BY nombre_producto';
@@ -50,7 +57,7 @@ class ProductoHandler
             $sql = 'INSERT INTO tb_productos(nombre_producto, descripcion, imagen, id_categoria,id_tipo_producto, id_deporte)
                     VALUES(?, ?, ?, ?, ?, ?)';
             $params = array($this->nombre, $this->descripcion, $this->imagen, $this->id_categoria, $this->id_tipo_producto, $this->id_deporte);
-            //esto funciona para ver los valores que toma el arreglo print_r($params);
+            //esto funciona para ver los valores que toma el arreglo print_r($params);.
             return Database::executeRow($sql, $params);
         }
 
@@ -87,11 +94,10 @@ class ProductoHandler
 
     public function updateRow()
     {
-        $sql = 'UPDATE tb_productos p
-                INNER JOIN tb_detalle_producto dp USING(id_producto)
-                SET p.imagen = ?, p.nombre_producto = ?, p.descripcion = ?, dp.precio = ?, dp.cantidad_disponible = ?, p.id_categoria = ?, p.id_tipo_producto = ?, dp.id_talla = ?, dp.id_genero = ?
+        $sql = 'UPDATE tb_productos 
+                SET imagen = ?, nombre_producto = ?, descripcion = ?, id_categoria = ?, id_tipo_producto = ?, id_deporte = ?
                 WHERE id_producto = ?';
-        $params = array($this->imagen, $this->nombre, $this->descripcion, $this->precio, $this->existencias, $this->id_categoria,$this->id_tipo_producto,$this->id_talla,$this->id_genero, $this->id);
+        $params = array($this->imagen, $this->nombre, $this->descripcion, $this->id_categoria,$this->id_tipo_producto,$this->id_deporte, $this->id);
         return Database::executeRow($sql, $params);
     }
 
@@ -107,8 +113,8 @@ class ProductoHandler
     {
         $sql = 'SELECT id_producto, imagen, nombre_producto, descripcion, nombre_categoria, tipo_producto
                 FROM tb_productos
-                INNER JOIN tb_categoria USING(id_categoria)
-                INNER JOIN tb_tipo_producto USING(id_tipo_producto)
+                INNER JOIN tb_categorias USING(id_categoria)
+                INNER JOIN tb_tipo_productos USING(id_tipo_producto)
                 WHERE id_categoria = ?
                 ORDER BY nombre_producto';
         $params = array($this->id_categoria);
@@ -119,7 +125,7 @@ class ProductoHandler
     *   Métodos para realizar las operaciones SCRUD en tabla DETALLE?PRODUCTO (search, create, read, update, and delete).
     */
 
-    public function createRow_detalleProducto()
+    public function createRowDetalleProducto()
         {
             $sql = 'INSERT INTO tb_detalle_productos(precio, cantidad_disponible, id_talla, id_genero, id_producto)
                     VALUES(?, ?, ?, ?, ?)';
@@ -127,18 +133,19 @@ class ProductoHandler
             return Database::executeRow($sql, $params);
         }
 
-        public function readAll_detalle()
+        public function readAllDetalle()
     {
-        $sql = 'SELECT dp.id_detalle_producto, dp.precio, dp.cantidad_disponible, t.talla, g.genero, p.nombre_producto
+        $sql = 'SELECT dp.id_detalle_producto, dp.precio,dp.id_producto, dp.cantidad_disponible, t.talla, g.genero, p.nombre_producto,dp.id_talla
         FROM tb_detalle_productos dp
         INNER JOIN tb_tallas t USING(id_talla)
         INNER JOIN tb_generos g USING(id_genero)
         INNER JOIN tb_productos p USING(id_producto)
-        ORDER BY nombre_producto';
-        return Database::getRows($sql);
+        WHERE dp.id_producto = ?';
+        $params = array($this->id);
+        return Database::getRows($sql, $params);
     }
 
-    public function readOne_detalle()
+    public function readOneDetalle()
     {
         $sql = 'SELECT id_detalle_producto, precio, cantidad_disponible, id_talla, id_genero, id_producto
                 FROM tb_detalle_productos
@@ -148,7 +155,7 @@ class ProductoHandler
         return Database::getRow($sql, $params);
     }
 
-    public function updateRow_detalle()
+    public function updateRowDetalle()
     {
         $sql = 'UPDATE tb_detalle_productos 
                 SET precio = ?, cantidad_disponible = ?, id_talla = ?, id_genero = ?
@@ -157,11 +164,61 @@ class ProductoHandler
         return Database::executeRow($sql, $params);
     }
 
-    public function deleteRow_detalle()
+    public function deleteRowDetalle()
     {
         $sql = 'DELETE FROM tb_detalle_productos
                 WHERE id_detalle_producto = ?';
         $params = array($this->id_detalle_producto);
+        return Database::executeRow($sql, $params);
+    }
+
+    /*
+    *   Métodos para realizar las operaciones SCRUD en tabla tb_valoraciones_productos (search, create, read, update, and delete).
+    */
+
+    public function createRowValoracion()
+        {
+            $sql = 'INSERT INTO tb_valoraciones_productos(id_opinion, id_detalle_producto, id_cliente, estado_valoracion)
+                    VALUES(?, ?, ?, ?)';
+            $params = array($this->id_opinion, $this->id_detalle_producto, $this->id_cliente, $this->estado_valoracion);
+            return Database::executeRow($sql, $params);
+        }
+
+        public function readAllValoracion()
+    {
+        $sql = 'SELECT v.id_valoracion_producto, o.comentario, o.opinion,v.id_detalle_producto, c.nombre_cliente, v.estado_valoracion
+        FROM tb_valoraciones_productos v
+        INNER JOIN tb_opiniones o USING(id_opinion)
+        INNER JOIN tb_clientes c USING(id_cliente)
+        inner join tb_detalle_productos dp using(id_detalle_producto)
+        WHERE v.id_detalle_producto = ?';
+        $params = array($this->id_detalle_producto);
+        return Database::getRows($sql, $params);
+    }
+
+    public function readOneValoracion()
+    {
+        $sql = 'SELECT id_valoracion_producto, estado_valoracion
+                FROM tb_valoraciones_productos
+                WHERE id_valoracion_producto = ?';
+        $params = array($this->id_valoracion);
+        return Database::getRow($sql, $params);
+    }
+
+    public function updateRowValoracion()
+    {
+        $sql = 'UPDATE tb_valoraciones_productos
+        SET estado_valoracion = !(estado_valoracion )
+        WHERE id_valoracion_producto = ?';
+        $params = array($this->id_valoracion);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function deleteRowValoracion()
+    {
+        $sql = 'DELETE FROM tb_valoraciones_productos
+                WHERE id_valoracion_producto = ?';
+        $params = array($this->id_valoracion);
         return Database::executeRow($sql, $params);
     }
 

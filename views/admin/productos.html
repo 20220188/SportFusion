@@ -8,10 +8,12 @@
     <title></title>
     <!-- Llamada al icono de la página web -->
     <link type="image/png" rel="icon" href="../../resources/img/logoSF.png">
+    <!--Libreria para funcionamiento de estrellas de valoracion-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="../../resources/css/productos.css">
+    <link rel="stylesheet" href="../../resources/css/tables.css">
     <link rel="stylesheet" href="../../resources/css/dashboard.css">
 </head>
 
@@ -30,7 +32,8 @@
                     <form class="col-sm-12 col-md-6" id="searchForm">
                         <div class="row">
                             <div class="col-6">
-                                <input type="search" class="form-control" name="search" placeholder="Buscar" required>
+                                <input type="search" class="form-control" name="search"
+                                    placeholder="Buscar por nombre, categoría, tipo o deporte" required>
                             </div>
                             <div class="col-6">
                                 <button type="submit" class="btn btn-success">
@@ -112,7 +115,8 @@
                                     </div>
                                     <div class="col-sm-12 col-md-6">
                                         <label for="deporteProducto" class="form-label">Deporte</label>
-                                        <select id="deporteProducto" name="deporteProducto" class="form-select" required>
+                                        <select id="deporteProducto" name="deporteProducto" class="form-select"
+                                            required>
                                         </select>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
@@ -130,8 +134,8 @@
                 </div>
 
                 <!-- Componente Modal para guardar un registro de detalle producto-->
-                <div class="modal fade" id="saveModalDetalle" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                    aria-labelledby="modalTitleDetalle" aria-hidden="true">
+                <div class="modal fade" id="saveModalDetalle" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="modalTitleDetalle" aria-hidden="true">
                     <div class="modal-dialog modal-lg modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -147,8 +151,8 @@
                                     <input type="number" class="d-none" id="idProductoDetalle" name="idProductoDetalle">
                                     <div class="col-sm-12 col-md-6">
                                         <label for="precioDetalle" class="form-label">Precio (US$)</label>
-                                        <input id="precioDetalle" type="number" name="precioDetalle" min="0.01" step="0.01"
-                                            class="form-control" required>
+                                        <input id="precioDetalle" type="number" name="precioDetalle" min="0.01"
+                                            step="0.01" class="form-control" required>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
                                         <label for="existenciasDetalle" class="form-label">Existencias</label>
@@ -161,11 +165,11 @@
                                         </select>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
-                                        <label for="generoDetalle" class="form-label">Genero</label>
+                                        <label for="generoDetalle" class="form-label">Género</label>
                                         <select id="generoDetalle" name="generoDetalle" class="form-select" required>
                                         </select>
                                     </div>
-                                    
+
                                 </div>
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-primary">Guardar</button>
@@ -196,13 +200,13 @@
                 </div>
 
                 <!-- Componente Modal para guardar un registro de tipo de productos-->
-                <div class="modal fade" id="saveModalTipoP" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                    aria-labelledby="modalTitleTipoP" aria-hidden="true">
+                <div class="modal fade" id="saveModalTipoP" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="modalTitleTipoP" aria-hidden="true">
                     <div class="modal-dialog modal-lg modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="modalTitleTipoP"></h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" 
                                     aria-label="Close"></button>
                             </div>
                             <!-- Formulario para crear o actualizar un registro -->
@@ -242,6 +246,42 @@
                         </div>
                     </div>
                 </div>
+
+
+                <!-- Componente Modal para guardar un registro de comentarios-->
+                <div class="modal fade" id="saveModalComentario" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="modalTitleComentario" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="modalTitleComentario"></h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-target="#saveModalDetalle" data-bs-toggle="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover text-center">
+                                        <!-- Encabezado de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
+                                        <thead>
+                                            <tr>
+                                                <td class="text-start" colspan="5" id="rowsFoundComentario"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>VALORACION</th>
+                                                <th>COMENTARIO</th>
+                                                <th>CLIENTE</th>
+                                                <th>ESTADO</th>
+                                                <th>ACCIONES</th>
+                                            </tr>
+                                        </thead>
+                                        <!-- Cuerpo de la tabla para mostrar un registro por fila -->
+                                        <tbody id="tableBodyComentario"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </main>
         </div>
     </div>
@@ -265,11 +305,11 @@
     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
 
     <!-- Llamada al controlador de la barra lateral -->
-    <script src="../../controllers/admin/js/dashboard.js"></script>
+    <script src="../../controllers/admin/js/sidebar.js"></script>
 
     <!-- Llamada al controlador de la página web -->
     <script type="text/javascript" src="../../controllers/admin/js/productos.js"></script>
-    
+
 </body>
 
 </html>
