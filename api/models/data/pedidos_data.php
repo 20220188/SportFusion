@@ -2,7 +2,7 @@
 // Se incluye la clase para validar los datos de entrada.
 require_once('../../helpers/validator.php');
 // Se incluye la clase padre.
-require_once('../../models/handlers/producto_handler.php');
+require_once('../../models/handlers/pedidos_handler.php');
 /*
  *	Clase para manejar el encapsulamiento de los datos de la tabla PRODUCTO.
  */
@@ -24,7 +24,7 @@ class PedidoData extends PedidoHandler
             $this->id_pedido = $value;
             return true;
         } else {
-            $this->data_error = 'El identificador del producto es incorrecto';
+            $this->data_error = 'El identificador del pedido es incorrecto';
             return false;
         }
     }
@@ -44,6 +44,17 @@ class PedidoData extends PedidoHandler
     }
     
 
+    public function setFecha($value)
+    {
+        if (!Validator::validateDate($value)) {
+            $this->data_error = 'la fecha de registro es incorrecta';
+            return false;
+        } else {
+            $this->data_error = 'El formato de la fecha es incorrecto';
+            return false;
+        }
+    }
+
     public function setId_cliente($value)
     {
         if (Validator::validateNaturalNumber($value)) {
@@ -57,13 +68,24 @@ class PedidoData extends PedidoHandler
 
     // Métodos para el manejo de la tabla DETALLE_PRODUCTO.
 
-public function setDetalleproducto($value)
+public function setDetallePedido($value)
     {
         if (Validator::validateNaturalNumber($value)) {
-            $this->id_detalle_producto = $value;
+            $this->id_detalle = $value;
             return true;
         } else {
-            $this->data_error = 'Tipo producto incorrecto';
+            $this->data_error = 'Id de detalle incorrecto';
+            return false;
+        }
+    }
+
+    public function setid_Producto($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->id_producto = $value;
+            return true;
+        } else {
+            $this->data_error = 'Id de detalle incorrecto';
             return false;
         }
     }
@@ -90,35 +112,13 @@ public function setDetalleproducto($value)
         }
     }
 
-    public function setId_pedido($value)
-    {
-        if (Validator::validateNaturalNumber($value)) {
-            $this->id_pedido = $value;
-            return true;
-        } else {
-            $this->data_error = 'Talla incorrecta';
-            return false;
-        }
-    }
-
-    public function setId_Producto($value)
-    {
-        if (Validator::validateNaturalNumber($value)) {
-            $this->id_producto = $value;
-            return true;
-        } else {
-            $this->data_error = 'Género incorrecto';
-            return false;
-        }
-    }
-
     public function setId_estado($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_estado_pedido = $value;
             return true;
         } else {
-            $this->data_error = 'Género incorrecto';
+            $this->data_error = 'Estado incorrecto';
             return false;
         }
     }

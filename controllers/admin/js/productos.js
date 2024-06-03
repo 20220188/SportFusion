@@ -58,6 +58,22 @@ const SAVE_FORM_TIPOP = document.getElementById('saveFormTipoP'),
     ID_TIPO_PRODUCTO = document.getElementById('idTipoProducto'),
     NOMBRE_TIPO_PRODUCTO = document.getElementById('nombreTipoProducto')
 
+/*
+*Elementos para la tabla VALORACIONES_PRODUCTOS
+*/
+// Constante para establecer el formulario de buscar.
+// Constantes para establecer los elementos de la tabla.
+const TABLE_BODY_COMENTARIO = document.getElementById('tableBodyComentario'),
+    ROWS_FOUND_COMENTARIO = document.getElementById('rowsFoundComentario');
+// Constantes para establecer los elementos del componente Modal.
+const SAVE_MODAL_COMENTARIO = new bootstrap.Modal('#saveModalComentario'),
+    MODAL_TITLE_COMENTARIO = document.getElementById('modalTitleComentario');
+// Constantes para establecer los elementos del formulario de guardar.
+const SAVE_FORM_COMENTARIO = document.getElementById('saveFormComentario'),
+    ID_VALORACION_PRODUCTO = document.getElementById('idValoracionProducto'),
+    ID_PRODUCTO_VALORADO = document.getElementById('idDetalleValoracion');
+    ESTADO_OPINION = document.getElementById('estadoComentario');
+
 
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
@@ -233,7 +249,7 @@ SAVE_FORM_DETALLE.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se verifica la acción a realizar.
-    (ID_DETALLE.value) ? action = 'updateRow_detalleProducto' : action = 'createRow_detalleProducto';
+    (ID_DETALLE.value) ? action = 'updateRowDetalleProducto' : action = 'createRowDetalleProducto';
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(SAVE_FORM_DETALLE);
     // Petición para guardar los datos del formulario.
@@ -245,7 +261,7 @@ SAVE_FORM_DETALLE.addEventListener('submit', async (event) => {
         // Se muestra un mensaje de éxito.
         sweetAlert(1, DATA.message, true);
         // Se carga nuevamente la tabla para visualizar los cambios.
-        fillTableDetails();
+        fillTableDetails(ID_PRODUCTO_DETALLE.value);
     } else {
         sweetAlert(2, DATA.error, false);
     }
@@ -256,14 +272,14 @@ SAVE_FORM_DETALLE.addEventListener('submit', async (event) => {
 *   Parámetros: form (objeto opcional con los datos de búsqueda).
 *   Retorno: ninguno.
 */
-const fillTableDetails = async (form = null) => {
+const fillTableDetails = async (id) => {
     // Se inicializa el contenido de la tabla.
     ROWS_FOUND_DETALLE.textContent = '';
     TABLE_BODY_DETALLE.innerHTML = '';
-    // Se verifica la acción a realizar.
-    (form) ? action = 'searchRows' : action = 'readAll_detalle';
+    const FORM = new FormData();
+    FORM.append('idProducto', id);
     // Petición para obtener los registros disponibles.
-    const DATA = await fetchData(PRODUCTO_API, action, form);
+    const DATA = await fetchData(PRODUCTO_API, 'readAllDetalle', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
@@ -280,8 +296,11 @@ const fillTableDetails = async (form = null) => {
                         <button type="button" class="btn btn-info" onclick="openUpdateDetails(${row.id_detalle_producto})">
                         <i class="fa-solid fa-pencil"></i>
                         </button>
-                        <button type="button" class="btn btn-danger" onclick="openDeleteDetails(${row.id_detalle_producto})">
+                        <button type="button" class="btn btn-danger" onclick="openDeleteDetails(${row.id_detalle_producto},${id})">
                         <i class="fa-regular fa-trash-can"></i>
+                        </button>
+                        <button type="button" class="btn btn-warning" data-bs-target="#saveModalComentario" data-bs-toggle="modal" onclick="openCreateComentario(${row.id_detalle_producto})">
+                        <i class="fa-regular fa-comment-dots"></i>
                         </button>
                     </td>
                 </tr>
@@ -300,9 +319,10 @@ const fillTableDetails = async (form = null) => {
 *   Retorno: ninguno.
 */
 const openDetails = (id_producto) => {
+    console.log(id_producto);
     // Se muestra la caja de diálogo con su título.
     SAVE_MODAL_DETALLE.show();
-    MODAL_TITLE_DETALLE.textContent = 'Crear Detalle producto';
+    MODAL_TITLE_DETALLE.textContent = 'Detalle producto';
     // Se prepara el formulario.
     SAVE_FORM_DETALLE.reset();
 
@@ -310,7 +330,7 @@ const openDetails = (id_producto) => {
     fillSelect(TALLA_API, 'readAll', 'tallaDetalle');
     fillSelect(GENERO_API, 'readAll', 'generoDetalle');
 
-    fillTableDetails();
+    fillTableDetails(id_producto);
 }
 
 /*
@@ -323,7 +343,7 @@ const openUpdateDetails = async (id1) => {
     const FORM_DETALLE = new FormData();
     FORM_DETALLE.append('idDetalle', id1);
     // Petición para obtener los datos del registro solicitado.
-    const DATA = await fetchData(PRODUCTO_API, 'readOne_detalleProducto', FORM_DETALLE);
+    const DATA = await fetchData(PRODUCTO_API, 'readOneDetalleProducto', FORM_DETALLE);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se muestra la caja de diálogo con su título.
@@ -335,9 +355,11 @@ const openUpdateDetails = async (id1) => {
         const ROW = DATA.dataset;
         ID_DETALLE.value = ROW.id_detalle_producto;
         PRECIO_DETALLE.value = ROW.precio;
+        ID_PRODUCTO_DETALLE.value = ROW.id_producto;
         EXISTENCIAS_DETALLE.value = ROW.cantidad_disponible;
         fillSelect(TALLA_API, 'readAll', 'tallaDetalle', ROW.id_talla);
         fillSelect(GENERO_API, 'readAll', 'generoDetalle', ROW.id_genero);
+
     } else {
         sweetAlert(2, DATA.error, false);
     }
@@ -348,22 +370,22 @@ const openUpdateDetails = async (id1) => {
 *   Parámetros: id (identificador del registro seleccionado).
 *   Retorno: ninguno.
 */
-const openDeleteDetails = async (id) => {
+const openDeleteDetails = async (idDetalle, idProducto) => {
     // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
     const RESPONSE = await confirmAction('¿Desea eliminar el producto de forma permanente?');
     // Se verifica la respuesta del mensaje.
     if (RESPONSE) {
         // Se define una constante tipo objeto con los datos del registro seleccionado.
         const FORM = new FormData();
-        FORM.append('idDetalle', id);
+        FORM.append('idDetalle', idDetalle);
         // Petición para eliminar el registro seleccionado.
-        const DATA = await fetchData(PRODUCTO_API, 'deleteRow_detalleProducto', FORM);
+        const DATA = await fetchData(PRODUCTO_API, 'deleteRowDetalleProducto', FORM);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
         if (DATA.status) {
             // Se muestra un mensaje de éxito.
             await sweetAlert(1, DATA.message, true);
             // Se carga nuevamente la tabla para visualizar los cambios.
-            fillTableDetails();
+            fillTableDetails(idProducto);
         } else {
             sweetAlert(2, DATA.error, false);
         }
@@ -501,6 +523,107 @@ const openDeleteTipoP = async (id) => {
             await sweetAlert(1, DATA.message, true);
             // Se carga nuevamente la tabla para visualizar los cambios.
             fillTableTipoP();
+        } else {
+            sweetAlert(2, DATA.error, false);
+        }
+    }
+}
+
+/*
+*   Función asíncrona para llenar la tabla con los registros disponibles.
+*   Parámetros: form (objeto opcional con los datos de búsqueda).
+*   Retorno: ninguno.
+*/
+const fillTableComentario = async (id) => {
+    // Se inicializa el contenido de la tabla.
+    ROWS_FOUND_COMENTARIO.textContent = '';
+    TABLE_BODY_COMENTARIO.innerHTML = '';
+    const FORM = new FormData();
+    FORM.append('idDetalleV', id);
+    // Petición para obtener los registros disponibles.
+    const DATA = await fetchData(PRODUCTO_API, 'readAllValoracion', FORM);
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+    if (DATA.status) {
+        // Se recorre el conjunto de registros fila por fila.
+        DATA.dataset.forEach(row => {
+
+            (row.estado_valoracion) ? icon = 'fa-solid fa-eye' : icon = 'fa-solid fa-eye-slash';
+            // Se crean y concatenan las filas de la tabla con los datos de cada registro.
+            TABLE_BODY_COMENTARIO.innerHTML += `
+                <tr>
+                    
+                    <td>${converRatingToStars(row.opinion)} ${row.opinion}</td>
+                    <td>${row.comentario}</td>
+                    <td>${row.nombre_cliente}</td>
+                    <td><i class="${icon}"></i></td>
+                    <td>
+                        <button type="button" class="btn btn-info" onclick="openEstadoComentario(${row.id_valoracion_producto},${id})">
+                        <i class="fa-solid fa-pencil"></i>
+                        </button>
+                    </td>
+                </tr>
+            `;
+        });
+        // Se muestra un mensaje de acuerdo con el resultado.
+        ROWS_FOUND_COMENTARIO.textContent = DATA.message;
+    } else {
+        sweetAlert(4, DATA.error, true);
+    }
+}
+
+const converRatingToStars = (rating) =>{
+    let stars = '';
+    for (let i = 0; i <5; i++){
+        if (i < rating){
+            stars += '<i class="fas fa-star text-warning text-danger"></i>';
+        }else{
+            stars += '<i class="far fa-star text-warning text-danger"></i>';
+        }
+    }
+    return stars
+}
+
+/*
+*   Función para preparar el formulario al momento de insertar un registro.
+*   Parámetros: ninguno.
+*   Retorno: ninguno.
+*/
+const openCreateComentario = (idDetalleV) => {
+    console.log(idDetalleV);
+    // Se muestra la caja de diálogo con su título.
+    SAVE_MODAL_COMENTARIO.show();
+    MODAL_TITLE_COMENTARIO.textContent = 'Valoraciones';
+    // Se prepara el formulario.
+
+
+    // Llenar la tabla de comentarios al abrir el formulario
+    fillTableComentario(idDetalleV);
+}
+
+
+
+
+/*
+*   Función asíncrona para eliminar un registro.
+*   Parámetros: id (identificador del registro seleccionado).
+*   Retorno: ninguno.
+*/
+const openEstadoComentario = async (id,idDetalle) => {
+    // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
+    const RESPONSE = await confirmAction('¿Desea cambiar el estado de la valoración?');
+    // Se verifica la respuesta del mensaje.
+    if (RESPONSE) {
+        // Se define una constante tipo objeto con los datos del registro seleccionado.
+        const FORM_COMENTARIO = new FormData();
+        FORM_COMENTARIO.append('idValoracionProducto', id);
+        // Petición para eliminar el registro seleccionado.
+        const DATA = await fetchData(PRODUCTO_API, 'updateRowValoracion', FORM_COMENTARIO);
+        // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+        if (DATA.status) {
+            // Se muestra un mensaje de éxito.
+            await sweetAlert(1, DATA.message, true);
+            // Se carga nuevamente la tabla para visualizar los cambios.
+            fillTableComentario(idDetalle);
         } else {
             sweetAlert(2, DATA.error, false);
         }
