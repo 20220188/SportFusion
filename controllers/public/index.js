@@ -22,15 +22,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Se crean y concatenan las tarjetas con los datos de cada categoría.
             CATEGORIAS.innerHTML += `
                 <div class="col-sm-12 col-md-6 col-lg-3">
-                    <div class="card mb-3">
+                <div class="card mb-3">
+                    <a href="${url}">
                         <img src="${SERVER_URL}images/categorias/${row.imagen_categoria}" class="card-img-top" alt="${row.nombre_categoria}">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">${row.nombre_categoria}</h5>
-                            <p class="card-text">${row.descripcion_categoria}</p>
-                            <a href="${url}" class="btn btn-primary">Ver productos</a>
-                        </div>
+                    </a>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">${row.nombre_categoria}</h5>
+                        <p class="card-text">${row.descripcion_categoria}</p>
                     </div>
                 </div>
+            </div>
             `;
         });
     } else {
