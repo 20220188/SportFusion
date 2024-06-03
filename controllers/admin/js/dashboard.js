@@ -1,5 +1,3 @@
-
-
 // Constante para completar la ruta de la API.
 const PRODUCTO_API = 'services/admin/producto.php';
 
