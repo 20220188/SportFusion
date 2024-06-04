@@ -2,19 +2,23 @@
 // Se incluye la clase para validar los datos de entrada.
 require_once('../../helpers/validator.php');
 // Se incluye la clase padre.
-require_once('../../models/handler/pedido_handler.php');
+require_once('../../models/handlers/pedidos_handler.php');
 /*
-*	Clase para manejar el encapsulamiento de los datos de las tablas PEDIDO y DETALLE_PEDIDO.
-*/
+ *	Clase para manejar el encapsulamiento de los datos de la tabla PRODUCTO.
+ */
 class PedidoData extends PedidoHandler
 {
-    // Atributo genérico para manejo de errores.
+    /*
+     *  Atributos adicionales.
+     */
     private $data_error = null;
 
     /*
-    *   Métodos para validar y establecer los datos.
-    */
-    public function setIdPedido($value)
+     *   Métodos para validar y establecer los datos.
+     */
+
+    // Métodos para el manejo de la tabla PEDIDO.
+    public function setId($value)
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id_pedido = $value;
@@ -25,21 +29,36 @@ class PedidoData extends PedidoHandler
         }
     }
 
-    public function setIdDetalle($value)
+    public function setDireccion($value, $min = 2, $max = 250)
     {
-        if (Validator::validateNaturalNumber($value)) {
-            $this->id_detalle = $value;
+        if (!Validator::validateString($value)) {
+            $this->data_error = 'El formato de la dirección es incorrecto';
+            return false;
+        } elseif (Validator::validateLength($value, $min, $max)) {
+            $this->direccion_pedido = $value;
             return true;
         } else {
-            $this->data_error = 'El identificador del detalle pedido es incorrecto';
+            $this->data_error = 'La dirección debe tener una longitud entre ' . $min . ' y ' . $max;
+            return false;
+        }
+    }
+    
+
+    public function setFecha($value)
+    {
+        if (!Validator::validateDate($value)) {
+            $this->data_error = 'la fecha de registro es incorrecta';
+            return false;
+        } else {
+            $this->data_error = 'El formato de la fecha es incorrecto';
             return false;
         }
     }
 
-    public function setCliente($value)
+    public function setId_cliente($value)
     {
         if (Validator::validateNaturalNumber($value)) {
-            $this->cliente = $value;
+            $this->id_cliente = $value;
             return true;
         } else {
             $this->data_error = 'El identificador del cliente es incorrecto';
@@ -47,29 +66,67 @@ class PedidoData extends PedidoHandler
         }
     }
 
-    public function setProducto($value)
+    // Métodos para el manejo de la tabla DETALLE_PRODUCTO.
+
+public function setDetallePedido($value)
     {
         if (Validator::validateNaturalNumber($value)) {
-            $this->producto = $value;
+            $this->id_detalle = $value;
             return true;
         } else {
-            $this->data_error = 'El identificador del producto es incorrecto';
+            $this->data_error = 'Id de detalle incorrecto';
             return false;
         }
     }
 
+    public function setid_Producto($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->id_producto = $value;
+            return true;
+        } else {
+            $this->data_error = 'Id de detalle incorrecto';
+            return false;
+        }
+    }
+    
     public function setCantidad($value)
     {
         if (Validator::validateNaturalNumber($value)) {
-            $this->cantidad = $value;
+            $this->cantidad_pedido = $value;
             return true;
         } else {
-            $this->data_error = 'La cantidad del producto debe ser mayor o igual a 1';
+            $this->data_error = 'El valor de las existencias debe ser numérico entero';
             return false;
         }
     }
 
-    // Método para obtener el error de los datos.
+    public function setPrecio($value)
+    {
+        if (Validator::validateMoney($value)) {
+            $this->precio_pedido = $value;
+            return true;
+        } else {
+            $this->data_error = 'El precio debe ser un valor numérico';
+            return false;
+        }
+    }
+
+    public function setId_estado($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->id_estado_pedido = $value;
+            return true;
+        } else {
+            $this->data_error = 'Estado incorrecto';
+            return false;
+        }
+    }
+
+
+    /*
+     *  Métodos para obtener los atributos adicionales.
+     */
     public function getDataError()
     {
         return $this->data_error;
