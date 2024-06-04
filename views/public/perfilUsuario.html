@@ -7,14 +7,13 @@
     <title></title>
     <!-- Metadatos de la página web -->
     <meta charset="utf-8">
-    <meta name="author" content="Daniel Carranza">
+    <meta name="author" content="Jafet Melara">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- IMPORTACIÓN DE RECURSOS EXTERNOS -->
     <!-- Llamada al icono de la página web -->
-    <link type="image/png" rel="icon" href="../../resources/img/icon.png">
     <!-- Llamada a las hojas de estilos del framework e iconos -->
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
-    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bo otstrap-icons.min.css">
     <!--Llamada a la hoja de estilos de la pagina-->
     <link rel="stylesheet" href="../../resources/css/perfil_usuario.css">
 </head>
@@ -32,24 +31,24 @@
             </div>
             <div class="col-sm-12 col-md-6 col-lg-4">
                 <label for="apellidoAdministrador" class="form-label">Telefono</label>
-                <input id="apellidoAdministrador" type="text" name="apellidoAdministrador" class="form-control"
+                <input id="apellidoAdministrador" type="text" name="telefonoAdministrador" class="form-control"
                     required>
             </div>
             <div class="col-sm-12 col-md-6 col-lg-4 offset-lg-2">
                 <label for="correoAdministrador" class="form-label">Correo</label>
                 <input id="correoAdministrador" type="email" name="correoAdministrador" class="form-control" required>
             </div>
-            <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="col-sm-12 col-md-6 col-lg-4 ">
                 <label for="aliasAdministrador" class="form-label">Alias</label>
                 <input id="aliasAdministrador" type="text" name="aliasAdministrador" class="form-control" required>
             </div>
-            <div class="col-sm-12 col-md-6 col-lg-4">
-                <label for="aliasAdministrador" class="form-label">Direccion</label>
-                <input id="aliasAdministrador" type="text" name="aliasAdministrador" class="form-control" required>
+            <div class="col-sm-12 col-md-6 col-lg-4 offset-lg-4">
+                <label for="direccionAdministrador" class="form-label">Dirección</label>
+                <input id="direccionAdministrador" type="text" name="direccionAdministrador" class="form-control" required>
             </div>
         
             <div class="text-center">
-                <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Guardar</button>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Editar perfil</button>
             </div>
         </form>
         <!-- Contenedor con enlace para abrir la caja de diálogo del formulario de cambiar constraseña -->
@@ -103,11 +102,10 @@
     <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
     <!-- Llamada al controlador general de la aplicación -->
-    <script type="text/javascript" src="../../controllers/utils/components.js"></script>
+    <script type="text/javascript" src="../../controllers/utils/js/components.js"></script>
     <!-- Llamada al controlador del sitio privado -->
-    <script type="text/javascript" src="../../controllers/utils/admin.js"></script>
-    <!-- Llamada al controlador de la página web -->
-    <script type="text/javascript" src="../../controllers/admin/profile.js"></script>
+    <script type="text/javascript" src="../../controllers/utils/js/public.js"></script>
+    <script type="text/javascript" src="../../controllers/public/perfil_usuario.js"></script>
 </body>
 
 </html>

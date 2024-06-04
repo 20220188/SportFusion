@@ -2,152 +2,117 @@
 // Se incluye la clase para trabajar con la base de datos.
 require_once('../../helpers/database.php');
 /*
-*	Clase para manejar el comportamiento de los datos de la tabla PRODUCTO.
+*	Clase para manejar el comportamiento de los datos de las tablas PEDIDO y DETALLE_PEDIDO.
 */
 class PedidoHandler
 {
     /*
     *   Declaración de atributos para el manejo de datos.
     */
+    protected $id_pedido = null; /*Tabla de pedido*/
+    protected $id_detalle = null; /*Tabla de detalle de pedido*/
+    protected $id_cliente = null; /*Tabla de cliente*/
+    protected $id_producto = null; /*Tabla de producto*/
+    protected $cantidad_pedido = null; /*Tabla de detalle de pedido*/
+    protected $id_estado = null; /*Tabla de estado de pedido*/
 
-    // Atributos de la tabla PEDIDO.
-    protected $id_pedido = null;
-    protected $direccion_pedido = null;
-    protected $fecha_registro = null;
-    protected $id_cliente = null;
-    // Atributos de la tabla DETALLE_PEDIDO.
-    protected $id_detalle = null;
-    protected $cantidad_pedido = null;
-    protected $precio_pedido = null;
-    protected $id_estado_pedido = null;
-    protected $id_producto = null;
-
-
+    /*Precio se hace con una seleccion por medio del id mas adelante*/
+    /*La direccion se manda a llamar dentro del programa por medio del registro del cliente*/
 
     /*
-    *   Métodos para realizar las operaciones SCRUD en tabla PEDIDO (search, create, read, update, and delete).
+    *   ESTADOS DEL PEDIDO
+    *   Pendiente (valor por defecto en la base de datos). Pedido en proceso y se puede modificar el detalle.
+    *   Finalizado. Pedido terminado por el cliente y ya no es posible modificar el detalle.
+    *   Entregado. Pedido enviado al cliente.
+    *   Anulado. Pedido cancelado por el cliente después de ser finalizado.
     */
-    public function searchRows()
+
+    /*
+    *   Métodos para realizar las operaciones SCRUD (search, create, read, update, and delete).
+    */
+    // Método para verificar si existe un pedido en proceso con el fin de iniciar o continuar una compra.
+    public function getOrder()
     {
-        $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT id_pedido, direccion_pedido, fecha_registro, nombre_cliente
+        $this->id_estado = 'Pendiente';
+        $sql = 'SELECT id_pedido
                 FROM tb_pedidos
-                INNER JOIN tb_clientes USING(id_cliente)
-                WHERE direccion_pedido LIKE ? OR fecha_registro LIKE ? OR nombre_cliente LIKE ? 
-                ORDER BY direccion_pedido';
-        $params = array($value, $value, $value);
+                WHERE id_estado_pedido = ? AND id_cliente = ?';
+        $params = array($this->estado, $_SESSION['idCliente']);
+        if ($data = Database::getRow($sql, $params)) {
+            $_SESSION['idPedido'] = $data['id_pedido'];
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Método para iniciar un pedido en proceso.
+    public function startOrder()
+    {
+        if ($this->getOrder()) {
+            return true;
+        } else {
+            $sql = 'INSERT INTO pedido(direccion_pedido, id_cliente)
+                    VALUES((SELECT direccion_cliente FROM cliente WHERE id_cliente = ?), ?)';
+            $params = array($_SESSION['idCliente'], $_SESSION['idCliente']);
+            // Se obtiene el ultimo valor insertado de la llave primaria en la tabla pedido.
+            if ($_SESSION['idPedido'] = Database::getLastRow($sql, $params)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    // Método para agregar un producto al carrito de compras.
+    public function createDetail()
+    {
+        // Se realiza una subconsulta para obtener el precio del producto.
+        $sql = 'INSERT INTO detalle_pedido(id_producto, precio_producto, cantidad_producto, id_pedido)
+                VALUES(?, (SELECT precio_producto FROM producto WHERE id_producto = ?), ?, ?)';
+        $params = array($this->producto, $this->producto, $this->cantidad, $_SESSION['idPedido']);
+        return Database::executeRow($sql, $params);
+    }
+
+    // Método para obtener los productos que se encuentran en el carrito de compras.
+    public function readDetail()
+    {
+        $sql = 'SELECT id_detalle, nombre_producto, detalle_pedido.precio_producto, detalle_pedido.cantidad_producto
+                FROM detalle_pedido
+                INNER JOIN pedido USING(id_pedido)
+                INNER JOIN producto USING(id_producto)
+                WHERE id_pedido = ?';
+        $params = array($_SESSION['idPedido']);
         return Database::getRows($sql, $params);
     }
 
-    public function createRow()
+    // Método para finalizar un pedido por parte del cliente.
+    public function finishOrder()
     {
-        $sql = 'INSERT INTO tb_pedidos(direccion_pedido, fecha_registro, id_cliente)
-                    VALUES(?, ?, ?)';
-        $params = array($this->direccion_pedido, $this->fecha_registro, $this->id_cliente);
-        //esto funciona para ver los valores que toma el arreglo print_r($params);
-        return Database::executeRow($sql, $params);
-    }
-
-    public function readAll()
-    {
-        $sql = 'SELECT id_pedido, direccion_pedido, fecha_registro, nombre_cliente, estado_pedido, id_estado_pedido  
-                FROM tb_pedidos
-                INNER JOIN tb_clientes USING(id_cliente)
-                INNER JOIN tb_estado_pedidos USING(id_estado_pedido)
-                ORDER BY id_pedido';
-        return Database::getRows($sql);
-    }
-
-    public function readOne()
-    {
-        $sql = 'SELECT id_pedido, estado_pedido
-                FROM tb_pedidos 
-                INNER JOIN tb_estado_pedidos USING(id_estado_pedido)
+        $this->estado = 'Finalizado';
+        $sql = 'UPDATE pedido
+                SET estado_pedido = ?
                 WHERE id_pedido = ?';
-        $params = array($this->id_pedido);
-        return Database::getRow($sql, $params);
-    }
-
-    public function updateRow()
-    {
-        $sql = 'UPDATE tb_pedidos p
-                SET  p.id_estado_pedido = ?
-                WHERE id_pedido = ?';
-        $params = array($this->id_estado_pedido, $this->id_pedido);
+        $params = array($this->estado, $_SESSION['idPedido']);
         return Database::executeRow($sql, $params);
     }
 
-    public function deleteRow()
+    // Método para actualizar la cantidad de un producto agregado al carrito de compras.
+    public function updateDetail()
     {
-        $sql = 'DELETE FROM tb_pedidos
-                WHERE id_pedido = ?';
-        $params = array($this->id_pedido);
+        $sql = 'UPDATE detalle_pedido
+                SET cantidad_producto = ?
+                WHERE id_detalle = ? AND id_pedido = ?';
+        $params = array($this->cantidad, $this->id_detalle, $_SESSION['idPedido']);
         return Database::executeRow($sql, $params);
     }
 
-
-    /*
-    *   Métodos para realizar las operaciones SCRUD en tabla DETALLE?PRODUCTO (search, create, read, update, and delete).
-    */
-    public function createRowDetalle()
+    // Método para eliminar un producto que se encuentra en el carrito de compras.
+    public function deleteDetail()
     {
-        $sql = 'INSERT INTO tb_detalle_pedidos(cantidad_pedido, precio_pedido, id_pedido, id_producto, id_estado_pedido)
-                    VALUES(?, ?, ?, ?, ?)';
-        $params = array($this->cantidad_pedido, $this->precio_pedido, $this->id_pedido, $this->id_producto, $this->id_estado_pedido);
+        $sql = 'DELETE FROM detalle_pedido
+                WHERE id_detalle = ? AND id_pedido = ?';
+        $params = array($this->id_detalle, $_SESSION['idPedido']);
         return Database::executeRow($sql, $params);
     }
-
-    public function readAllDetalle()
-    {
-        $sql = 'SELECT dp.id_detalle, dp.cantidad_pedido, dp.precio_pedido, dp.id_pedido, g.nombre_producto
-        FROM tb_detalle_pedidos dp
-        INNER JOIN tb_pedidos t USING(id_pedido)
-        INNER JOIN tb_productos g USING(id_producto)
-        WHERE dp.id_pedido = ?';
-        $params = array($this->id_pedido);
-        return Database::getRows($sql, $params);
-    }
-
-    public function readOneDetalle()
-    {
-        $sql = 'SELECT id_detalle, id_estado_pedido
-                FROM tb_detalle_pedidos
-                WHERE id_detalle = ?';
-        $params = array($this->id_detalle);
-        return Database::getRow($sql, $params);
-    }
-
-    public function updateRowDetalle()
-    {
-        $sql = 'UPDATE tb_detalle_pedidos 
-                SET id_estado_pedido = ?
-                WHERE id_detalle = ?';
-        $params = array($this->id_estado_pedido, $this->id_detalle);
-        return Database::executeRow($sql, $params);
-    }
-
-    public function deleteRowDetalle()
-    {
-        $sql = 'DELETE FROM tb_detalle
-                WHERE id_detalle = ?';
-        $params = array($this->id_detalle);
-        return Database::executeRow($sql, $params);
-    }
-
-    /*
-    *   Métodos para generar reportes.
-    */
-    /*
-    // Método para obtener los productos de una categoría. Comentada porque no se implementan reportes aun
-    public function productosCategoria()
-    {
-        $sql = 'SELECT nombre_producto, precio_producto, estado_producto
-                FROM producto
-                INNER JOIN categoria USING(id_categoria)
-                WHERE id_categoria = ?
-                ORDER BY nombre_producto';
-        $params = array($this->categoria);
-        return Database::getRows($sql, $params);
-    }
-    */
 }
