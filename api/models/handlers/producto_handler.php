@@ -256,9 +256,51 @@ class ProductoHandler
         INNER JOIN tb_tipo_productos USING(id_tipo_producto)
         INNER JOIN tb_deportes USING(id_deporte)
         INNER JOIN tb_generos using(id_genero)
-        WHERE id_categoria = ? AND id_deporte = ?
-        ORDER BY nombre_producto';
-        $params = array($this->id_categoria, $this->id_deporte);
+        WHERE id_deporte = ?';
+        $params = array($this->id_deporte);
+        if($this->id_categoria != null){
+            $sql .= ' AND id_categoria = ?';
+            array_push($params, $this->id_categoria);
+        }
+        if($this->id_tipo_producto != null){
+            $sql .= ' AND id_tipo_producto = ?';
+            array_push($params, $this->id_tipo_producto);
+        }
+        if($this->id_genero != null){
+            $sql .= ' AND id_genero = ?';
+            array_push($params, $this->id_genero);
+        }
+        $sql .= ' ORDER BY nombre_producto';
+        return Database::getRows($sql, $params);
+    }
+
+    public function readProductos()
+    {
+        $sql = 'SELECT id_producto, imagen, nombre_producto, descripcion, nombre_categoria, tipo_producto, nombre_deporte, genero  
+        FROM tb_productos
+        INNER JOIN tb_categorias USING(id_categoria)
+        INNER JOIN tb_tipo_productos USING(id_tipo_producto)
+        INNER JOIN tb_deportes USING(id_deporte)
+        INNER JOIN tb_generos using(id_genero)
+        WHERE id_producto != 0';
+        $params = array();
+        if($this->id_categoria != null){
+            $sql .= ' AND id_categoria = ?';
+            array_push($params, $this->id_categoria);
+        }
+        if($this->id_tipo_producto != null){
+            $sql .= ' AND id_tipo_producto = ?';
+            array_push($params, $this->id_tipo_producto);
+        }
+        if($this->id_genero != null){
+            $sql .= ' AND id_genero = ?';
+            array_push($params, $this->id_genero);
+        }
+        if($this->id_deporte != null){
+            $sql .= ' AND id_deporte = ?';
+            array_push($params, $this->id_deporte);
+        }
+        $sql .= ' ORDER BY nombre_producto';
         return Database::getRows($sql, $params);
     }
 

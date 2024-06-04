@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- Declaración del idioma para el documento -->
 <html lang="es">
 
 <head>
@@ -13,15 +12,71 @@
     <link type="image/png" rel="icon" href="../../resources/img/logoSF.png">
     <!-- Llamada a las hojas de estilos del framework e iconos -->
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/categoria.css">
 </head>
 
 <body>
-    <h1>hola</h1>
+    <!-- Contenido principal del documento -->
+    <div style="display: flex;">
+        <aside class="col-lg-2 col-sm-6">
+            <!-- Formulario de búsqueda -->
+            <form class="col-sm-12 col-md-6 col-lg-12" id="searchForm">
+                <div class="row">
+                    <div class="col-sm-12 col-lg-9">
+                        <input type="search" class="form-control" name="search" placeholder="Buscar" required>
+                    </div>
+                    <div class="col-md-6 col-lg-3" >
+                        <button type="reset" id="reloadButton" class="btn btn-secondary text-end">
+                            <i class="fa-solid fa-eraser"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <div class="col-sm-12 col-md-6 col-lg-12" style="margin-top: 20px;">
+                <label for="categoria" class="form-label">Categoria</label>
+                <select id="categoria" name="categoria" class="form-select" required >
+                </select>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-12" style="margin-top: 20px;">
+                <label for="tipoProducto" class="form-label">Tipo de producto</label>
+                <select id="tipoProducto" name="tipoProducto" class="form-select" required >
+                </select>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-12" style="margin-top: 20px;">
+                <label for="genero" class="form-label">Genero</label>
+                <select id="genero" name="genero" class="form-select" required >
+                </select>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-12" style="margin-top: 20px;">
+                <label for="deporte" class="form-label">Deporte</label>
+                <select id="deporte" name="deporte" class="form-select" required >
+                </select>
+            </div>
+        </aside>
 
+        <main class="col-lg-10">
+            <!-- Título del contenido principal -->
+            <h4 id="mainTitle"></h4>
+            <!-- Contenedor para mostrar las categorías disponibles -->
+            <div class="row" id="productos"></div>
+        </main>
+    </div>
+        
+
+    <!-- IMPORTACIÓN DE ARCHIVOS JAVASCRIPT -->
+    <!-- Llamada al framework y librería de mensajes -->
+    <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Llamada al kit de font awesome -->
+    <script src="https://kit.fontawesome.com/f6e8d56735.js" crossorigin="anonymous"></script>
+    <!-- Llamada al controlador de la página web -->
+    <script type="text/javascript" src="../../controllers/public/index.js"></script>
+    <!-- Llamada al controlador general de la aplicación -->
+    <script type="text/javascript" src="../../controllers/utils/js/components.js"></script>
     <!-- Llamada al controlador del sitio público -->
     <script type="text/javascript" src="../../controllers/utils/js/public.js"></script>
-    <!-- Llamada al controlador de la página web -->
-    <script type="text/javascript" src="../../controllers/public/SignUp.js"></script>
+
+    
 </body>
 
 </html>
