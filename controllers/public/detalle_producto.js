@@ -1,47 +1,57 @@
-// Constante para completar la ruta de la API.
+// Constantes para completar la ruta de la API.
 const PRODUCTO_API = 'services/public/producto.php';
+const PEDIDO_API = 'services/public/pedido.php';
+const TALLA_API = 'services/admin/talla.php';
 // Constante tipo objeto para obtener los parámetros disponibles en la URL.
 const PARAMS = new URLSearchParams(location.search);
-const DETALLE = document.getElementById('detalle');
+// Constante para establecer el formulario de agregar un producto al carrito de compras.
+const FORM_CANTIDAD = document.getElementById('form_cantidad');
 
-// Método manejador de eventos para cuando el documento ha cargado.
+
+
+// Método del eventos para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
     // Llamada a la función para mostrar el encabezado y pie del documento.
     loadTemplate();
-    // Se define un objeto con los datos de el detalle seleccionado.
+    // Se establece el título del contenido principal.
+    MAIN_TITLE.textContent = 'Detalles del producto';
+    // Constante tipo objeto con los datos del producto seleccionado.
     const FORM = new FormData();
-    FORM.append('idDeporte', PARAMS.get('id'));
-    // Petición para solicitar el detalle los productos seleccionados.
-    const DATA = await fetchData(PRODUCTO_API, 'readProductosDeporte', FORM);
+    FORM.append('id_producto', PARAMS.get('id'));
+    fillSelect(TALLA_API, 'readAll', 'talla');
+    // Petición para solicitar los datos del producto seleccionado.
+    const DATA = await fetchData(PRODUCTO_API, 'readOne', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
-        // Se asigna como título principal el detalle de los productos.
-        MAIN_TITLE.textContent = `Detalle: ${PARAMS.get('nombre')}`;
-        // Se inicializa el contenedor de productos.
-        DETALLE.innerHTML = '';
-        // Se recorre el conjunto de registros fila por fila a través del objeto row.
-        DATA.dataset.forEach(row => {
-            // Se crean y concatenan las tarjetas con los datos de cada producto.
-            DETALLE.innerHTML += `
-                <div class="col-sm-12 col-md-6 col-lg-3">
-                    <div class="card mb-3">
-                        <img src="${SERVER_URL}images/productos/${row.imagen}" class="card-img-top" alt="${row.nombre_producto}">
-                        <div class="card-body">
-                            <h5 class="card-title">${row.nombre_producto}</h5>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><strong>Descripción:</strong> ${row.descripcion}</li>
-                            <li class="list-group-item"><strong>Tipo de producto:</strong> ${row.tipo_producto}</li>
-                        </ul>
-                        <div class="card-body text-center">
-                            <a href="detail.html?id=${row.id_producto}" class="btn btn-primary">Ver detalle</a>
-                        </div>
-                    </div>
-                </div>
-            `;
-        });
+        // Se colocan los datos en la página web de acuerdo con el producto seleccionado previamente.
+        document.getElementById('imagen').src = SERVER_URL.concat('images/productos/', DATA.dataset.imagen);
+        document.getElementById('nombre_producto').textContent = DATA.dataset.nombre_producto;
+        document.getElementById('descripcion').textContent = DATA.dataset.descripcion;
+        document.getElementById('precio').textContent = DATA.dataset.precio;
+        document.getElementById('talla').textContent = DATA.dataset.talla;
+        document.getElementById('id_producto').value = DATA.dataset.id_producto;
     } else {
         // Se presenta un mensaje de error cuando no existen datos para mostrar.
-        MAIN_TITLE.textContent = DATA.error;
+        document.getElementById('mainTitle').textContent = DATA.error;
+        // Se limpia el contenido cuando no hay datos para mostrar.
+        document.getElementById('detalle').innerHTML = '';
+    }
+});
+
+// Método del evento para cuando se envía el formulario de agregar un producto al carrito.
+FORM_CANTIDAD.addEventListener('submit', async (event) => {
+    // Se evita recargar la página web después de enviar el formulario.
+    event.preventDefault();
+    // Constante tipo objeto con los datos del formulario.
+    const FORM = new FormData(FORM_CANTIDAD);
+    // Petición para guardar los datos del formulario.
+    const DATA = await fetchData(PEDIDO_API, 'createDetail', FORM);
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se constata si el cliente ha iniciado sesión.
+    if (DATA.status) {
+        sweetAlert(1, DATA.message, false, 'carrito.html');
+    } else if (DATA.session) {
+        sweetAlert(2, DATA.error, false);
+    } else {
+        sweetAlert(3, DATA.error, true, 'login.html');
     }
 });
