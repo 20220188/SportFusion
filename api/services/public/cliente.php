@@ -87,6 +87,7 @@ if (isset($_GET['action'])) {
                     $result['message'] = 'Autenticación correcta';
                 } else {
                     $result['error'] = 'La cuenta ha sido desactivada';
+                    print_r($_POST);
                 }
                 break;
             default:
