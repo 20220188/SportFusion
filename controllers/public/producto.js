@@ -1,7 +1,11 @@
 // Constante para completar la ruta de la API.
 const PRODUCTO_API = 'services/public/producto.php';
 const CATEGORIA_API = 'services/public/categoria.php';
+const TIPO_PRODUCTO_API = 'services/admin/tipo_producto.php';
+const GENERO_API = 'services/admin/genero.php';
 const CATEGORIA_CB = document.getElementById('categoria');
+const TIPO_PRODUCTO_CB = document.getElementById('tipoProducto');
+const GENERO_CB = document.getElementById('genero');
 // Constante tipo objeto para obtener los parámetros disponibles en la URL.
 const PARAMS = new URLSearchParams(location.search);
 const PRODUCTOS = document.getElementById('productos');
@@ -17,6 +21,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Petición para solicitar los productos de la categoría seleccionada.
     const DATA = await fetchData(PRODUCTO_API, 'readProductosDeporte', FORM);
     fillSelect(CATEGORIA_API, 'readAll', 'categoria');
+    fillSelect(TIPO_PRODUCTO_API, 'readAll_TipoP', 'tipoProducto');
+    fillSelect(GENERO_API, 'readAll', 'genero');
 
     // Inicialmente muestra los productos de la categoría seleccionada en los parámetros de la URL
     loadProducts(null);
@@ -24,6 +30,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Agregar un event listener al combobox para manejar los cambios de selección
     CATEGORIA_CB.addEventListener('change', () => {
         const selectedValue = CATEGORIA_CB.options[CATEGORIA_CB.selectedIndex].value;
+        loadProducts(selectedValue);
+    });
+
+    TIPO_PRODUCTO_CB.addEventListener('change', () => {
+        const selectedValue = TIPO_PRODUCTO_CB.options[TIPO_PRODUCTO_CB.selectedIndex].value;
+        loadProducts(selectedValue);
+    });
+
+    GENERO_CB.addEventListener('change', () => {
+        const selectedValue = GENERO_CB.options[GENERO_CB.selectedIndex].value;
         loadProducts(selectedValue);
     });
 });
