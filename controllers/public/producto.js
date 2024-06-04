@@ -62,8 +62,8 @@ async function loadProducts(selectedValue) {
                             <h5 class="card-title">${row.nombre_producto}</h5>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><strong>Descripción:</strong> ${row.descripcion}</li>
                             <li class="list-group-item"><strong>Tipo de producto:</strong> ${row.tipo_producto}</li>
+                            <li class="list-group-item"><strong>Genero:</strong> ${row.genero}</li>
                         </ul>
                         <div class="card-body text-center">
                             <a href="detail.html?id=${row.id_producto}" class="btn btn-primary">Ver detalle</a>
@@ -87,7 +87,6 @@ async function loadProducts(selectedValue) {
     
     // Agrega el event listener después de que el DOM se haya cargado
     document.addEventListener('DOMContentLoaded', () => {
-        console.log('DOM fully loaded and parsed');
         // Agrega el event listener al botón
         document.getElementById('reloadButton').addEventListener('click', reloadProductosDeporte);
     });
