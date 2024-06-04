@@ -32,7 +32,8 @@ if (isset($_GET['action'])) {
                     !$producto->setCategoria($_POST['categoriaProducto']) or
                     !$producto->setTipoProducto($_POST['tipoProducto']) or
                     !$producto->setDeporte($_POST['deporteProducto']) or
-                    !$producto->setImagen($_FILES['imagenProducto'])
+                    !$producto->setImagen($_FILES['imagenProducto'])  or
+                    !$producto->setGenero($_POST['generoProducto'])
                 ) {
                     $result['error'] = $producto->getDataError();
                 } elseif ($producto->createRow()) {
@@ -71,6 +72,7 @@ if (isset($_GET['action'])) {
                     !$producto->setCategoria($_POST['categoriaProducto']) or
                     !$producto->setTipoProducto($_POST['tipoProducto']) or
                     !$producto->setDeporte($_POST['deporteProducto']) or
+                    !$producto->setGenero($_POST['generoProducto']) or
                     !$producto->setImagen($_FILES['imagenProducto'], $producto->getFilename())
                 ) {
                     $result['error'] = $producto->getDataError();
@@ -105,7 +107,6 @@ if (isset($_GET['action'])) {
                     !$producto->setPrecio($_POST['precioDetalle']) or
                     !$producto->setExistencias($_POST['existenciasDetalle']) or
                     !$producto->setTalla($_POST['tallaDetalle']) or
-                    !$producto->setGenero($_POST['generoDetalle']) or
                     !$producto->setId($_POST['idProductoDetalle'])
                 ) {
                     $result['error'] = $producto->getDataError();
@@ -141,8 +142,7 @@ if (isset($_GET['action'])) {
                     !$producto->setDetalleproducto($_POST['idDetalle']) or
                     !$producto->setPrecio($_POST['precioDetalle']) or
                     !$producto->setExistencias($_POST['existenciasDetalle']) or
-                    !$producto->setTalla($_POST['tallaDetalle']) or
-                    !$producto->setGenero($_POST['generoDetalle'])
+                    !$producto->setTalla($_POST['tallaDetalle'])
                 ) {
                     $result['error'] = $producto->getDataError();
                 } elseif ($producto->updateRowDetalle()) {

@@ -142,6 +142,7 @@ const fillTable = async (form = null) => {
                     <td>${row.nombre_producto}</td>
                     <td>${row.nombre_categoria}</td>
                     <td>${row.tipo_producto}</td>
+                    <td>${row.genero}</td>
                     <td>${row.nombre_deporte}</td>
                     <td>
                         <button type="button" class="btn btn-success" onclick="openDetails(${row.id_producto})">
@@ -178,6 +179,7 @@ const openCreate = () => {
     fillSelect(CATEGORIA_API, 'readAll', 'categoriaProducto');
     fillSelect(TIPO_PRODUCTO_API, 'readAll_TipoP', 'tipoProducto');
     fillSelect(DEPORTE_API, 'readAll', 'deporteProducto');
+    fillSelect(GENERO_API, 'readAll', 'generoProducto');
 }
 
 /*
@@ -206,6 +208,7 @@ const openUpdate = async (id) => {
         fillSelect(CATEGORIA_API, 'readAll', 'categoriaProducto', ROW.id_categoria);
         fillSelect(TIPO_PRODUCTO_API, 'readAll_TipoP', 'tipoProducto', ROW.id_tipo_producto);
         fillSelect(DEPORTE_API, 'readAll', 'deporteProducto', ROW.id_deporte);
+        fillSelect(GENERO_API, 'readAll', 'generoProducto', ROW.id_genero);
     } else {
         sweetAlert(2, DATA.error, false);
     }
@@ -290,7 +293,6 @@ const fillTableDetails = async (id) => {
                     <td>${row.precio}</td>
                     <td>${row.cantidad_disponible}</td>
                     <td>${row.talla}</td>
-                    <td>${row.genero}</td>
                     <td>${row.nombre_producto}</td>
                     <td>
                         <button type="button" class="btn btn-info" onclick="openUpdateDetails(${row.id_detalle_producto})">
@@ -328,7 +330,6 @@ const openDetails = (id_producto) => {
 
     ID_PRODUCTO_DETALLE.value = id_producto;
     fillSelect(TALLA_API, 'readAll', 'tallaDetalle');
-    fillSelect(GENERO_API, 'readAll', 'generoDetalle');
 
     fillTableDetails(id_producto);
 }
@@ -358,7 +359,6 @@ const openUpdateDetails = async (id1) => {
         ID_PRODUCTO_DETALLE.value = ROW.id_producto;
         EXISTENCIAS_DETALLE.value = ROW.cantidad_disponible;
         fillSelect(TALLA_API, 'readAll', 'tallaDetalle', ROW.id_talla);
-        fillSelect(GENERO_API, 'readAll', 'generoDetalle', ROW.id_genero);
 
     } else {
         sweetAlert(2, DATA.error, false);

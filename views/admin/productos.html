@@ -62,13 +62,14 @@
                     <!-- Cabeza de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
                     <thead>
                         <tr>
-                            <td class="text-start" colspan="6" id="rowsFound"></td>
+                            <td class="text-start" colspan="7" id="rowsFound"></td>
                         </tr>
                         <tr>
                             <th>IMAGEN</th>
                             <th>NOMBRE</th>
                             <th>CATEGORÍA</th>
                             <th>TIPO</th>
+                            <th>GENERO</th>
                             <th>DEPORTE</th>
                             <th>ACCIONES</th>
                         </tr>
@@ -120,6 +121,11 @@
                                         </select>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
+                                        <label for="generoProducto" class="form-label">Género</label>
+                                        <select id="generoProducto" name="generoProducto" class="form-select" required>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
                                         <label for="imagenProducto" class="form-label">Imagen</label>
                                         <input id="imagenProducto" type="file" name="imagenProducto"
                                             class="form-control" accept=".png, .jpg">
@@ -164,12 +170,6 @@
                                         <select id="tallaDetalle" name="tallaDetalle" class="form-select" required>
                                         </select>
                                     </div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="generoDetalle" class="form-label">Género</label>
-                                        <select id="generoDetalle" name="generoDetalle" class="form-select" required>
-                                        </select>
-                                    </div>
-
                                 </div>
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-primary">Guardar</button>
@@ -180,13 +180,12 @@
                                     <!-- Cabeza de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
                                     <thead>
                                         <tr>
-                                            <td class="text-start" colspan="6" id="rowsFoundDetalle"></td>
+                                            <td class="text-start" colspan="5" id="rowsFoundDetalle"></td>
                                         </tr>
                                         <tr>
                                             <th>PRECIO</th>
                                             <th>EXISTENCIAS</th>
                                             <th>TALLA</th>
-                                            <th>GENERO</th>
                                             <th>PRODUCTO</th>
                                             <th>ACCIONES</th>
                                         </tr>
