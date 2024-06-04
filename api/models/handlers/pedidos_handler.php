@@ -11,10 +11,10 @@ class PedidoHandler
     */
     protected $id_pedido = null; /*Tabla de pedido*/
     protected $id_detalle = null; /*Tabla de detalle de pedido*/
-    protected $id_cliente = null; /*Tabla de cliente*/
-    protected $id_producto = null; /*Tabla de producto*/
-    protected $cantidad_pedido = null; /*Tabla de detalle de pedido*/
-    protected $id_estado = null; /*Tabla de estado de pedido*/
+    protected $liente = null; /*Tabla de cliente*/
+    protected $producto = null; /*Tabla de producto*/
+    protected $cantidad = null; /*Tabla de detalle de pedido*/
+    protected $estado = null; /*Tabla de estado de pedido*/
 
     /*Precio se hace con una seleccion por medio del id mas adelante*/
     /*La direccion se manda a llamar dentro del programa por medio del registro del cliente*/
