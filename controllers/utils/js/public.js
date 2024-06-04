@@ -39,7 +39,7 @@ const loadTemplate = async () => {
                             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                                 <div class="navbar-nav ms-auto">
                                     <a class="nav-link" href="deportes.html"><i class="fa-solid fa-basketball"></i> Deportes</a>
-                                    <a class="nav-link" href="productos.html"><i class="fa-solid fa-store"></i> Productos</a>
+                                    <a class="nav-link" href="index.html"><i class="fa-solid fa-store"></i> Productos</a>
                                     <a class="nav-link" href="cart.html"><i class="fa-solid fa-cart-shopping"></i>
                                     <a class="nav-link" href="#" onclick="logOut()"><i class="fa-solid fa-arrow-right-to-bracket"></i> Cerrar sesión</a>
                                 </div>
@@ -64,7 +64,7 @@ const loadTemplate = async () => {
                         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                             <div class="navbar-nav ms-auto">
                                 <a class="nav-link" href="deportes.html"><i class="fa-solid fa-basketball"></i> Deportes</a>
-                                <a class="nav-link" href="productos.html"><i class="fa-solid fa-store"></i> Productos</a>
+                                <a class="nav-link" href="index.html"><i class="fa-solid fa-store"></i> Productos</a>
                                 <a class="nav-link" href="signup.html"><i class="fa-solid fa-user"></i> Crear cuenta</a>
                                 <a class="nav-link" href="login.html"><i class="fa-solid fa-arrow-right-to-bracket"></i> Iniciar sesión</a>
                             </div>

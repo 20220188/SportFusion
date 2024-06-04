@@ -78,7 +78,10 @@ class ProductoData extends ProductoHandler
     
     public function setCategoria($value)
     {
-        if (Validator::validateNaturalNumber($value)) {
+        if($value == null){
+            $this->id_categoria = null;
+            return true;
+        } elseif (Validator::validateNaturalNumber($value)) {
             $this->id_categoria = $value;
             return true;
         } else {
@@ -89,7 +92,10 @@ class ProductoData extends ProductoHandler
     
     public function setTipoProducto($value)
     {
-        if (Validator::validateNaturalNumber($value)) {
+        if($value == null){
+            $this->id_tipo_producto = null;
+            return true;
+        }elseif (Validator::validateNaturalNumber($value)) {
             $this->id_tipo_producto = $value;
             return true;
         } else {
@@ -100,7 +106,10 @@ class ProductoData extends ProductoHandler
 
     public function setDeporte($value)
     {
-        if (Validator::validateNaturalNumber($value)) {
+        if($value == null){
+            $this->id_deporte = null;
+            return true;
+        }elseif (Validator::validateNaturalNumber($value)) {
             $this->id_deporte = $value;
             return true;
         } else {
@@ -168,7 +177,10 @@ public function setDetalleproducto($value)
 
     public function setGenero($value)
     {
-        if (Validator::validateNaturalNumber($value)) {
+        if($value == null){
+            $this->id_genero = null;
+            return true;
+        }elseif (Validator::validateNaturalNumber($value)) {
             $this->id_genero = $value;
             return true;
         } else {

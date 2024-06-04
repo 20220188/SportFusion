@@ -358,7 +358,7 @@ const openUpdateDetails = async (id1) => {
         PRECIO_DETALLE.value = ROW.precio;
         ID_PRODUCTO_DETALLE.value = ROW.id_producto;
         EXISTENCIAS_DETALLE.value = ROW.cantidad_disponible;
-        fillSelect(TALLA_API, 'readAll', 'tallaDetalle', ROW.id_talla);
+        fillSelect(TALLA_API, 'readAll', 'tallaDetalle', ROW.id_talla); 
 
     } else {
         sweetAlert(2, DATA.error, false);

@@ -10,10 +10,15 @@ if (isset($_GET['action'])) {
     $result = array('status' => 0, 'message' => null, 'dataset' => null, 'error' => null, 'exception' => null);
     // Se compara la acción a realizar según la petición del controlador.
     switch ($_GET['action']) {
-        case 'readProductosDeporte':
-            if (!$producto->setDeporte($_POST['idDeporte'])) {
+        case 'readProductoxCategoria':
+            if (
+                !$producto->setDeporte($_POST['idDeporte']) or
+                !$producto->setCategoria(isset($_POST['idCategoria']) ? $_POST['idCategoria'] : null) or
+                !$producto->setTipoProducto(isset($_POST['idTipoProducto']) ? $_POST['idTipoProducto'] : null) or
+                !$producto->setGenero(isset($_POST['idGenero']) ? $_POST['idGenero'] : null)
+            ) {
                 $result['error'] = $producto->getDataError();
-            } elseif ($result['dataset'] = $producto->readProductosDeporte()) {
+            } elseif ($result['dataset'] = $producto->readProductoxCategoria()) {
                 $result['status'] = 1;
             } else {
                 $result['error'] = 'No existen productos para mostrar';
@@ -28,10 +33,15 @@ if (isset($_GET['action'])) {
                 $result['error'] = 'Producto inexistente';
             }
             break;
-        case 'readProductoxCategoria':
-            if (!$producto->setCategoria($_POST['idCategoria']) || !$producto->setDeporte($_POST['idDeporte'])) {
+        case 'readProductos':
+            if (
+                !$producto->setDeporte(isset($_POST['idDeporte']) ? $_POST['idDeporte'] : null) or
+                !$producto->setCategoria(isset($_POST['idCategoria']) ? $_POST['idCategoria'] : null) or
+                !$producto->setTipoProducto(isset($_POST['idTipoProducto']) ? $_POST['idTipoProducto'] : null) or
+                !$producto->setGenero(isset($_POST['idGenero']) ? $_POST['idGenero'] : null)
+            ) {
                 $result['error'] = $producto->getDataError();
-            } elseif ($result['dataset'] = $producto->readProductoxCategoria()) {
+            } elseif ($result['dataset'] = $producto->readProductos()) {
                 $result['status'] = 1;
             } else {
                 $result['error'] = 'No existen productos para mostrar';
@@ -49,4 +59,3 @@ if (isset($_GET['action'])) {
 } else {
     print(json_encode('Recurso no disponible'));
 }
-?>
