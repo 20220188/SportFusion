@@ -28,6 +28,15 @@ if (isset($_GET['action'])) {
                 $result['error'] = 'Producto inexistente';
             }
             break;
+        case 'readProductoxCategoria':
+            if (!$producto->setCategoria($_POST['idCategoria']) || !$producto->setDeporte($_POST['idDeporte'])) {
+                $result['error'] = $producto->getDataError();
+            } elseif ($result['dataset'] = $producto->readProductoxCategoria()) {
+                $result['status'] = 1;
+            } else {
+                $result['error'] = 'No existen productos para mostrar';
+            }
+            break;
         default:
             $result['error'] = 'Acción no disponible';
     }
@@ -40,3 +49,4 @@ if (isset($_GET['action'])) {
 } else {
     print(json_encode('Recurso no disponible'));
 }
+?>

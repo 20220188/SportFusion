@@ -244,6 +244,21 @@ class ProductoHandler
         return Database::getRows($sql);
     }
 
+    /*CONSULTAS PARA FILTRAR RESULTADOS POR CATEGORIAS EN EL SITIO PUBLICO */
+
+    public function readProductoxCategoria()
+    {
+        $sql = 'SELECT id_producto, imagen, nombre_producto, descripcion, nombre_categoria, tipo_producto, nombre_deporte  
+        FROM tb_productos
+        INNER JOIN tb_categorias USING(id_categoria)
+        INNER JOIN tb_tipo_productos USING(id_tipo_producto)
+        INNER JOIN tb_deportes USING(id_deporte)
+        WHERE id_categoria = ? AND id_deporte = ?
+        ORDER BY nombre_producto';
+        $params = array($this->id_categoria, $this->id_deporte);
+        return Database::getRows($sql, $params);
+    }
+
     /*
     *   Métodos para generar reportes.
     */

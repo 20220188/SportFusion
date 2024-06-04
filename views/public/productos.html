@@ -26,15 +26,15 @@
                         <input type="search" class="form-control" name="search" placeholder="Buscar" required>
                     </div>
                     <div class="col-md-6 col-lg-3" >
-                        <button type="reset" class="btn btn-secondary text-end" onclick="fillTable()">
+                        <button type="reset" id="reloadButton" class="btn btn-secondary text-end">
                             <i class="fa-solid fa-eraser"></i>
                         </button>
                     </div>
                 </div>
             </form>
             <div class="col-sm-12 col-md-6 col-lg-12" style="margin-top: 20px;">
-                <label for="estadoPedido" class="form-label">Categoria</label>
-                <select id="estadoPedido" name="estadoPedido" class="form-select" required >
+                <label for="categoria" class="form-label">Categoria</label>
+                <select id="categoria" name="categoria" class="form-select" required >
                 </select>
             </div>
         </aside>
@@ -61,7 +61,7 @@
     <script type="text/javascript" src="../../controllers/utils/js/public.js"></script>
 
     <!-- Llamada al controlador de la página web -->
-    <script type="text/javascript" src="../../controllers/public/detalle_producto.js"></script>
+    <script type="text/javascript" src="../../controllers/public/producto.js"></script>
 </body>
 
 </html>
