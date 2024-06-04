@@ -33,7 +33,7 @@ class PedidoHandler
     // Método para verificar si existe un pedido en proceso con el fin de iniciar o continuar una compra.
     public function getOrder()
     {
-        $this->id_estado = 'Pendiente';
+        $this->estado = 'Pendiente';
         $sql = 'SELECT id_pedido
                 FROM tb_pedidos
                 WHERE id_estado_pedido = ? AND id_cliente = ?';
