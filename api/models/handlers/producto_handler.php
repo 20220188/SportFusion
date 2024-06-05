@@ -53,14 +53,14 @@ class ProductoHandler
         return Database::getRows($sql, $params);
     }
 
-        public function createRow()
-        {
-            $sql = 'INSERT INTO tb_productos(nombre_producto, descripcion, imagen, id_categoria,id_tipo_producto, id_deporte, id_genero)
+    public function createRow()
+    {
+        $sql = 'INSERT INTO tb_productos(nombre_producto, descripcion, imagen, id_categoria,id_tipo_producto, id_deporte, id_genero)
                     VALUES(?, ?, ?, ?, ?, ?, ?)';
-            $params = array($this->nombre, $this->descripcion, $this->imagen, $this->id_categoria, $this->id_tipo_producto, $this->id_deporte, $this->id_genero);
-            //esto funciona para ver los valores que toma el arreglo print_r($params);.
-            return Database::executeRow($sql, $params);
-        }
+        $params = array($this->nombre, $this->descripcion, $this->imagen, $this->id_categoria, $this->id_tipo_producto, $this->id_deporte, $this->id_genero);
+        //esto funciona para ver los valores que toma el arreglo print_r($params);.
+        return Database::executeRow($sql, $params);
+    }
 
     public function readAll()
     {
@@ -83,7 +83,7 @@ class ProductoHandler
         return Database::getRow($sql, $params);
     }
 
-    
+
 
     public function readFilename()
     {
@@ -99,7 +99,7 @@ class ProductoHandler
         $sql = 'UPDATE tb_productos 
                 SET imagen = ?, nombre_producto = ?, descripcion = ?, id_categoria = ?, id_tipo_producto = ?, id_deporte = ?, id_genero = ?
                 WHERE id_producto = ?';
-        $params = array($this->imagen, $this->nombre, $this->descripcion, $this->id_categoria,$this->id_tipo_producto,$this->id_deporte,$this->id_genero , $this->id);
+        $params = array($this->imagen, $this->nombre, $this->descripcion, $this->id_categoria, $this->id_tipo_producto, $this->id_deporte, $this->id_genero, $this->id);
         return Database::executeRow($sql, $params);
     }
 
@@ -129,14 +129,14 @@ class ProductoHandler
     */
 
     public function createRowDetalleProducto()
-        {
-            $sql = 'INSERT INTO tb_detalle_productos(precio, cantidad_disponible, id_talla, id_producto)
+    {
+        $sql = 'INSERT INTO tb_detalle_productos(precio, cantidad_disponible, id_talla, id_producto)
                     VALUES(?, ?, ?,?)';
-            $params = array($this->precio, $this->existencias, $this->id_talla, $this->id);
-            return Database::executeRow($sql, $params);
-        }
+        $params = array($this->precio, $this->existencias, $this->id_talla, $this->id);
+        return Database::executeRow($sql, $params);
+    }
 
-        public function readAllDetalle()
+    public function readAllDetalle()
     {
         $sql = 'SELECT dp.id_detalle_producto, dp.precio,dp.id_producto, dp.cantidad_disponible, t.talla, p.nombre_producto,dp.id_talla
         FROM tb_detalle_productos dp
@@ -162,7 +162,7 @@ class ProductoHandler
         $sql = 'UPDATE tb_detalle_productos 
                 SET precio = ?, cantidad_disponible = ?, id_talla = ?
                 WHERE id_detalle_producto = ?';
-        $params = array($this->precio, $this->existencias,$this->id_talla, $this->id_detalle_producto);
+        $params = array($this->precio, $this->existencias, $this->id_talla, $this->id_detalle_producto);
         return Database::executeRow($sql, $params);
     }
 
@@ -179,14 +179,14 @@ class ProductoHandler
     */
 
     public function createRowValoracion()
-        {
-            $sql = 'INSERT INTO tb_valoraciones_productos(id_opinion, id_detalle_producto, id_cliente, estado_valoracion)
+    {
+        $sql = 'INSERT INTO tb_valoraciones_productos(id_opinion, id_detalle_producto, id_cliente, estado_valoracion)
                     VALUES(?, ?, ?, ?)';
-            $params = array($this->id_opinion, $this->id_detalle_producto, $this->id_cliente, $this->estado_valoracion);
-            return Database::executeRow($sql, $params);
-        }
+        $params = array($this->id_opinion, $this->id_detalle_producto, $this->id_cliente, $this->estado_valoracion);
+        return Database::executeRow($sql, $params);
+    }
 
-        public function readAllValoracion()
+    public function readAllValoracion()
     {
         $sql = 'SELECT v.id_valoracion_producto, o.comentario, o.opinion,v.id_detalle_producto, c.nombre_cliente, v.estado_valoracion
         FROM tb_valoraciones_productos v
@@ -258,15 +258,15 @@ class ProductoHandler
         INNER JOIN tb_generos using(id_genero)
         WHERE id_deporte = ?';
         $params = array($this->id_deporte);
-        if($this->id_categoria != null){
+        if ($this->id_categoria != null) {
             $sql .= ' AND id_categoria = ?';
             array_push($params, $this->id_categoria);
         }
-        if($this->id_tipo_producto != null){
+        if ($this->id_tipo_producto != null) {
             $sql .= ' AND id_tipo_producto = ?';
             array_push($params, $this->id_tipo_producto);
         }
-        if($this->id_genero != null){
+        if ($this->id_genero != null) {
             $sql .= ' AND id_genero = ?';
             array_push($params, $this->id_genero);
         }
@@ -284,19 +284,19 @@ class ProductoHandler
         INNER JOIN tb_generos using(id_genero)
         WHERE id_producto != 0';
         $params = array();
-        if($this->id_categoria != null){
+        if ($this->id_categoria != null) {
             $sql .= ' AND id_categoria = ?';
             array_push($params, $this->id_categoria);
         }
-        if($this->id_tipo_producto != null){
+        if ($this->id_tipo_producto != null) {
             $sql .= ' AND id_tipo_producto = ?';
             array_push($params, $this->id_tipo_producto);
         }
-        if($this->id_genero != null){
+        if ($this->id_genero != null) {
             $sql .= ' AND id_genero = ?';
             array_push($params, $this->id_genero);
         }
-        if($this->id_deporte != null){
+        if ($this->id_deporte != null) {
             $sql .= ' AND id_deporte = ?';
             array_push($params, $this->id_deporte);
         }
@@ -304,6 +304,37 @@ class ProductoHandler
         return Database::getRows($sql, $params);
     }
 
+
+    public function searchRowsPublic()
+    {
+        $value = '%' . Validator::getSearchValue() . '%';
+        $sql = 'SELECT id_producto, imagen, nombre_producto, descripcion, nombre_categoria, tipo_producto, nombre_deporte,genero    
+                FROM tb_productos
+                INNER JOIN tb_categorias USING(id_categoria)
+                INNER JOIN tb_tipo_productos USING(id_tipo_producto)
+                INNER JOIN tb_deportes USING(id_deporte)
+                INNER JOIN tb_generos USING(id_genero)
+                WHERE nombre_producto LIKE ? OR descripcion LIKE ? OR nombre_categoria LIKE ? OR tipo_producto LIKE ? OR nombre_deporte LIKE ? OR genero LIKE ?';
+        $params = array($value, $value, $value, $value, $value, $value);
+        if ($this->id_categoria != null) {
+            $sql .= ' AND id_categoria = ?';
+            array_push($params, $this->id_categoria);
+        }
+        if ($this->id_tipo_producto != null) {
+            $sql .= ' AND id_tipo_producto = ?';
+            array_push($params, $this->id_tipo_producto);
+        }
+        if ($this->id_genero != null) {
+            $sql .= ' AND id_genero = ?';
+            array_push($params, $this->id_genero);
+        }
+        if ($this->id_deporte != null) {
+            $sql .= ' AND id_deporte = ?';
+            array_push($params, $this->id_deporte);
+        }
+        $sql .= ' ORDER BY nombre_producto';
+        return Database::getRows($sql, $params);
+    }
     /*
     *   Métodos para generar reportes.
     */
@@ -320,5 +351,4 @@ class ProductoHandler
         return Database::getRows($sql, $params);
     }
     */
-    
 }
