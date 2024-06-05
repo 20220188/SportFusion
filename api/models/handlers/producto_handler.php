@@ -334,6 +334,18 @@ class ProductoHandler
         }
         $sql .= ' ORDER BY nombre_producto';
         return Database::getRows($sql, $params);
+
+    }
+
+
+    public function readOnePublica()
+    {
+        $sql = 'SELECT id_detalle_producto, precio, cantidad_disponible, id_talla, imagen, descripcion, nombre_producto
+                FROM tb_detalle_productos
+                INNER JOIN tb_productos USING(id_producto) 
+                WHERE id_detalle_producto = ?';
+        $params = array($this->id_detalle_producto);
+        return Database::getRow($sql, $params);
     }
     /*
     *   Métodos para generar reportes.

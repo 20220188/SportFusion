@@ -43,6 +43,15 @@ if (isset($_GET['action'])) {
                 $result['error'] = 'Producto inexistente';
             }
             break;
+            case 'readOnePublica':
+                if (!$producto->setDetalleproducto($_POST['idProducto'])) {
+                    $result['error'] = $producto->getDataError();
+                } elseif ($result['dataset'] = $producto->readOnePublica()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['error'] = 'Producto inexistente';
+                }
+                break;
         case 'readProductos':
             if (
                 !$producto->setDeporte(isset($_POST['idDeporte']) ? $_POST['idDeporte'] : null) or
