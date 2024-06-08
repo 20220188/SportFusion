@@ -44,7 +44,7 @@ class DeporteData extends DeporteHandler
 
     public function setImagen($file, $filename = null)
     {
-        if (Validator::validateImageFile($file, 1000)) {
+        if (Validator::validateImageFile($file, 400)) {
             $this->imagen = Validator::getFileName();
             return true;
         } elseif (Validator::getFileError()) {
