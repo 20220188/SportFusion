@@ -82,24 +82,6 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Ocurrió un problema al eliminar el pedido';
                 }
                 break;
-            //Casos para DETALLE_pedido
-            case 'createRowDetalle':
-                $_POST = Validator::validateForm($_POST);
-            if (
-                !$pedido->setDetallePedido($_POST['idDetalle']) or
-                !$pedido->setCantidad($_POST['existenciasDetalle']) or
-                !$pedido->setPrecio($_POST['precioDetalle']) or
-                !$pedido->setid_Producto($_POST['estadoPedido']) or
-                !$pedido->setId_estado($_POST['estadoPedido'])
-            ) {
-                $result['error'] = $pedido->getDataError();
-            } elseif ($pedido->createRowDetalle()) {
-                $result['status'] = 1;
-                $result['message'] = 'Detalle creado correctamente';
-            } else {
-                $result['exception'] = Database::getException();
-            }
-                break;
             case 'readAllDetalle':
                 if (!$pedido->setId($_POST['idPedido'])) {
                     print_r($_POST );
