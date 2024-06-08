@@ -43,7 +43,7 @@ const loadTemplate = async () => {
                                     <a class="nav-link" href="carrito.html"><i class="fa-solid fa-cart-shopping"></i> Carrito de compras</a>
 
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-user"></i> Cuenta</a>
+                                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-user"></i> Cuenta: <b>${DATA.mail}</b></a>
                                         <ul class="dropdown-menu">
                                             <li><a class="dropdown-item" href="perfilUsuario.html">Editar perfil</a></li>
                                             <li><hr class="dropdown-divider"></li>
@@ -94,14 +94,15 @@ const loadTemplate = async () => {
                 <div class="container">
                     <div>
                         <h6>SportsFusion</h6>
-                        <p><i class="bi bi-c-square"></i> Todos los derechos reservados - 2024  </p>
+                        <p> Todos los derechos reservados - 2024  </p>
                     </div>
                     <div>
                         <h6>Integrantes</h6>
-                        <p><i class="bi bi-envelope"></i> | Jafet Melara - 20220188 | Kevin Rodríguez - 20220286 | Dominic Mejía - 20220211 | </p>
+                        <p> | Jafet Melara - 20220188 | Kevin Rodríguez - 20220286 | Dominic Mejía - 20220211 | </p>
                     </div>
                 </div>
             </nav>
         </footer>
+        
     `);
 }

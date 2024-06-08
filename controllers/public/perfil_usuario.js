@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         NOMBRE_CLIENTE.value = ROW.nombre_cliente;
         TELEFONO_CLIENTE.value = ROW.telefono_cliente;
         CORREO_CLIENTE.value = ROW.correo_cliente;
-        DIRECCION_CLIENTE.value = ROW.direccion_cliente;
+        DIRECCION_CLIENTE.value = ROW.dirección_cliente;
     } else {
         sweetAlert(2, DATA.error, null);
     }
