@@ -1,8 +1,8 @@
 // Constante para completar la ruta de la API.
 const PRODUCTO_API = 'services/public/producto.php';
 const CATEGORIA_API = 'services/public/categoria.php';
-const TIPO_PRODUCTO_API = 'services/admin/tipo_producto.php';
-const GENERO_API = 'services/admin/genero.php';
+const TIPO_PRODUCTO_API = 'services/public/tipo_producto.php';
+const GENERO_API = 'services/public/genero.php';
 const CATEGORIA_CB = document.getElementById('categoria');
 const TIPO_PRODUCTO_CB = document.getElementById('tipoProducto');
 const GENERO_CB = document.getElementById('genero');
