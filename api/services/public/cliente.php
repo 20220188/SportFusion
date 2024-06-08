@@ -9,7 +9,7 @@ if (isset($_GET['action'])) {
     // Se instancia la clase correspondiente.
     $cliente = new ClienteData;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
-    $result = array('status' => 0, 'session' => 0, 'recaptcha' => 0, 'message' => null, 'error' => null, 'exception' => null, 'username' => null);
+    $result = array('status' => 0, 'session' => 0, 'message' => null, 'error' => null, 'exception' => null, 'username' => null);
     // Se verifica si existe una sesión iniciada como cliente para realizar las acciones correspondientes.
     if (isset($_SESSION['idCliente'])) {
         $result['session'] = 1;
@@ -50,7 +50,7 @@ if (isset($_GET['action'])) {
                     } elseif ($cliente->editProfile()) {
                         $result['status'] = 1;
                         $result['message'] = 'Perfil modificado correctamente';
-                        $_SESSION['correo'] = $_POST['correoclientePerfil'];
+                        $_SESSION['correo '] = $_POST['correoclientePerfil'];
                     } else {
                         $result['error'] = 'Ocurrió un problema al modificar el perfil';
                     }
