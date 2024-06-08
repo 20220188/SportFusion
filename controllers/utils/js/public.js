@@ -40,8 +40,21 @@ const loadTemplate = async () => {
                                 <div class="navbar-nav ms-auto">
                                     <a class="nav-link" href="deportes.html"><i class="fa-solid fa-basketball"></i> Deportes</a>
                                     <a class="nav-link" href="index.html"><i class="fa-solid fa-store"></i> Productos</a>
-                                    <a class="nav-link" href="cart.html"><i class="fa-solid fa-cart-shopping"></i>
-                                    <a class="nav-link" href="#" onclick="logOut()"><i class="fa-solid fa-arrow-right-to-bracket"></i> Cerrar sesión</a>
+                                    <a class="nav-link" href="carrito.html"><i class="fa-solid fa-cart-shopping"></i> Carrito de compras</a>
+
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-user"></i> Cuenta</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="perfilUsuario.html">Editar perfil</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item" href="profile.html">Historial de compras</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <a class="nav-link" href="#" onclick="logOut()"> Cerrar sesión <i class="fa-solid fa-arrow-right-to-bracket"></i></a>
+
+                                    
+
                                 </div>
                             </div>
                         </div>
@@ -80,12 +93,12 @@ const loadTemplate = async () => {
             <nav class="navbar fixed-bottom bg-body-tertiary">
                 <div class="container">
                     <div>
-                        <h6>CoffeeShop</h6>
-                        <p><i class="bi bi-c-square"></i> 2018-2024 Todos los derechos reservados</p>
+                        <h6>SportsFusion</h6>
+                        <p><i class="bi bi-c-square"></i> Todos los derechos reservados - 2024  </p>
                     </div>
                     <div>
-                        <h6>Contáctanos</h6>
-                        <p><i class="bi bi-envelope"></i> dacasoft@outlook.com</p>
+                        <h6>Integrantes</h6>
+                        <p><i class="bi bi-envelope"></i> | Jafet Melara - 20220188 | Kevin Rodríguez - 20220286 | Dominic Mejía - 20220211 | </p>
                     </div>
                 </div>
             </nav>

@@ -16,13 +16,20 @@ if (isset($_GET['action'])) {
         // Se compara la acción a realizar cuando un cliente ha iniciado sesión.
         switch ($_GET['action']) {
             case 'getUser':
-                if (isset($_SESSION['correoCliente'])) {
+                if (isset($_SESSION['nombreclientePerfil'])) {
                     $result['status'] = 1;
-                    $result['username'] = $_SESSION['correoCliente'];
+                    $result['username'] = $_SESSION['nombreclientePerfil'];
                 } else {
-                    $result['error'] = 'Correo de usuario indefinido';
+                    $result['error'] = 'Nombre de usuario indefinido';
                 }
                 break;
+                case 'readProfile':
+                    if ($result['dataset'] = $cliente->readProfile()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['error'] = 'Ocurrió un problema al leer el perfil';
+                    }
+                    break;
             case 'logOut':
                 if (session_destroy()) {
                     $result['status'] = 1;
@@ -32,7 +39,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
             default:
-                $result['error'] = 'Acción no disponible dentro de la sesión';
+                $result['error'] = 'Acción no disponible dentro de la sesión 1';
         }
     } else {
         // Se compara la acción a realizar cuando el cliente no ha iniciado sesión.
@@ -90,8 +97,10 @@ if (isset($_GET['action'])) {
                     print_r($_POST);
                 }
                 break;
+                
             default:
-                $result['error'] = 'Acción no disponible fuera de la sesión';
+                $result['error'] = 'Acción no disponible fuera de la sesión ';
+
         }
     }
     // Se obtiene la excepción del servidor de base de datos por si ocurrió un problema.

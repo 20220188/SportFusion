@@ -14,7 +14,6 @@ class ClienteHandler
     protected $telefono = null;
     protected $correo = null;
     protected $direccion = null;
-    protected $alias = null;
     protected $clave = null;
     protected $estado = null;
 
@@ -26,9 +25,9 @@ class ClienteHandler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT id_cliente, nombre_cliente, telefono_cliente, correo_cliente, dirección_cliente, alias_cliente, estado_cliente
+        $sql = 'SELECT id_cliente, nombre_cliente, telefono_cliente, correo_cliente, dirección_cliente, estado_cliente
                 FROM tb_clientes
-                WHERE nombre_cliente LIKE ? OR alias_cliente LIKE ?
+                WHERE nombre_cliente LIKE ? 
                 ORDER BY nombre_cliente';
         $params = array($value, $value);
         return Database::getRows($sql, $params);
@@ -36,15 +35,17 @@ class ClienteHandler
 
     public function createRow()
     {
-        $sql = 'INSERT INTO tb_clientes(nombre_cliente, telefono_cliente, correo_cliente, dirección_cliente, alias_cliente, clave_cliente)
-                VALUES(?, ?, ?, ?, ?, ?)';
-        $params = array($this->nombre, $this->telefono, $this->correo, $this->direccion, $this->alias, $this->clave);
+        $sql = 'INSERT INTO tb_clientes(nombre_cliente, telefono_cliente, correo_cliente, dirección_cliente, clave_cliente)
+                VALUES(?, ?, ?, ?, ?)';
+        $params = array($this->nombre, $this->telefono, $this->correo, $this->direccion, $this->clave);
         return Database::executeRow($sql, $params);
     }
 
+
+
     public function readAll()
     {
-        $sql = 'SELECT id_cliente, nombre_cliente, telefono_cliente, correo_cliente, dirección_cliente, alias_cliente, clave_cliente, estado_cliente
+        $sql = 'SELECT id_cliente, nombre_cliente, telefono_cliente, correo_cliente, dirección_cliente, clave_cliente, estado_cliente
                 FROM tb_clientes
                 ORDER BY nombre_cliente';
         return Database::getRows($sql);
@@ -141,6 +142,16 @@ class ClienteHandler
                 WHERE id_cliente = ?';
         $params = array($this->estado, $this->id);
         return Database::executeRow($sql, $params);
+    }
+
+
+    public function readProfile()
+    {
+        $sql = 'SELECT id_cliente, nombre_cliente, telefono_cliente, correo_cliente, dirección_cliente
+                FROM tb_clientes 
+                WHERE id_cliente = ?';
+        $params = array($_SESSION['id_cliente']);
+        return Database::getRow($sql, $params);
     }
 
 }
