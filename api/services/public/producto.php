@@ -44,7 +44,7 @@ if (isset($_GET['action'])) {
             }
             break;
             case 'readOnePublica':
-                if (!$producto->setDetalleproducto($_POST['idProducto'])) {
+                if (!$producto->setId($_POST['id_producto'])) {
                     $result['error'] = $producto->getDataError();
                 } elseif ($result['dataset'] = $producto->readOnePublica()) {
                     $result['status'] = 1;

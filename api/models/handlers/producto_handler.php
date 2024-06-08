@@ -343,8 +343,8 @@ class ProductoHandler
         $sql = 'SELECT id_detalle_producto, precio, cantidad_disponible, id_talla, imagen, descripcion, nombre_producto
                 FROM tb_detalle_productos
                 INNER JOIN tb_productos USING(id_producto) 
-                WHERE id_detalle_producto = ?';
-        $params = array($this->id_detalle_producto);
+                WHERE id_producto = ?';
+        $params = array($this->id);
         return Database::getRow($sql, $params);
     }
     /*

@@ -88,7 +88,7 @@ async function loadProducts() {
                             <li class="list-group-item"><strong>Genero:</strong> ${row.genero}</li>
                         </ul>
                         <div class="card-body text-center">
-                            <a href="detail.html?id=${row.id_producto}" class="btn btn-primary">Ver detalle</a>
+                            <a href="detalle_producto.html?id=${row.id_producto}" class="btn btn-primary">Ver detalle</a>
                         </div>
                     </div>
                 </div>
