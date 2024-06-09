@@ -15,7 +15,16 @@ if (isset($_GET['action'])) {
         $result['session'] = 1;
         // Se compara la acción a realizar cuando un cliente ha iniciado sesión.
         switch ($_GET['action']) {
-            case 'getUser':
+            
+            case 'logOut':
+                if (session_destroy()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Sesión eliminada correctamente';
+                } else {
+                    $result['error'] = 'Ocurrió un problema al cerrar la sesión';
+                }
+                break;
+                case 'getUser':
                 if (isset($_SESSION['correo'])) {
                     $result['status'] = 1;
                     $result['username'] = $_SESSION['correo'];
@@ -30,14 +39,6 @@ if (isset($_GET['action'])) {
                         $result['error'] = 'Ocurrió un problema al leer el perfil';
                     }
                     break;
-            case 'logOut':
-                if (session_destroy()) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Sesión eliminada correctamente';
-                } else {
-                    $result['error'] = 'Ocurrió un problema al cerrar la sesión';
-                }
-                break;
                 case 'editProfile':
                     $_POST = Validator::validateForm($_POST);
                     if (
