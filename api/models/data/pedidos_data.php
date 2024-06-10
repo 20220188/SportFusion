@@ -115,7 +115,7 @@ public function setDetallePedido($value)
     public function setId_estado($value)
     {
         if (Validator::validateNaturalNumber($value)) {
-            $this->id_estado_pedido = $value;
+            $this->estado_pedido = $value;
             return true;
         } else {
             $this->data_error = 'Estado incorrecto';

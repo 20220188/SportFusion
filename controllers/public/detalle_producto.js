@@ -5,7 +5,9 @@ const TALLA_API = 'services/public/talla.php';
 // Constante tipo objeto para obtener los parámetros disponibles en la URL.
 const PARAMS = new URLSearchParams(location.search);
 // Constante para establecer el formulario de agregar un producto al carrito de compras.
-const FORM_CANTIDAD = document.getElementById('form_cantidad');
+const FORM_CANTIDAD = document.getElementById('form_cantidad'),
+IDPRODUCTO = document.getElementById('idProducto');
+
 
 
 
@@ -30,7 +32,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('precio').textContent = DATA.dataset.precio;
         document.getElementById('talla').textContent = DATA.dataset.talla;
         document.getElementById('existenciasProducto').textContent = DATA.dataset.cantidad_disponible;
-        document.getElementById('idProducto').value = DATA.dataset.id_producto;
+        IDPRODUCTO.value = PARAMS.get('id');
         
     } else {
         // Se presenta un mensaje de error cuando no existen datos para mostrar.

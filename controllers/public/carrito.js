@@ -56,17 +56,17 @@ async function readDetail() {
         let total = 0;
         // Se recorre el conjunto de registros fila por fila a través del objeto row.
         DATA.dataset.forEach(row => {
-            subtotal = row.precio_producto * row.cantidad_producto;
+            subtotal = row.precio_pedido * row.cantidad_pedido;
             total += subtotal;
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TABLE_BODY.innerHTML += `
                 <tr>
                     <td>${row.nombre_producto}</td>
-                    <td>${row.precio_producto}</td>
-                    <td>${row.cantidad_producto}</td>
+                    <td>${row.precio_pedido}</td>
+                    <td>${row.cantidad_pedido}</td>
                     <td>${subtotal.toFixed(2)}</td>
                     <td>
-                        <button type="button" onclick="openUpdate(${row.id_detalle}, ${row.cantidad_producto})" class="btn btn-info">
+                        <button type="button" onclick="openUpdate(${row.id_detalle}, ${row.cantidad_pedido})" class="btn btn-info">
                             <i class="bi bi-plus-slash-minus"></i>
                         </button>
                         <button type="button" onclick="openDelete(${row.id_detalle})" class="btn btn-danger">
@@ -130,6 +130,7 @@ async function openDelete(id) {
         // Se define un objeto con los datos del producto seleccionado.
         const FORM = new FormData();
         FORM.append('idDetalle', id);
+        console.log(id)
         // Petición para eliminar un producto del carrito de compras.
         const DATA = await fetchData(PEDIDO_API, 'deleteDetail', FORM);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.

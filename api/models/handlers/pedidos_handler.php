@@ -19,7 +19,7 @@ class PedidoHandler
     protected $id_detalle = null;
     protected $cantidad_pedido = null;
     protected $precio_pedido = null;
-    protected $id_estado_pedido = null;
+    protected $estado_pedido = null;
     protected $id_producto = null;
 
 
@@ -50,10 +50,9 @@ class PedidoHandler
 
     public function readAll()
     {
-        $sql = 'SELECT id_pedido, direccion_pedido, fecha_registro, nombre_cliente, estado_pedido, id_estado_pedido  
+        $sql = 'SELECT id_pedido, direccion_pedido, fecha_registro, nombre_cliente, estado_pedido, estado_pedido  
                 FROM tb_pedidos
                 INNER JOIN tb_clientes USING(id_cliente)
-                INNER JOIN tb_estado_pedidos USING(id_estado_pedido)
                 ORDER BY id_pedido';
         return Database::getRows($sql);
     }
@@ -61,8 +60,7 @@ class PedidoHandler
     public function readOne()
     {
         $sql = 'SELECT id_pedido, estado_pedido
-                FROM tb_pedidos 
-                INNER JOIN tb_estado_pedidos USING(id_estado_pedido)
+                FROM tb_pedidos
                 WHERE id_pedido = ?';
         $params = array($this->id_pedido);
         return Database::getRow($sql, $params);
@@ -71,9 +69,9 @@ class PedidoHandler
     public function updateRow()
     {
         $sql = 'UPDATE tb_pedidos p
-                SET  p.id_estado_pedido = ?
+                SET estado_pedido = ?
                 WHERE id_pedido = ?';
-        $params = array($this->id_estado_pedido, $this->id_pedido);
+        $params = array($this->estado_pedido, $this->id_pedido);
         return Database::executeRow($sql, $params);
     }
 
@@ -103,7 +101,7 @@ class PedidoHandler
 
     public function readOneDetalle()
     {
-        $sql = 'SELECT id_detalle, id_estado_pedido
+        $sql = 'SELECT id_detalle, estado_pedido
                 FROM tb_detalle_pedidos
                 WHERE id_detalle = ?';
         $params = array($this->id_detalle);
@@ -113,9 +111,9 @@ class PedidoHandler
     public function updateRowDetalle()
     {
         $sql = 'UPDATE tb_detalle_pedidos 
-                SET id_estado_pedido = ?
+                SET estado_pedido = ?
                 WHERE id_detalle = ?';
-        $params = array($this->id_estado_pedido, $this->id_detalle);
+        $params = array($this->estado_pedido, $this->id_detalle);
         return Database::executeRow($sql, $params);
     }
 
@@ -131,12 +129,11 @@ class PedidoHandler
 
     public function getOrder()
     {
-        $this->id_estado_pedido = 1;
+        $this->estado_pedido = 'Pendiente';
         $sql = 'SELECT id_pedido
                 FROM tb_pedidos
-                INNER JOIN tb_estado_pedidos USING(id_estado_pedido)
-                WHERE id_estado_pedido = ? AND id_cliente = ?';
-        $params = array($this->id_estado_pedido, $_SESSION['idCliente']);
+                WHERE estado_pedido = ? AND id_cliente = ?';
+        $params = array($this->estado_pedido, $_SESSION['idCliente']);
         if ($data = Database::getRow($sql, $params)) {
             $_SESSION['idPedido'] = $data['id_pedido'];
             return true;
@@ -151,9 +148,9 @@ class PedidoHandler
         if ($this->getOrder()) {
             return true;
         } else {
-            $sql = 'INSERT INTO tb_pedidos (direccion_pedido, id_cliente)
-                    VALUES((SELECT dirección_cliente FROM tb_clientes WHERE id_cliente = ?), ?)';
-            $params = array($_SESSION['idCliente'], $_SESSION['idCliente']);
+            $sql = 'INSERT INTO tb_pedidos (id_cliente, estado_pedido)
+                    VALUES(?, ?)';
+            $params = array($_SESSION['idCliente'],'Pendiente');
             // Se obtiene el ultimo valor insertado de la llave primaria en la tabla pedido.
             if ($_SESSION['idPedido'] = Database::getLastRow($sql, $params)) {
                 return true;
@@ -176,8 +173,8 @@ class PedidoHandler
     // Método para obtener los productos que se encuentran en el carrito de compras.
     public function readDetail()
     {
-        $sql = 'SELECT id_detalle, nombre_producto, dp.precio_pedido, dp.cantidad_pedido
-                FROM tb_detalle_pedidos dp
+        $sql = 'SELECT id_detalle, nombre_producto, precio_pedido, cantidad_pedido
+                FROM tb_detalle_pedidos 
                 INNER JOIN tb_pedidos USING(id_pedido)
                 INNER JOIN tb_productos USING(id_producto)
                 WHERE id_pedido = ?';
@@ -188,11 +185,11 @@ class PedidoHandler
     // Método para finalizar un pedido por parte del cliente.
     public function finishOrder()
     {
-        $this->id_estado_pedido = 2;
+        $this->estado_pedido = 'Finalizado';
         $sql = 'UPDATE tb_pedidos
-                SET id_estado_pedido = ?
+                SET estado_pedido = ?
                 WHERE id_pedido = ?';
-        $params = array($this->id_estado_pedido, $_SESSION['idPedido']);
+        $params = array($this->estado_pedido, $_SESSION['idPedido']);
         return Database::executeRow($sql, $params);
     }
 

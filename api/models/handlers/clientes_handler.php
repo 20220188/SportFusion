@@ -95,8 +95,9 @@ class ClienteHandler
                 FROM tb_clientes
                 WHERE correo_cliente = ?';
         $params = array($mail);
-        $data = Database::getRow($sql, $params);
-        if (password_verify($password, $data['clave_cliente'])) {
+        if(!($data = Database::getRow($sql, $params))){
+            return false;
+        } elseif (password_verify($password, $data['clave_cliente'])) {
             $this->id = $data['id_cliente'];
             $this->correo = $data['correo_cliente'];
             $this->estado = $data['estado_cliente'];
