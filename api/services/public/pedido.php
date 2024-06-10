@@ -18,11 +18,13 @@ if (isset($_GET['action'])) {
             // Acción para agregar un producto al carrito de compras.
             case 'createDetail':
                 $_POST = Validator::validateForm($_POST);
+                print_r($_POST);
                 if (!$pedido->startOrder()) {
                     $result['error'] = 'Ocurrió un problema al iniciar el pedido';
                 } elseif (
                     !$pedido->setId_Producto($_POST['idProducto']) or
                     !$pedido->setCantidad($_POST['cantidadProducto'])
+                    
                 ) {
                     $result['error'] = $pedido->getDataError();
                 } elseif ($pedido->createDetail()) {

@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     MAIN_TITLE.textContent = 'Detalles del producto';
     // Constante tipo objeto con los datos del producto seleccionado.
     const FORM = new FormData();
-    FORM.append('id_producto', PARAMS.get('id'));
+    FORM.append('idProducto', PARAMS.get('id'));
     fillSelect(TALLA_API, 'readAll', 'talla');
     // Petición para solicitar los datos del producto seleccionado.
     const DATA = await fetchData(PRODUCTO_API, 'readOnePublica', FORM);
@@ -30,7 +30,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('precio').textContent = DATA.dataset.precio;
         document.getElementById('talla').textContent = DATA.dataset.talla;
         document.getElementById('existenciasProducto').textContent = DATA.dataset.cantidad_disponible;
-        document.getElementById('id_producto').value = DATA.dataset.id_producto;
+        document.getElementById('idProducto').value = DATA.dataset.id_producto;
+        
     } else {
         // Se presenta un mensaje de error cuando no existen datos para mostrar.
         document.getElementById('mainTitle').textContent = DATA.error;

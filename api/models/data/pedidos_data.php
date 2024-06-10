@@ -85,7 +85,7 @@ public function setDetallePedido($value)
             $this->id_producto = $value;
             return true;
         } else {
-            $this->data_error = 'Id de detalle incorrecto';
+            $this->data_error = 'Id de producto incorrecto';
             return false;
         }
     }
