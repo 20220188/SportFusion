@@ -24,13 +24,24 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 PROFILE_FORM.addEventListener('submit', async (event) => {
     event.preventDefault();
-    const FORM = new FormData(PROFILE_FORM);
-    const DATA = await fetchData(USER_API, 'editProfile', FORM);
-    if (DATA.status) {
-        sweetAlert(1, DATA.message, true);
-    } else {
-        sweetAlert(2, DATA.error, false);
+    const fetchId = async () => {
+        const FORM = new FormData(PROFILE_FORM);
+        const PROFILE = await fetchData(USER_API, 'readProfile');
+        console.log(PROFILE.dataset.id_cliente)
+        return FORM;
     }
+
+    const fetchProfile = async (FORM) => {
+        const DATA = await fetchData(USER_API, 'editProfile', FORM);
+
+        if (DATA.status) {
+            sweetAlert(1, DATA.message, true);
+        } else {
+            sweetAlert(2, DATA.error, false);
+        }
+    }
+
+    fetchProfile(await fetchId());
 });
 
 PASSWORD_FORM.addEventListener('submit', async (event) => {

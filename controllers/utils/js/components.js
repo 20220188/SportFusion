@@ -230,5 +230,6 @@ const fetchData = async (filename, action, form = null) => {
     } catch (error) {
         // Se muestra un mensaje en la consola del navegador web cuando ocurre un problema.
         console.log(error);
+        return;
     }
 }

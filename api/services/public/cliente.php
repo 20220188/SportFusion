@@ -41,6 +41,7 @@ if (isset($_GET['action'])) {
             case 'editProfile':
                 $_POST = Validator::validateForm($_POST);
                 if (
+                    !$cliente->setId($_SESSION['idCliente']) or
                     !$cliente->setNombre($_POST['nombreclientePerfil']) or
                     !$cliente->setTelefono($_POST['telefonoclientePerfil']) or
                     !$cliente->setCorreo($_POST['correoclientePerfil']) or
@@ -48,6 +49,7 @@ if (isset($_GET['action'])) {
                 ) {
                     $result['error'] = $cliente->getDataError();
                 } elseif ($cliente->editProfile()) {
+  
                     $result['status'] = 1;
                     $result['message'] = 'Perfil modificado correctamente';
                     $_SESSION['correoCliente '] = $_POST['correoclientePerfil'];
