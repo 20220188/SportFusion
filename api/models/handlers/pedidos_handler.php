@@ -50,7 +50,7 @@ class PedidoHandler
 
     public function readAll()
     {
-        $sql = 'SELECT id_pedido, direccion_pedido, fecha_registro, nombre_cliente, estado_pedido, estado_pedido  
+        $sql = 'SELECT id_pedido, dirección_cliente, fecha_registro, nombre_cliente, estado_pedido  
                 FROM tb_pedidos
                 INNER JOIN tb_clientes USING(id_cliente)
                 ORDER BY id_pedido';
@@ -185,7 +185,7 @@ class PedidoHandler
     // Método para finalizar un pedido por parte del cliente.
     public function finishOrder()
     {
-        $this->estado_pedido = 'Finalizado';
+        $this->estado_pedido = 'Aceptado';
         $sql = 'UPDATE tb_pedidos
                 SET estado_pedido = ?
                 WHERE id_pedido = ?';
@@ -220,6 +220,29 @@ class PedidoHandler
                 WHERE id_detalle = ? AND id_pedido = ?';
         $params = array($this->id_detalle, $_SESSION['idPedido']);
         return Database::executeRow($sql, $params);
+    }
+
+    // Método para obtener el historial de pedidos de un cliente.
+    public function readHistorial()
+    {
+        $sql = 'SELECT id_pedido, fecha_registro, dirección_cliente, nombre_cliente, estado_pedido
+                FROM tb_pedidos 
+                INNER JOIN tb_clientes USING(id_cliente)
+                WHERE estado_pedido = "Aceptado" AND id_cliente = ?';
+        $params = array($_SESSION['idCliente']);
+        return Database::getRows($sql, $params);
+    }
+
+
+    public function readDetalleHistorial()
+    {
+        $sql = 'SELECT id_detalle, id_pedido, precio_pedido, cantidad_pedido, nombre_producto, imagen
+                FROM tb_detalle_pedidos
+                INNER JOIN tb_pedidos USING(id_pedido)
+                INNER JOIN tb_productos USING(id_producto) 
+                WHERE id_pedido = ?';
+        $params = array($this->id_pedido);
+        return Database::getRows($sql, $params);
     }
 
     /*

@@ -47,7 +47,7 @@ const loadTemplate = async () => {
                                         <ul class="dropdown-menu">
                                             <li><a class="dropdown-item" href="perfilUsuario.html">Editar perfil</a></li>
                                             <li><hr class="dropdown-divider"></li>
-                                            <li><a class="dropdown-item" href="profile.html">Historial de compras</a></li>
+                                            <li><a class="dropdown-item" href="historialCompras.html">Historial de compras</a></li>
                                         </ul>
                                     </li>
 

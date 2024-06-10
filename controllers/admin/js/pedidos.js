@@ -82,7 +82,7 @@ const fillTable = async (form = null) => {
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TABLE_BODY.innerHTML += `
                 <tr>
-                    <td>${row.direccion_pedido}</td>
+                    <td>${row.dirección_cliente}</td>
                     <td>${row.fecha_registro}</td>
                     <td>${row.nombre_cliente}</td>
                     <td>${row.estado_pedido}</td>
@@ -135,7 +135,7 @@ const openUpdate = async (id) => {
         // Se inicializan los campos con los datos.
         const ROW = DATA.dataset;
         ID.value = ROW.id_pedido;
-        DIRECCION_PEDIDO.value = ROW.direccion_pedido;
+        DIRECCION_PEDIDO.value = ROW.dirección_cliente;
         FECHA_PEDIDO.value = ROW.fecha_registro;
     } else {
         sweetAlert(2, DATA.error, false);
