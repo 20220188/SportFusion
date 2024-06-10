@@ -200,8 +200,18 @@ class PedidoHandler
                 SET cantidad_pedido = ?
                 WHERE id_detalle = ? AND id_pedido = ?';
         $params = array($this->cantidad_pedido, $this->id_detalle, $_SESSION['idPedido']);
-        return Database::executeRow($sql, $params);
+        $result = Database::executeRow($sql, $params);
+    
+        if ($result) {
+            // Llamar al procedimiento almacenado para actualizar la cantidad de productos
+            $sql = 'CALL sp_actualizar_cantidad_producto(?, ?)';
+            $params = array($this->id_detalle, $this->cantidad_pedido);
+            return Database::executeRow($sql, $params);
+        } else {
+            return false;
+        }
     }
+    
 
     // Método para eliminar un producto que se encuentra en el carrito de compras.
     public function deleteDetail()
