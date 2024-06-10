@@ -23,6 +23,7 @@ ITEM_FORM.addEventListener('submit', async (event) => {
     event.preventDefault();
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(ITEM_FORM);
+    console.log(FORM);
     // Petición para actualizar la cantidad de producto.
     const DATA = await fetchData(PEDIDO_API, 'updateDetail', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
