@@ -28,7 +28,8 @@ class ProductoHandler
 
     //Atributos de la tabla VALORACIONES_PRODUCTOS
     protected $id_valoracion = null;
-    protected $id_opinion = null;
+    protected $comentario = null;
+    protected $valoracion = null;
     protected $id_cliente = null;
     protected $estado_valoracion = null;
 
@@ -178,13 +179,7 @@ class ProductoHandler
     *   Métodos para realizar las operaciones SCRUD en tabla tb_valoraciones_productos (search, create, read, update, and delete).
     */
 
-    public function createRowValoracion()
-    {
-        $sql = 'INSERT INTO tb_valoraciones_productos(id_opinion, id_detalle_producto, id_cliente, estado_valoracion)
-                    VALUES(?, ?, ?, ?)';
-        $params = array($this->id_opinion, $this->id_detalle_producto, $this->id_cliente, $this->estado_valoracion);
-        return Database::executeRow($sql, $params);
-    }
+
 
     public function readAllValoracion()
     {
@@ -224,6 +219,26 @@ class ProductoHandler
         return Database::executeRow($sql, $params);
     }
 
+
+    public function readAllValoracionPublica()
+    {
+        $sql = 'SELECT v.comentario, v.valoracion, c.nombre_cliente, dp.id_producto
+        FROM tb_valoraciones v
+        INNER JOIN tb_clientes c USING(id_cliente)
+        inner join tb_detalle_productos dp using(id_detalle_producto)
+        WHERE dp.id_producto = ? AND id_cliente = ? AND v.estado_valoracion = 1';
+        $params = array($_SESSION['id'], $_SESSION['idCliente']);
+        return Database::getRows($sql, $params);
+    }
+
+    public function createRowValoracion()
+    {
+        $sql = 'INSERT INTO tb_valoraciones(comentario, valoracion,id_detalle_producto, id_cliente)
+                    VALUES(?, ?, ?, ?)';
+        $params = array($this->comentario, $this->valoracion, $this->id_detalle_producto, $_SESSION['idCliente']);
+        print_r($params);
+        return Database::executeRow($sql, $params);
+    }
 
     /*
     *   Métodos para generar gráficos.
