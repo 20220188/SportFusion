@@ -141,7 +141,7 @@ class ClienteHandler
         $sql = 'UPDATE tb_clientes
                 SET clave_cliente = ?
                 WHERE id_cliente = ?';
-        $params = array($this->clave, $this->id);
+        $params = array($this->clave, $_SESSION['idCliente']);
         return Database::executeRow($sql, $params);
     }
 
