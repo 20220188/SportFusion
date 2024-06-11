@@ -49,8 +49,8 @@ const SAVE_MODAL_VALORACION = new bootstrap.Modal('#saveModalComentario'),
 // Constantes para establecer los elementos del formulario de guardar.
 const SAVE_FORM_VALORACION = document.getElementById('saveFormComentario'),
 
-    COMENTARIO_VALORACION = document.getElementById('comentarioValoracion'),
-    CALIFICACION_VALORACION = document.getElementById('calificacionValoracion'),
+    COMENTARIO_VALORACION = document.getElementById('Comentario'),
+    CALIFICACION_VALORACION = document.getElementById('Valoracion'),
     ID_DETALLEP = document.getElementById('idDetalle');
 
 
@@ -185,7 +185,7 @@ SAVE_FORM_VALORACION.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se verifica la acción a realizar.
-    (ID_PRODUCTO.value) ? action = 'updateRowValoracion' : action = 'createRowValoracion';
+    (ID_DETALLEP.value) ? action = 'updateRowValoracion' : action = 'createRowValoracion';
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(SAVE_FORM_VALORACION);
     // Petición para guardar los datos del formulario.
@@ -197,65 +197,67 @@ SAVE_FORM_VALORACION.addEventListener('submit', async (event) => {
         // Se muestra un mensaje de éxito.
         sweetAlert(1, DATA.message, true);
         // Se carga nuevamente la tabla para visualizar los cambios.
-        fillTableComentario();
+        fillTableValoracion();
     } else {
         sweetAlert(2, DATA.error, false);
     }
 });
 
 
-const fillTableComentario = async (id) => {
+const fillTableValoracion = async (id) => {
     // Se inicializa el contenido de la tabla.
-    ROWS_FOUND_DETALLE.textContent = '';
-    TABLE_BODY_DETALLE.innerHTML = '';
-    // Se declara e inicializa una variable para calcular el importe por cada producto.
-    let subtotal = 0;
-    // Se declara e inicializa una variable para sumar cada subtotal y obtener el monto final a pagar.
-    let total = 0;
+    ROWS_FOUND_VALORACION.textContent = '';
+    TABLE_BODY_VALORACION.innerHTML = '';
     const FORM = new FormData();
     FORM.append('idDetalle', id);
     // Petición para obtener los registros disponibles.
-    const DATA = await fetchData(PEDIDO_API, 'readDetalleHistorial', FORM);
+    const DATA = await fetchData(VALORACION_API, 'readAllValoracionPublica', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
         DATA.dataset.forEach(row => {
-            subtotal = row.precio_pedido * row.cantidad_pedido;
-            total += subtotal;
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
-            TABLE_BODY_DETALLE.innerHTML += `
+            TABLE_BODY_VALORACION.innerHTML += `
                 <tr>
-                <td><img src="${SERVER_URL}images/productos/${row.imagen}" height="50"></td>
-                    <td>${row.nombre_producto}</td>
-                    <td>${row.precio_pedido}</td>
-                    <td>${row.cantidad_pedido}</td>
-                    <td>${subtotal.toFixed(2)}</td>
+                    <td>${converRatingToStars(row.valoracion)}</td>
+                    <td>${row.comentario}</td>
                     <td><button type="button" class="btn btn-success" onclick="openDetails(${row.id_detalle})">
-                        <i class="fa-regular fa-square-plus"></i>
-                        </button></td>
+                        <i class="fa-regular fa-square-plus"></i></button></td>
                 </tr>
             `;
         });
         // Se muestra el total a pagar con dos decimales.
         document.getElementById('pago').textContent = total.toFixed(2);
         // Se muestra un mensaje de acuerdo con el resultado.
-        ROWS_FOUND_DETALLE.textContent = DATA.message;
+        ROWS_FOUND_VALORACION.textContent = DATA.message;
     } else {
         sweetAlert(4, DATA.error, true);
     }
 }
 
+const converRatingToStars = (rating) =>{
+    let stars = '';
+    for (let i = 0; i <5; i++){
+        if (i < rating){
+            stars += '<i class="fas fa-star text-warning text-danger"></i>';
+        }else{
+            stars += '<i class="far fa-star text-warning text-danger"></i>';
+        }
+    }
+    return stars
+}
 
-const openDetails = (id_pedido) => {
-    console.log(id_pedido);
+
+const openDetails = (id) => {
+    console.log(id);
     // Se muestra la caja de diálogo con su título.
-    SAVE_MODAL_DETALLE.show();
-    MODAL_TITLE_DETALLE.textContent = 'Detalle de la compra';
+    SAVE_MODAL_VALORACION.show();
+    MODAL_TITLE_VALORACION.textContent = 'Gestion de comentarios';
     // Se prepara el formulario.
-    SAVE_FORM_DETALLE.reset();
+    SAVE_FORM_VALORACION.reset();
 
 
-    fillTableComentario(id_pedido);
+    fillTableValoracion(id);
 }
 /*
 *   Función para abrir un reporte automático de productos por categoría.

@@ -256,7 +256,7 @@ class PedidoHandler
         $sql = 'SELECT v.comentario, v.valoracion, c.nombre_cliente
         FROM tb_valoraciones v
         INNER JOIN tb_clientes c USING(id_cliente)
-        inner join tb_detalle_pedidos dp using(id_detalle_pedidos)
+        inner join tb_detalle_pedidos dp using(id_detalle)
         WHERE dp.id_detalle = ? AND id_cliente = ?';
         $params = array($this->id_detalle, $_SESSION['idCliente']);
         return Database::getRows($sql, $params);
@@ -264,9 +264,19 @@ class PedidoHandler
 
     public function createRowValoracion()
     {
-        $sql = 'INSERT INTO tb_valoraciones(comentario, valoracion,id_detalle_producto, id_cliente)
+        $sql = 'INSERT INTO tb_valoraciones(comentario, valoracion, id_detalle, id_cliente)
                     VALUES(?, ?, ?, ?)';
         $params = array($this->comentario, $this->valoracion, $this->id_detalle, $_SESSION['idCliente']);
+        print_r($params);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function updateRowValoracion()
+    {
+        $sql = 'UPDATE tb_valoraciones
+        SET comentario = ?, valoracion = ?
+        WHERE id_detalle = ? AND id_cliente = ?';
+        $params = array($this->id_detalle, $_SESSION['idCliente']);
         print_r($params);
         return Database::executeRow($sql, $params);
     }
