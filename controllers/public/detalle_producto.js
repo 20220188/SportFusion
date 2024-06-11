@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('talla').textContent = DATA.dataset.talla;
         document.getElementById('existenciasProducto').textContent = DATA.dataset.cantidad_disponible;
         IDPRODUCTO.value = PARAMS.get('id');
-        console.log(IDPRODUCTO.value);
         
     } else {
         // Se presenta un mensaje de error cuando no existen datos para mostrar.

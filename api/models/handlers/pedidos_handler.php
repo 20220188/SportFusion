@@ -21,6 +21,12 @@ class PedidoHandler
     protected $precio_pedido = null;
     protected $estado_pedido = null;
     protected $id_producto = null;
+    // Atributos de la tabla VALORACION.
+    protected $id_valoracion = null;
+    protected $comentario = null;
+    protected $valoracion = null;
+    protected $estado_valoracion = null;
+
 
 
 
@@ -243,6 +249,26 @@ class PedidoHandler
                 WHERE id_pedido = ?';
         $params = array($this->id_pedido);
         return Database::getRows($sql, $params);
+    }
+
+    public function readAllValoracionPublica()
+    {
+        $sql = 'SELECT v.comentario, v.valoracion, c.nombre_cliente
+        FROM tb_valoraciones v
+        INNER JOIN tb_clientes c USING(id_cliente)
+        inner join tb_detalle_pedidos dp using(id_detalle_pedidos)
+        WHERE dp.id_detalle = ? AND id_cliente = ?';
+        $params = array($this->id_detalle, $_SESSION['idCliente']);
+        return Database::getRows($sql, $params);
+    }
+
+    public function createRowValoracion()
+    {
+        $sql = 'INSERT INTO tb_valoraciones(comentario, valoracion,id_detalle_producto, id_cliente)
+                    VALUES(?, ?, ?, ?)';
+        $params = array($this->comentario, $this->valoracion, $this->id_detalle, $_SESSION['idCliente']);
+        print_r($params);
+        return Database::executeRow($sql, $params);
     }
 
     /*
