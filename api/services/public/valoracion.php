@@ -1,33 +1,75 @@
 <?php
 // Se incluye la clase del modelo.
-require_once('../../models/data/producto_data.php');
+require_once('../../models/data/pedidos_data.php');
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET['action'])) {
+    // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
+    session_start();
     // Se instancia la clase correspondiente.
-    $categoria = new CategoriaData;
+    $valoracion = new PedidoData;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
-    $result = array('status' => 0, 'message' => null, 'dataset' => null, 'error' => null, 'exception' => null);
-    // Se compara la acción a realizar según la petición del controlador.
-    switch ($_GET['action']) {
-        case 'createRowValoracon':
-            $_POST = Validator::validateForm($_POST);
-            if (
-                !$producto->setPrecio($_POST['precioDetalle']) or
-                !$producto->setExistencias($_POST['existenciasDetalle']) or
-                !$producto->setTalla($_POST['tallaDetalle']) or
-                !$producto->setId($_POST['idProductoDetalle'])
-            ) {
-                $result['error'] = $producto->getDataError();
-            } elseif ($producto->createRowDetalleProducto()) {
-                $result['status'] = 1;
-                $result['message'] = 'Detalle creado correctamente';
-            } else {
-                $result['exception'] = Database::getException();
-            }
-            break;
-        default:
-            $result['error'] = 'Acción no disponible';
+    $result = array('status' => 0, 'session' => 0, 'message' => null, 'error' => null, 'exception' => null, 'dataset' => null);
+    // Se verifica si existe una sesión iniciada como cliente para realizar las acciones correspondientes.
+    if (isset($_SESSION['idCliente'])) {
+        $result['session'] = 1;
+        // Se compara la acción a realizar cuando un cliente ha iniciado sesión.
+        switch ($_GET['action']) {
+                // Acción para agregar una valoracion.
+                case 'createRowValoracion':
+                    $_POST = Validator::validateForm($_POST);
+                    if (
+                        !$valoracion->setComentario($_POST['Comentario']) or
+                        !$valoracion->setValoracion($_POST['Valoracion']) or
+                        !$valoracion->setDetallePedido($_POST['idDetalle'])
+                        
+                    ) {
+                        $result['error'] = $valoracion->getDataError();
+                    } elseif ($valoracion->createRowValoracion()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Valoración creada correctamente';
+                    } else {
+                        $result['exception'] = Database::getException();
+                    }
+                    break;
+                    // Acción para obtener las visualizar los comentarios.
+                    case 'readAllValoracionPublica':
+                        if (!$valoracion->setDetallePedido($_POST['idDetalle'])) {
+                            $result['error'] = $valoracion->getDataError();
+                        } elseif ($result['dataset'] = $valoracion->readAllValoracionPublica()) {
+                            $result['status'] = 1;
+                            $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                        } else {
+                            $result['error'] = 'No existen resultados para mostrar';
+                        }
+                        break;
+                        case 'updateRowValoracion':
+                            $_POST = Validator::validateForm($_POST);
+                            if (
+                                !$valoracion->setDetallePedido($_POST['idDetalle']) or
+                                !$valoracion->setComentario($_POST['comentario']) or
+                                !$valoracion->setValoracion($_POST['valoracion'])
+                            ) {
+                                $result['error'] = $valoracion->getDataError();
+                            } elseif ($valoracion->updateRowValoracion()) {
+                                $result['status'] = 1;
+                                $result['message'] = 'Comentario/Valoracion modificado correctamente';
+                            } else {
+                                $result['error'] = 'Ocurrió un problema al modificar el comentario/valoracion';
+                            }
+                            break;
+            default:
+                $result['error'] = 'Acción no disponible';
+        }
+    } else {
+        // Se compara la acción a realizar cuando un cliente no ha iniciado sesión.
+        switch ($_GET['action']) {
+            case 'createDetail':
+                $result['error'] = 'Debe iniciar sesión para agregar el producto al carrito';
+                break;
+            default:
+                $result['error'] = 'Acción no disponible fuera de la sesión';
+        }
     }
     // Se obtiene la excepción del servidor de base de datos por si ocurrió un problema.
     $result['exception'] = Database::getException();

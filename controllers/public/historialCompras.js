@@ -1,9 +1,10 @@
 // Constantes para completar las rutas de la API de pedido.
 const PEDIDO_API = 'services/public/pedido.php';
-const CLIENTE_API = 'services/public/cliente.php'
+const CLIENTE_API = 'services/public/cliente.php';
 
 // Constantes para completar las rutas de la API de DETALLE_PEDIDO.
 const PRODUCTO_API = 'services/public/producto.php';
+const VALORACION_API = 'services/public/valoracion.php';
 /*
 *Elementos para la tabla PEDIDOS | HISTORIAL DE COMPRAS
 */
@@ -18,7 +19,7 @@ const SAVE_MODAL = new bootstrap.Modal('#saveModal'),
 // Constantes para establecer los elementos del formulario de guardar.
 const SAVE_FORM = document.getElementById('saveForm'),
     DIRECCION_PEDIDO = document.getElementById('direccionPedido'),
-    FECHA_PEDIDO = document.getElementById('fechaPedido')
+    FECHA_PEDIDO = document.getElementById('fechaPedido');
 
 /*
 *Elementos para la tabla DETALLE_PEDIDO
@@ -32,11 +33,25 @@ const SAVE_MODAL_DETALLE = new bootstrap.Modal('#saveModalDetalle'),
     MODAL_TITLE_DETALLE = document.getElementById('modalTitleDetalle');
 // Constantes para establecer los elementos del formulario de guardar.
 const SAVE_FORM_DETALLE = document.getElementById('saveFormDetalle'),
-    ID_DETALLEP = document.getElementById('idDetalle'),
     PRECIO_DETALLE = document.getElementById('precioDetalle'),
     EXISTENCIAS_DETALLE = document.getElementById('existenciasDetalle')
     ESTADO_PEDIDO = document.getElementById('estadoPedido');
-    ID_PEDIDO = document.getElementById('idPedido')
+    ID_PEDIDO = document.getElementById('idPedido');
+
+// Constante para guardar las valoraciones del cliente.
+
+// Constantes para establecer el contenido de la tabla.
+const TABLE_BODY_VALORACION = document.getElementById('tableBodyComentario'),
+    ROWS_FOUND_VALORACION = document.getElementById('rowsFoundComentario');
+// Constantes para establecer los elementos del componente Modal.
+const SAVE_MODAL_VALORACION = new bootstrap.Modal('#saveModalComentario'),
+    MODAL_TITLE_VALORACION = document.getElementById('modalTitleComentario');
+// Constantes para establecer los elementos del formulario de guardar.
+const SAVE_FORM_VALORACION = document.getElementById('saveFormComentario'),
+
+    COMENTARIO_VALORACION = document.getElementById('Comentario'),
+    CALIFICACION_VALORACION = document.getElementById('Valoracion'),
+    ID_DETALLEP = document.getElementById('idDetalle');
 
 
 
@@ -87,7 +102,7 @@ const fillTable = async (form = null) => {
                     <td>${row.nombre_cliente}</td>
                     <td>${row.estado_pedido}</td>
                     <td>
-                        <button type="button" class="btn btn-success" onclick="openDetails(${row.id_pedido})">
+                        <button type="button" class="btn btn-success" onclick="openComentario(${row.id_pedido})">
                         <i class="fa-regular fa-square-plus"></i>
                         </button>
                     </td>
@@ -133,7 +148,9 @@ const fillTableDetails = async (id) => {
                     <td>${row.precio_pedido}</td>
                     <td>${row.cantidad_pedido}</td>
                     <td>${subtotal.toFixed(2)}</td>
-                    
+                    <td><button type="button" class="btn btn-success" onclick="openDetails(${row.id_detalle})">
+                        <i class="fa-regular fa-square-plus"></i>
+                        </button></td>
                 </tr>
             `;
         });
@@ -146,7 +163,7 @@ const fillTableDetails = async (id) => {
     }
 }
 
-const openDetails = (id_pedido) => {
+const openComentario = (id_pedido) => {
     console.log(id_pedido);
     // Se muestra la caja de diálogo con su título.
     SAVE_MODAL_DETALLE.show();
@@ -156,6 +173,91 @@ const openDetails = (id_pedido) => {
 
 
     fillTableDetails(id_pedido);
+}
+
+/*
+* METODOS Y FUNCIONES PARA GESTIONAR LAS VALORACIONES
+*/
+
+
+// Método del evento para cuando se envía el formulario de guardar.
+SAVE_FORM_VALORACION.addEventListener('submit', async (event) => {
+    // Se evita recargar la página web después de enviar el formulario.
+    event.preventDefault();
+    // Se verifica la acción a realizar.
+    (ID_DETALLEP.value) ? action = 'updateRowValoracion' : action = 'createRowValoracion';
+    // Constante tipo objeto con los datos del formulario.
+    const FORM = new FormData(SAVE_FORM_VALORACION);
+    // Petición para guardar los datos del formulario.
+    const DATA = await fetchData(VALORACION_API, action, FORM);
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+    if (DATA.status) {
+        // Se cierra la caja de diálogo.
+        SAVE_MODAL_VALORACION.hide();
+        // Se muestra un mensaje de éxito.
+        sweetAlert(1, DATA.message, true);
+        // Se carga nuevamente la tabla para visualizar los cambios.
+        fillTableValoracion();
+    } else {
+        sweetAlert(2, DATA.error, false);
+    }
+});
+
+
+const fillTableValoracion = async (id) => {
+    // Se inicializa el contenido de la tabla.
+    ROWS_FOUND_VALORACION.textContent = '';
+    TABLE_BODY_VALORACION.innerHTML = '';
+    const FORM = new FormData();
+    FORM.append('idDetalle', id);
+    // Petición para obtener los registros disponibles.
+    const DATA = await fetchData(VALORACION_API, 'readAllValoracionPublica', FORM);
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+    if (DATA.status) {
+        // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
+        DATA.dataset.forEach(row => {
+            // Se crean y concatenan las filas de la tabla con los datos de cada registro.
+            TABLE_BODY_VALORACION.innerHTML += `
+                <tr>
+                    <td>${converRatingToStars(row.valoracion)}</td>
+                    <td>${row.comentario}</td>
+                    <td><button type="button" class="btn btn-success" onclick="openDetails(${row.id_detalle})">
+                        <i class="fa-regular fa-square-plus"></i></button></td>
+                </tr>
+            `;
+        });
+        // Se muestra el total a pagar con dos decimales.
+        document.getElementById('pago').textContent = total.toFixed(2);
+        // Se muestra un mensaje de acuerdo con el resultado.
+        ROWS_FOUND_VALORACION.textContent = DATA.message;
+    } else {
+        sweetAlert(4, DATA.error, true);
+    }
+}
+
+const converRatingToStars = (rating) =>{
+    let stars = '';
+    for (let i = 0; i <5; i++){
+        if (i < rating){
+            stars += '<i class="fas fa-star text-warning text-danger"></i>';
+        }else{
+            stars += '<i class="far fa-star text-warning text-danger"></i>';
+        }
+    }
+    return stars
+}
+
+
+const openDetails = (id) => {
+    console.log(id);
+    // Se muestra la caja de diálogo con su título.
+    SAVE_MODAL_VALORACION.show();
+    MODAL_TITLE_VALORACION.textContent = 'Gestion de comentarios';
+    // Se prepara el formulario.
+    SAVE_FORM_VALORACION.reset();
+
+
+    fillTableValoracion(id);
 }
 /*
 *   Función para abrir un reporte automático de productos por categoría.

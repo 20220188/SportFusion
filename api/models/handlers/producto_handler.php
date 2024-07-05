@@ -220,26 +220,6 @@ class ProductoHandler
     }
 
 
-    public function readAllValoracionPublica()
-    {
-        $sql = 'SELECT v.comentario, v.valoracion, c.nombre_cliente, dp.id_producto
-        FROM tb_valoraciones v
-        INNER JOIN tb_clientes c USING(id_cliente)
-        inner join tb_detalle_productos dp using(id_detalle_producto)
-        WHERE dp.id_producto = ? AND id_cliente = ? AND v.estado_valoracion = 1';
-        $params = array($_SESSION['id'], $_SESSION['idCliente']);
-        return Database::getRows($sql, $params);
-    }
-
-    public function createRowValoracion()
-    {
-        $sql = 'INSERT INTO tb_valoraciones(comentario, valoracion,id_detalle_producto, id_cliente)
-                    VALUES(?, ?, ?, ?)';
-        $params = array($this->comentario, $this->valoracion, $this->id_detalle_producto, $_SESSION['idCliente']);
-        print_r($params);
-        return Database::executeRow($sql, $params);
-    }
-
     /*
     *   Métodos para generar gráficos.
     */

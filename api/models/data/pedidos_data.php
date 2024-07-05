@@ -123,6 +123,55 @@ public function setDetallePedido($value)
         }
     }
 
+    // Métodos para el manejo de la tabla VALORACION.
+
+    public function setid_valoracion($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->id_valoracion = $value;
+            return true;
+        } else {
+            $this->data_error = 'El identificador de la valoracion es incorrecto';
+            return false;
+        }
+    }
+
+    public function setComentario($value, $min = 2, $max = 250)
+    {
+        if (!Validator::validateString($value)) {
+            $this->data_error = 'El comentario contiene caracteres prohibidos';
+            return false;
+        } elseif (Validator::validateLength($value, $min, $max)) {
+            $this->comentario = $value;
+            return true;
+        } else {
+            $this->data_error = 'El comentario debe tener una longitud entre ' . $min . ' y ' . $max;
+            return false;
+        }
+    }
+
+    public function setValoracion($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->valoracion = $value;
+            return true;
+        } else {
+            $this->data_error = 'Ocurrió un error al valorar el producto';
+            return false;
+        }
+    }
+
+    public function setEstado_valoracion($value)
+    {
+        if (Validator::validateBoolean($value)) {
+            $this->estado_valoracion = $value;
+            return true;
+        } else {
+            $this->data_error = 'Estado incorrecto';
+            return false;
+        }
+    }
+
 
     /*
      *  Métodos para obtener los atributos adicionales.
