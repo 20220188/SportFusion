@@ -11,13 +11,13 @@ class CategoriaData extends CategoriaHandler
     /*
      *  Atributos adicionales.
      */
-    private $data_error = null;
+    private $data_error = null; //snake_case
     private $filename = null;
 
     /*
      *  Métodos para validar y establecer los datos.
      */
-    public function setId($value)
+    public function setId($value) //ca
     {
         if (Validator::validateNaturalNumber($value)) {
             $this->id = $value;
