@@ -119,7 +119,7 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Ocurrió un problema al registrar la cuenta';
                 }
                 break;
-            case 'signupMovil':
+            case 'signUpMovil':
                 $_POST = Validator::validateForm($_POST);
                 if (
                     !$cliente->setNombre($_POST['nombreCliente']) or
