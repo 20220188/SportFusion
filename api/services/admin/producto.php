@@ -31,7 +31,7 @@ if (isset($_GET['action'])) {
                     !$producto->setDescripcion($_POST['descripcionProducto']) or
                     !$producto->setCategoria($_POST['categoriaProducto']) or
                     !$producto->setTipoProducto($_POST['tipoProducto']) or
-                    !$producto->setDeporte($_POST['deporteProducto']) or
+                    !$producto->setDeporte($_POST['deporteProducto']) or    
                     !$producto->setImagen($_FILES['imagenProducto'])  or
                     !$producto->setGenero($_POST['generoProducto'])
                 ) {

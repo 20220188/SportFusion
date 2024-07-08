@@ -46,6 +46,7 @@ class CategoriaHandler
                 ORDER BY nombre_categoria';
         return Database::getRows($sql);
     }
+    
 
     public function readOne()
     {

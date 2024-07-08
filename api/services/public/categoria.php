@@ -17,6 +17,7 @@ if (isset($_GET['action'])) {
                 $result['error'] = 'No existen categorías para mostrar';
             }
             break;
+            
         default:
             $result['error'] = 'Acción no disponible';
     }

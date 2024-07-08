@@ -270,7 +270,7 @@ class PedidoHandler
         print_r($params);
         return Database::executeRow($sql, $params);
     }
-
+    
     public function updateRowValoracion()
     {
         $sql = 'UPDATE tb_valoraciones
