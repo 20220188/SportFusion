@@ -342,6 +342,14 @@ class ProductoHandler
         $params = array($this->id);
         return Database::getRow($sql, $params);
     }
+
+    public function readAllMovil()
+    {
+        $sql = 'SELECT id_detalle_producto, nombre_producto, imagen, precio
+                FROM tb_detalle_productos
+                INNER JOIN tb_productos USING(id_producto)';
+        return Database::getRow($sql);
+    }
     /*
     *   Métodos para generar reportes.
     */
