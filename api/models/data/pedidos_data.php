@@ -79,6 +79,16 @@ public function setDetallePedido($value)
         }
     }
 
+    public function getValoracion()
+    {
+        if(!$this->readValoracion()){
+            return true;
+        }else{
+            $this->data_error = 'El producto ya fue valorado';
+            return false;
+        }
+    }
+
     public function setid_Producto($value)
     {
         if (Validator::validateNaturalNumber($value)) {

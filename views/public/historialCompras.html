@@ -126,6 +126,7 @@
                                     <!-- Campo oculto para asignar el id del registro al momento de modificar -->
                                     <div class="modal-body row g-3">
                                         <!-- Campo oculto para asignar el id del registro al momento de modificar -->
+                                        <input type="number" class="d-none" id="idValoracion" name="idValoracion">
                                         <input type="number" class="d-none" id="idDetalle" name="idDetalle">
                                         <div class="col-sm-12 col-md-6">
                                             <label for="Comentario" class="form-label">Ingrese sus comentarios</label>
@@ -135,9 +136,9 @@
 
                                         <label for="Valoracion" class="form-label">Valoración</label>
                                         <input type="number" id="Valoracion" name="Valoracion" class="form-control"
-                                            aria-describedby="Valoracion">
+                                            aria-describedby="Valoracion" min="0" max="5">
                                         <div id="ValoracionHelp" class="form-text">
-                                            Ingrese una valoración del 1 al 5.
+                                            Ingrese una valoración del 0 al 5.
                                         </div>
                                     </div>
                                 </div>

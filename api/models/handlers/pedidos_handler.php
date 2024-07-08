@@ -253,7 +253,7 @@ class PedidoHandler
 
     public function readAllValoracionPublica()
     {
-        $sql = 'SELECT v.comentario, v.valoracion, c.nombre_cliente
+        $sql = 'SELECT v.comentario, v.valoracion, c.nombre_cliente, v.id_valoracion
         FROM tb_valoraciones v
         INNER JOIN tb_clientes c USING(id_cliente)
         inner join tb_detalle_pedidos dp using(id_detalle)
@@ -267,7 +267,6 @@ class PedidoHandler
         $sql = 'INSERT INTO tb_valoraciones(comentario, valoracion, id_detalle, id_cliente)
                     VALUES(?, ?, ?, ?)';
         $params = array($this->comentario, $this->valoracion, $this->id_detalle, $_SESSION['idCliente']);
-        print_r($params);
         return Database::executeRow($sql, $params);
     }
     
@@ -275,10 +274,35 @@ class PedidoHandler
     {
         $sql = 'UPDATE tb_valoraciones
         SET comentario = ?, valoracion = ?
+        WHERE id_valoracion = ? AND id_cliente = ?';
+        $params = array($this->comentario, $this->valoracion, $this->id_valoracion, $_SESSION['idCliente']);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function deleteValoracion()
+    {
+        $sql = 'DELETE FROM tb_valoraciones
+                WHERE id_valoracion = ? AND id_cliente = ?';
+        $params = array($this->id_valoracion, $_SESSION['idCliente']);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function readValoracion()
+    {
+        $sql = 'SELECT id_valoracion
+        FROM tb_valoraciones 
         WHERE id_detalle = ? AND id_cliente = ?';
         $params = array($this->id_detalle, $_SESSION['idCliente']);
-        print_r($params);
-        return Database::executeRow($sql, $params);
+        return Database::getRow($sql, $params);
+    }
+
+    public function readOneValoracion()
+    {
+        $sql = 'SELECT id_valoracion, comentario, valoracion 
+        FROM tb_valoraciones 
+        WHERE id_valoracion = ? AND id_cliente = ?';
+        $params = array($this->id_valoracion, $_SESSION['idCliente']);
+        return Database::getRow($sql, $params);
     }
 
     /*

@@ -52,6 +52,7 @@ const SAVE_FORM_VALORACION = document.getElementById('saveFormComentario'),
     COMENTARIO_VALORACION = document.getElementById('Comentario'),
     CALIFICACION_VALORACION = document.getElementById('Valoracion'),
     ID_DETALLEP = document.getElementById('idDetalle');
+    ID_VALORACION = document.getElementById('idValoracion');
 
 
 
@@ -102,7 +103,7 @@ const fillTable = async (form = null) => {
                     <td>${row.nombre_cliente}</td>
                     <td>${row.estado_pedido}</td>
                     <td>
-                        <button type="button" class="btn btn-success" onclick="openComentario(${row.id_pedido})">
+                        <button type="button" class="btn btn-success" onclick="openDetails(${row.id_pedido})">
                         <i class="fa-regular fa-square-plus"></i>
                         </button>
                     </td>
@@ -148,7 +149,7 @@ const fillTableDetails = async (id) => {
                     <td>${row.precio_pedido}</td>
                     <td>${row.cantidad_pedido}</td>
                     <td>${subtotal.toFixed(2)}</td>
-                    <td><button type="button" class="btn btn-success" onclick="openDetails(${row.id_detalle})">
+                    <td><button type="button" class="btn btn-success" onclick="openComentario(${row.id_detalle})">
                         <i class="fa-regular fa-square-plus"></i>
                         </button></td>
                 </tr>
@@ -163,7 +164,7 @@ const fillTableDetails = async (id) => {
     }
 }
 
-const openComentario = (id_pedido) => {
+const openDetails = (id_pedido) => {
     console.log(id_pedido);
     // Se muestra la caja de diálogo con su título.
     SAVE_MODAL_DETALLE.show();
@@ -185,7 +186,7 @@ SAVE_FORM_VALORACION.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se verifica la acción a realizar.
-    (ID_DETALLEP.value) ? action = 'updateRowValoracion' : action = 'createRowValoracion';
+    (ID_VALORACION.value) ? action = 'updateRowValoracion' : action = 'createRowValoracion';
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(SAVE_FORM_VALORACION);
     // Petición para guardar los datos del formulario.
@@ -193,11 +194,11 @@ SAVE_FORM_VALORACION.addEventListener('submit', async (event) => {
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se cierra la caja de diálogo.
-        SAVE_MODAL_VALORACION.hide();
+        //SAVE_MODAL_VALORACION.hide();
         // Se muestra un mensaje de éxito.
         sweetAlert(1, DATA.message, true);
         // Se carga nuevamente la tabla para visualizar los cambios.
-        fillTableValoracion();
+        fillTableValoracion(ID_DETALLEP.value);
     } else {
         sweetAlert(2, DATA.error, false);
     }
@@ -221,13 +222,17 @@ const fillTableValoracion = async (id) => {
                 <tr>
                     <td>${converRatingToStars(row.valoracion)}</td>
                     <td>${row.comentario}</td>
-                    <td><button type="button" class="btn btn-success" onclick="openDetails(${row.id_detalle})">
-                        <i class="fa-regular fa-square-plus"></i></button></td>
+                    <td><button type="button" class="btn btn-success" onclick="openUpdateComentario(${row.id_valoracion})">
+                        <i class="fa-regular fa-square-plus"></i></button>
+
+                        <button type="button" class="btn btn-danger" onclick="openDelete(${row.id_valoracion})">
+                        <i class="fa-regular fa-trash-can"></i>
+                        </button>
+                        </td>
+                        
                 </tr>
             `;
         });
-        // Se muestra el total a pagar con dos decimales.
-        document.getElementById('pago').textContent = total.toFixed(2);
         // Se muestra un mensaje de acuerdo con el resultado.
         ROWS_FOUND_VALORACION.textContent = DATA.message;
     } else {
@@ -235,12 +240,12 @@ const fillTableValoracion = async (id) => {
     }
 }
 
-const converRatingToStars = (rating) =>{
+const converRatingToStars = (rating) => {
     let stars = '';
-    for (let i = 0; i <5; i++){
-        if (i < rating){
+    for (let i = 0; i < 5; i++) {
+        if (i < rating) {
             stars += '<i class="fas fa-star text-warning text-danger"></i>';
-        }else{
+        } else {
             stars += '<i class="far fa-star text-warning text-danger"></i>';
         }
     }
@@ -248,16 +253,61 @@ const converRatingToStars = (rating) =>{
 }
 
 
-const openDetails = (id) => {
-    console.log(id);
+const openComentario = (id) => {
     // Se muestra la caja de diálogo con su título.
     SAVE_MODAL_VALORACION.show();
     MODAL_TITLE_VALORACION.textContent = 'Gestion de comentarios';
     // Se prepara el formulario.
     SAVE_FORM_VALORACION.reset();
-
+    ID_DETALLEP.value = id;
 
     fillTableValoracion(id);
+}
+
+const openUpdateComentario = async (id) => {
+    // Se define una constante tipo objeto con los datos del registro seleccionado.
+    const FORM = new FormData();
+    FORM.append('idValoracion', id);
+    // Petición para obtener los datos del registro solicitado.
+    const DATA = await fetchData(VALORACION_API, 'readOneValoracion', FORM);
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+    if (DATA.status) {
+        // Se muestra la caja de diálogo con su título.
+        SAVE_MODAL_VALORACION.show();
+        MODAL_TITLE_VALORACION.textContent = 'Actualizar comentario';
+        // Se prepara el formulario.
+        SAVE_FORM_VALORACION.reset();
+        // Se inicializan los campos con los datos.
+        const ROW = DATA.dataset;
+        ID_VALORACION.value = ROW.id_valoracion;
+        ID_DETALLEP.value = ROW.id_detalle;
+        COMENTARIO_VALORACION.value = ROW.comentario;
+        CALIFICACION_VALORACION.value = ROW.valoracion;
+    } else {
+        sweetAlert(2, DATA.error, false);
+    }
+}
+
+const openDelete = async (id) => {
+    // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
+    const RESPONSE = await confirmAction('¿Desea eliminar el comentario de forma permanente?');
+    // Se verifica la respuesta del mensaje.
+    if (RESPONSE) {
+        // Se define una constante tipo objeto con los datos del registro seleccionado.
+        const FORM = new FormData();
+        FORM.append('idValoracion', id);
+        // Petición para eliminar el registro seleccionado.
+        const DATA = await fetchData(VALORACION_API, 'deleteRowValoracion', FORM);
+        // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+        if (DATA.status) {
+            // Se muestra un mensaje de éxito.
+            await sweetAlert(1, DATA.message, true);
+            // Se carga nuevamente la tabla para visualizar los cambios.
+            fillTableValoracion();
+        } else {
+            sweetAlert(2, DATA.error, false);
+        }
+    }
 }
 /*
 *   Función para abrir un reporte automático de productos por categoría.

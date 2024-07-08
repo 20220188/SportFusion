@@ -16,48 +16,69 @@ if (isset($_GET['action'])) {
         // Se compara la acción a realizar cuando un cliente ha iniciado sesión.
         switch ($_GET['action']) {
                 // Acción para agregar una valoracion.
-                case 'createRowValoracion':
-                    $_POST = Validator::validateForm($_POST);
-                    if (
-                        !$valoracion->setComentario($_POST['Comentario']) or
-                        !$valoracion->setValoracion($_POST['Valoracion']) or
-                        !$valoracion->setDetallePedido($_POST['idDetalle'])
-                        
-                    ) {
+            case 'createRowValoracion':
+                $_POST = Validator::validateForm($_POST);
+                if (
+                    !$valoracion->setComentario($_POST['Comentario']) or
+                    !$valoracion->setValoracion($_POST['Valoracion']) or
+                    !$valoracion->setDetallePedido($_POST['idDetalle']) or
+                    !$valoracion->getValoracion()
+                ) {
+                    $result['error'] = $valoracion->getDataError();
+                } elseif ($valoracion->createRowValoracion()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Valoración creada correctamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
+                // Acción para obtener las visualizar los comentarios.
+            case 'readAllValoracionPublica':
+                if (!$valoracion->setDetallePedido($_POST['idDetalle'])) {
+                    $result['error'] = $valoracion->getDataError();
+                } elseif ($result['dataset'] = $valoracion->readAllValoracionPublica()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                } else {
+                    $result['error'] = 'No existen resultados para mostrar';
+                }
+                break;
+            case 'updateRowValoracion':
+                $_POST = Validator::validateForm($_POST);
+                if (
+                    !$valoracion->setid_valoracion($_POST['idValoracion']) or
+                    !$valoracion->setComentario($_POST['Comentario']) or
+                    !$valoracion->setValoracion($_POST['Valoracion'])
+                ) {
+                    $result['error'] = $valoracion->getDataError();
+                } elseif ($valoracion->updateRowValoracion()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Comentario/Valoracion modificado correctamente';
+                } else {
+                    $result['error'] = 'Ocurrió un problema al modificar el comentario/valoracion';
+                }
+                break;
+            case 'deleteRowValoracion':
+                if (
+                    !$valoracion->setid_valoracion($_POST['idValoracion']) 
+                ) {
+                    $result['error'] = $valoracion->getDataError();
+                } elseif ($valoracion->deleteValoracion()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Comentario/valoracion eliminado correctamente';
+                } else {
+                    $result['error'] = 'Ocurrió un problema al eliminar el comentario/valoracion';
+                }
+                break;
+                case 'readOneValoracion':
+                    if (!$valoracion->setid_valoracion($_POST['idValoracion'])) {
                         $result['error'] = $valoracion->getDataError();
-                    } elseif ($valoracion->createRowValoracion()) {
+                    } elseif ($result['dataset'] = $valoracion->readOneValoracion()) {
                         $result['status'] = 1;
-                        $result['message'] = 'Valoración creada correctamente';
                     } else {
-                        $result['exception'] = Database::getException();
+                        $result['error'] = 'Comentario/valoracion inexistente';
                     }
                     break;
-                    // Acción para obtener las visualizar los comentarios.
-                    case 'readAllValoracionPublica':
-                        if (!$valoracion->setDetallePedido($_POST['idDetalle'])) {
-                            $result['error'] = $valoracion->getDataError();
-                        } elseif ($result['dataset'] = $valoracion->readAllValoracionPublica()) {
-                            $result['status'] = 1;
-                            $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
-                        } else {
-                            $result['error'] = 'No existen resultados para mostrar';
-                        }
-                        break;
-                        case 'updateRowValoracion':
-                            $_POST = Validator::validateForm($_POST);
-                            if (
-                                !$valoracion->setDetallePedido($_POST['idDetalle']) or
-                                !$valoracion->setComentario($_POST['comentario']) or
-                                !$valoracion->setValoracion($_POST['valoracion'])
-                            ) {
-                                $result['error'] = $valoracion->getDataError();
-                            } elseif ($valoracion->updateRowValoracion()) {
-                                $result['status'] = 1;
-                                $result['message'] = 'Comentario/Valoracion modificado correctamente';
-                            } else {
-                                $result['error'] = 'Ocurrió un problema al modificar el comentario/valoracion';
-                            }
-                            break;
             default:
                 $result['error'] = 'Acción no disponible';
         }
