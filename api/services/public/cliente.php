@@ -155,6 +155,7 @@ if (isset($_GET['action'])) {
                 $result['error'] = 'Acción no disponible fuera de la sesión ';
         }
     }
+    //Agrego comentariors
     // Se obtiene la excepción del servidor de base de datos por si ocurrió un problema.
     $result['exception'] = Database::getException();
     // Se indica el tipo de contenido a mostrar y su respectivo conjunto de caracteres.
