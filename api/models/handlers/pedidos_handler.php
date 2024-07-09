@@ -156,7 +156,7 @@ class PedidoHandler
         } else {
             $sql = 'INSERT INTO tb_pedidos (id_cliente, estado_pedido)
                     VALUES(?, ?)';
-            $params = array($_SESSION['idCliente'],'Pendiente');
+            $params = array($_SESSION['idCliente'], 'Pendiente');
             // Se obtiene el ultimo valor insertado de la llave primaria en la tabla pedido.
             if ($_SESSION['idPedido'] = Database::getLastRow($sql, $params)) {
                 return true;
@@ -207,7 +207,7 @@ class PedidoHandler
                 WHERE id_detalle = ? AND id_pedido = ?';
         $params = array($this->cantidad_pedido, $this->id_detalle, $_SESSION['idPedido']);
         $result = Database::executeRow($sql, $params);
-    
+
         if ($result) {
             // Llamar al procedimiento almacenado para actualizar la cantidad de productos
             $sql = 'CALL sp_actualizar_cantidad_producto(?, ?)';
@@ -217,7 +217,7 @@ class PedidoHandler
             return false;
         }
     }
-    
+
 
     // Método para eliminar un producto que se encuentra en el carrito de compras.
     public function deleteDetail()
@@ -269,7 +269,7 @@ class PedidoHandler
         $params = array($this->comentario, $this->valoracion, $this->id_detalle, $_SESSION['idCliente']);
         return Database::executeRow($sql, $params);
     }
-    
+
     public function updateRowValoracion()
     {
         $sql = 'UPDATE tb_valoraciones
@@ -305,6 +305,20 @@ class PedidoHandler
         return Database::getRow($sql, $params);
     }
 
+
+    /*
+    *   Métodos para generar graficas 
+    */
+    public function ValoracionesProductos()
+    {
+        $sql = 'SELECT nombre_producto, AVG(valoracion) promedio 
+    FROM tb_valoraciones
+    INNER JOIN 	tb_detalle_pedidos USING (id_detalle)
+    INNER JOIN tb_productos USING(id_producto)
+    GROUP BY nombre_producto
+    ORDER BY promedio ASC LIMIT 5 ';
+        return Database::getRows($sql);
+    }
     /*
     *   Métodos para generar reportes.
     */

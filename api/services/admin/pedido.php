@@ -126,6 +126,13 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Ocurrió un problema al eliminar el detalle';
                 }
                 break;
+                case 'ValoracionesProductos':
+                    if ($result['dataset'] = $pedido->ValoracionesProductos()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['error'] = 'No hay datos disponibles';
+                    }
+                    break;
             default:
                 $result['error'] = 'Acción no disponible dentro de la sesión';
         }

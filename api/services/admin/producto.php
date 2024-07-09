@@ -31,7 +31,7 @@ if (isset($_GET['action'])) {
                     !$producto->setDescripcion($_POST['descripcionProducto']) or
                     !$producto->setCategoria($_POST['categoriaProducto']) or
                     !$producto->setTipoProducto($_POST['tipoProducto']) or
-                    !$producto->setDeporte($_POST['deporteProducto']) or    
+                    !$producto->setDeporte($_POST['deporteProducto']) or
                     !$producto->setImagen($_FILES['imagenProducto'])  or
                     !$producto->setGenero($_POST['generoProducto'])
                 ) {
@@ -166,8 +166,8 @@ if (isset($_GET['action'])) {
             case 'updateRowValoracion':
                 $_POST = Validator::validateForm($_POST);
                 if (
-                    !$producto->setid_valoracion($_POST['idValoracionProducto']) 
-                    
+                    !$producto->setid_valoracion($_POST['idValoracionProducto'])
+
                 ) {
                     $result['error'] = $producto->getDataError();
                 } elseif ($producto->updateRowValoracion()) {
@@ -208,13 +208,6 @@ if (isset($_GET['action'])) {
                 break;
             case 'cantidadProductosCategoria':
                 if ($result['dataset'] = $producto->cantidadProductosCategoria()) {
-                    $result['status'] = 1;
-                } else {
-                    $result['error'] = 'No hay datos disponibles';
-                }
-                break;
-            case 'porcentajeProductosCategoria':
-                if ($result['dataset'] = $producto->porcentajeProductosCategoria()) {
                     $result['status'] = 1;
                 } else {
                     $result['error'] = 'No hay datos disponibles';

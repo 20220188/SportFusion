@@ -4,9 +4,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title></title>
-    <!-- Llamada al icono de la página web -->
-    <link type="image/png" rel="icon" href="../../resources/img/logoSF.png">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<!-- Llamada al icono de la página web -->
+<link type="image/png" rel="icon" href="../../resources/img/logoSF.png">
 <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
 <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="../../resources/css/dashboard.css">
@@ -21,9 +20,24 @@
             <main class="main p-3">
                 <!-- Título del contenido principal -->
                 <h3 id="mainTitle"></h3>
+                <!-- Contenedor de gráficos -->
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
+                        <!-- Se muestra un gráfico con la cantidad de productos por categoría -->
+                        <canvas id="chart1"></canvas>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-4">
+                        <!-- Se muestra un gráfico con el porcentaje de productos por categoría -->
+                        <canvas id="chart2"></canvas>
+                    </div>
+                </div>
+                <!-- Importación de la librería para generar los gráficos. Para más información https://www.chartjs.org/ -->
+                <script type="text/javascript" src="../../resources/js/chart.umd.min.js"></script>
             </main>
         </div>
     </div>
+
+    <!-- Contenido principal del documento -->
 
     <!-- Llamada al controlador del sitio privado -->
     <script src="../../controllers/utils/js/admin.js"></script>
@@ -32,6 +46,7 @@
 
     <!-- Llamada al kit de font awesome -->
     <script src="https://kit.fontawesome.com/f6e8d56735.js" crossorigin="anonymous"></script>
+
     <!-- Scripts de JavaScript -->
     <!-- Agrega los enlaces a los scripts de Bootstrap y SweetAlert2 -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -41,11 +56,11 @@
     <!-- Llamada al framework y librería de mensajes -->
     <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
-    
 
     <!-- Llamada al controlador de la barra lateral -->
     <script src="../../controllers/admin/js/sidebar.js"></script>
-
+    <!-- Llamada al controlador de la página web -->
+    <script type="text/javascript" src="../../controllers/admin/js/dashboard.js"></script>
 </body>
 
 </html>
