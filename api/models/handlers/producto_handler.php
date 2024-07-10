@@ -340,7 +340,7 @@ class ProductoHandler
                 INNER JOIN tb_productos USING(id_producto) 
                 WHERE id_producto = ?';
         $params = array($this->id);
-        return Database::getRows($sql, $params);
+        return Database::getRow($sql, $params);
     }
 
     public function readAllMovil()
