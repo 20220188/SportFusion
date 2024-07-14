@@ -343,13 +343,29 @@ class ProductoHandler
         return Database::getRow($sql, $params);
     }
 
-    public function readAllMovil()
-    {
-        $sql = 'SELECT id_detalle_producto, nombre_producto, imagen, precio
-                FROM tb_detalle_productos
-                INNER JOIN tb_productos USING(id_producto)';
-        return Database::getRows($sql);
+    public function readAllMovil($id_categoria = null, $id_deporte = null)
+{
+    $sql = 'SELECT id_detalle_producto, nombre_producto, imagen, precio
+            FROM tb_detalle_productos
+            INNER JOIN tb_productos USING(id_producto)';
+    
+    $params = array();
+    
+    // Construir la condición SQL según los parámetros recibidos
+    if ($id_categoria !== null && $id_deporte === null) {
+        $sql .= ' WHERE id_categoria = ?';
+        $params = array($id_categoria);
+    } if ($id_deporte !== null && $id_categoria === null) {
+        $sql .= ' WHERE id_deporte = ?';
+        $params = array($id_deporte);
+    } if ($id_categoria !== null && $id_deporte !== null) {
+        $sql .= ' WHERE id_categoria = ? AND id_deporte = ?';
+        $params = array($id_categoria, $id_deporte);
     }
+
+    return Database::getRows($sql, $params);
+}
+
 
 
 

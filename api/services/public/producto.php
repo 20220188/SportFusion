@@ -43,15 +43,15 @@ if (isset($_GET['action'])) {
                 $result['error'] = 'Producto inexistente';
             }
             break;
-            case 'readOnePublica':
-                if (!$producto->setId($_POST['idProducto'])) {
-                    $result['error'] = $producto->getDataError();
-                } elseif ($result['dataset'] = $producto->readOnePublica()) {
-                    $result['status'] = 1;
-                } else {
-                    $result['error'] = 'Producto inexistente';
-                }
-                break;
+        case 'readOnePublica':
+            if (!$producto->setId($_POST['idProducto'])) {
+                $result['error'] = $producto->getDataError();
+            } elseif ($result['dataset'] = $producto->readOnePublica()) {
+                $result['status'] = 1;
+            } else {
+                $result['error'] = 'Producto inexistente';
+            }
+            break;
         case 'readProductos':
             if (
                 !$producto->setDeporte(isset($_POST['idDeporte']) ? $_POST['idDeporte'] : null) or
@@ -67,12 +67,15 @@ if (isset($_GET['action'])) {
             }
             break;
             case 'readAllMovil':
-                if ($result['dataset'] = $producto->readAllMovil()) {
+                $id_categoria = isset($_GET['id_categoria']) ? $_GET['id_categoria'] : null;
+                $id_deporte = isset($_GET['id_deporte']) ? $_GET['id_deporte'] : null;
+                
+                if ($result['dataset'] = $producto->readAllMovil($id_categoria, $id_deporte)) {
                     $result['status'] = 1;
                 } else {
                     $result['error'] = 'No existen productos para mostrar';
                 }
-                break;
+                break;         
         default:
             $result['error'] = 'Acción no disponible';
     }
