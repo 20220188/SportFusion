@@ -102,10 +102,20 @@ if (isset($_GET['action'])) {
         // Se compara la acción a realizar cuando un cliente no ha iniciado sesión.
         switch ($_GET['action']) {
             case 'createDetail':
-                $result['error'] = 'Debe iniciar sesión para agregar el producto al carrito';
-                break;
-            default:
-                $result['error'] = 'Acción no disponible fuera de la sesión';
+                if (isset($_POST['idProducto']) && isset($_POST['cantidadProducto'])) {
+                    $_POST = Validator::validateForm($_POST);
+                    if (!$pedido->setId_Producto($_POST['idProducto']) || !$pedido->setCantidad($_POST['cantidadProducto'])) {
+                        $result['error'] = $pedido->getDataError();
+                    } elseif ($pedido->createDetail()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Producto agregado correctamente';
+                    } else {
+                        $result['error'] = 'Ocurrió un problema al agregar el producto';
+                    }
+                } else {
+                    $result['error'] = 'Los datos no son válidos';
+                }
+                
         }
     }
     // Se obtiene la excepción del servidor de base de datos por si ocurrió un problema.
