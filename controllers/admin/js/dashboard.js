@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     MAIN_TITLE.textContent = `${greeting}, bienvenido`;
     // Llamada a la funciones que generan los gráficos en la página web.
     graficoBarrasValoraciones();
+    graficoBarrasProductosTopVendidos();
     graficoPastelCategorias();
 });
 
@@ -45,9 +46,32 @@ const graficoBarrasValoraciones = async () => {
             valoraciones.push(row.promedio);
         });
         // Llamada a la función para generar y mostrar un gráfico de barras. Se encuentra en el archivo components.js
-        barGraph('chart1', productos, valoraciones, 'Productos', 'Valoración media');
+        barGraph('chart1', productos, valoraciones, 'Productos', 'Productos mejor valorados');
     } else {
         document.getElementById('chart1').remove();
+        console.log(DATA.error);
+    }
+}
+
+
+const graficoBarrasProductosTopVendidos = async () => {
+    // Petición para obtener los datos del gráfico.
+    const DATA = await fetchData(PRODUCTO_API, 'ProductosTopVendidos');
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas.
+    if (DATA.status) {
+        // Se declaran los arreglos para guardar los datos a graficar.
+        let productos = [];
+        let cantidades = [];
+        // Se recorre el conjunto de registros fila por fila a través del objeto row.
+        DATA.dataset.forEach(row => {
+            // Se agregan los datos a los arreglos.
+            productos.push(row.nombre_producto);
+            cantidades.push(row.total);
+        });
+        // Llamada a la función para generar y mostrar un gráfico de barras. Se encuentra en el archivo components.js
+        barGraph('chart3', productos, cantidades, 'Productos', 'Productos más vendidos');
+    } else {
+        document.getElementById('chart3').remove();
         console.log(DATA.error);
     }
 }
@@ -78,3 +102,4 @@ const graficoPastelCategorias = async () => {
         console.log(DATA.error);
     }
 }
+

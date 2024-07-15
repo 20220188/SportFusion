@@ -66,16 +66,16 @@ if (isset($_GET['action'])) {
                 $result['error'] = 'No existen productos para mostrar';
             }
             break;
-            case 'readAllMovil':
-                $id_categoria = isset($_GET['id_categoria']) ? $_GET['id_categoria'] : null;
-                $id_deporte = isset($_GET['id_deporte']) ? $_GET['id_deporte'] : null;
-                
-                if ($result['dataset'] = $producto->readAllMovil($id_categoria, $id_deporte)) {
-                    $result['status'] = 1;
-                } else {
-                    $result['error'] = 'No existen productos para mostrar';
-                }
-                break;         
+        case 'readAllMovil':
+            $id_categoria = isset($_GET['id_categoria']) ? $_GET['id_categoria'] : null;
+            $id_deporte = isset($_GET['id_deporte']) ? $_GET['id_deporte'] : null;
+
+            if ($result['dataset'] = $producto->readAllMovil($id_categoria, $id_deporte)) {
+                $result['status'] = 1;
+            } else {
+                $result['error'] = 'No existen productos para mostrar';
+            }
+            break;
         default:
             $result['error'] = 'Acción no disponible';
     }

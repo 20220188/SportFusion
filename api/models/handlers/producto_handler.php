@@ -220,26 +220,7 @@ class ProductoHandler
     }
 
 
-    /*
-    *   Métodos para generar gráficos.
-    */
-    public function cantidadProductosCategoria()
-    {
-        $sql = 'SELECT nombre_categoria, COUNT(id_producto) cantidad
-                FROM tb_productos
-                INNER JOIN tb_categorias USING(id_categoria)
-                GROUP BY nombre_categoria ORDER BY cantidad DESC ';
-        return Database::getRows($sql);
-    }
 
-    /*public function porcentajeProductosCategoria()
-    {
-        $sql = 'SELECT nombre_categoria, ROUND((COUNT(id_producto) * 100.0 / (SELECT COUNT(id_producto) FROM producto)), 2) porcentaje
-                FROM producto
-                INNER JOIN categoria USING(id_categoria)
-                GROUP BY nombre_categoria ORDER BY porcentaje DESC';
-        return Database::getRows($sql);
-    }*/
 
     /*CONSULTAS PARA FILTRAR RESULTADOS POR CATEGORIAS EN EL SITIO PUBLICO */
 
@@ -329,7 +310,6 @@ class ProductoHandler
         }
         $sql .= ' ORDER BY nombre_producto';
         return Database::getRows($sql, $params);
-
     }
 
 
@@ -344,30 +324,54 @@ class ProductoHandler
     }
 
     public function readAllMovil($id_categoria = null, $id_deporte = null)
-{
-    $sql = 'SELECT id_detalle_producto, nombre_producto, imagen, precio
+    {
+        $sql = 'SELECT id_detalle_producto, nombre_producto, imagen, precio
             FROM tb_detalle_productos
             INNER JOIN tb_productos USING(id_producto)';
-    
-    $params = array();
-    
-    // Construir la condición SQL según los parámetros recibidos
-    if ($id_categoria !== null && $id_deporte === null) {
-        $sql .= ' WHERE id_categoria = ?';
-        $params = array($id_categoria);
-    } if ($id_deporte !== null && $id_categoria === null) {
-        $sql .= ' WHERE id_deporte = ?';
-        $params = array($id_deporte);
-    } if ($id_categoria !== null && $id_deporte !== null) {
-        $sql .= ' WHERE id_categoria = ? AND id_deporte = ?';
-        $params = array($id_categoria, $id_deporte);
+
+        $params = array();
+
+        // Construir la condición SQL según los parámetros recibidos
+        if ($id_categoria !== null && $id_deporte === null) {
+            $sql .= ' WHERE id_categoria = ?';
+            $params = array($id_categoria);
+        }
+        if ($id_deporte !== null && $id_categoria === null) {
+            $sql .= ' WHERE id_deporte = ?';
+            $params = array($id_deporte);
+        }
+        if ($id_categoria !== null && $id_deporte !== null) {
+            $sql .= ' WHERE id_categoria = ? AND id_deporte = ?';
+            $params = array($id_categoria, $id_deporte);
+        }
+
+        return Database::getRows($sql, $params);
     }
 
-    return Database::getRows($sql, $params);
-}
+
+    /*
+    *   Métodos para generar gráficos.
+    */
+    public function cantidadProductosCategoria()
+    {
+        $sql = 'SELECT nombre_categoria, COUNT(id_producto) cantidad
+                FROM tb_productos
+                INNER JOIN tb_categorias USING(id_categoria)
+                GROUP BY nombre_categoria ORDER BY cantidad DESC ';
+        return Database::getRows($sql);
+    }
 
 
-
+    public function ProductosTopVendidos()
+    {
+        $sql = 'SELECT nombre_producto, SUM(cantidad_pedido) total
+                FROM tb_detalle_pedidos
+                INNER JOIN tb_productos USING(id_producto)
+                GROUP BY nombre_producto
+                ORDER BY total DESC
+                LIMIT 5';
+        return Database::getRows($sql);
+    }
 
 
     /*
