@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
-        <!-- Llamada al icono de la página web -->
-        <link type="image/png" rel="icon" href="../../resources/img/logoSF.png">
+    <!-- Llamada al icono de la página web -->
+    <link type="image/png" rel="icon" href="../../resources/img/logoSF.png">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../resources/css/dashboard.css">
@@ -28,7 +28,8 @@
                     <form class="col-sm-12 col-md-6" id="searchForm">
                         <div class="row">
                             <div class="col-6">
-                                <input type="search" class="form-control" name="search" placeholder="Buscar por nombre" required>
+                                <input type="search" class="form-control" name="search" placeholder="Buscar por nombre"
+                                    required>
                             </div>
                             <div class="col-6">
                                 <button type="submit" class="btn btn-success">
@@ -82,8 +83,8 @@
                                     <input type="number" class="d-none" id="idDeporte" name="idDeporte">
                                     <div class="col-sm-12 col-md-6">
                                         <label for="nombreDeporte" class="form-label">Nombre</label>
-                                        <input id="nombreDeporte" type="text" name="nombreDeporte"
-                                            class="form-control" required>
+                                        <input id="nombreDeporte" type="text" name="nombreDeporte" class="form-control"
+                                            required>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
                                         <label for="imagenDeporte" class="form-label">Imagen</label>
@@ -103,6 +104,25 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Componente Modal para mostrar un gráfico -->
+                <div class="modal fade" id="chartModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                    aria-labelledby="chartTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="chartTitle">Gráfico del deporte</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <!-- Contenedor para mostrar el gráfico -->
+                            <div class="modal-body" id="chartContainer"></div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </main>
         </div>
     </div>
@@ -112,8 +132,8 @@
     <script src="../../controllers/utils/js/components.js"></script>
     <script src="../../controllers/utils/plantillaSideBar.js"></script>
 
-        <!-- Llamada al kit de font awesome -->
-        <script src="https://kit.fontawesome.com/f6e8d56735.js" crossorigin="anonymous"></script>
+    <!-- Llamada al kit de font awesome -->
+    <script src="https://kit.fontawesome.com/f6e8d56735.js" crossorigin="anonymous"></script>
 
     <!-- Scripts de JavaScript -->
     <!-- Agrega los enlaces a los scripts de Bootstrap y SweetAlert2 -->
@@ -124,6 +144,9 @@
     <!-- Llamada al framework y librería de mensajes -->
     <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+
+    <!-- Llamada a la librería para generar los gráficos. Para más información https://www.chartjs.org/ -->
+    <script type="text/javascript" src="../../resources/js/chart.umd.min.js"></script>
 
     <!-- Llamada al controlador de la barra lateral -->
     <script src="../../controllers/admin/js/sidebar.js"></script>

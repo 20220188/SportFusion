@@ -213,6 +213,15 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'No hay datos disponibles';
                 }
                 break;
+            case 'cantidadProductosTipoP':
+                if (!$producto->setTipoProducto($_POST['idTipoProducto'])) {
+                    $result['error'] = $producto->getDataError();
+                } elseif ($result['dataset'] = $producto->cantidadProductosTipoP()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['error'] = 'No existen productos por el momento';
+                }
+                break;
             case 'ProductosTopVendidos':
                 if ($result['dataset'] = $producto->ProductosTopVendidos()) {
                     $result['status'] = 1;

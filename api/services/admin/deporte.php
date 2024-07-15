@@ -92,6 +92,15 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Ocurrió un problema al eliminar el deporte';
                 }
                 break;
+                case 'readTopProductosxDeporte':
+                    if (!$deporte->setId($_POST['idDeporte'])) {
+                        $result['error'] = $deporte->getDataError();
+                    } elseif ($result['dataset'] = $deporte->readTopProductosxDeporte()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['error'] = 'No existen productos por el momento';
+                    }
+                    break;
             default:
                 $result['error'] = 'Acción no disponible dentro de la sesión';
         }

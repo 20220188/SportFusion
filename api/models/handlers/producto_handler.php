@@ -373,6 +373,19 @@ class ProductoHandler
         return Database::getRows($sql);
     }
 
+    public function cantidadProductosTipoP()
+    {
+        $sql = 'SELECT nombre_producto, cantidad_disponible 
+                FROM tb_detalle_productos
+                INNER JOIN tb_productos USING(id_producto)
+                WHERE id_tipo_producto = ?
+                GROUP BY nombre_producto
+                ORDER BY cantidad_disponible DESC
+                LIMIT 5';
+        $params = array($this->id_tipo_producto);
+        return Database::getRows($sql, $params);
+    }
+
 
     /*
     *   Métodos para generar reportes.

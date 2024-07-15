@@ -56,7 +56,8 @@ const SAVE_MODAL_TIPOP = new bootstrap.Modal('#saveModalTipoP'),
 // Constantes para establecer los elementos del formulario de guardar.
 const SAVE_FORM_TIPOP = document.getElementById('saveFormTipoP'),
     ID_TIPO_PRODUCTO = document.getElementById('idTipoProducto'),
-    NOMBRE_TIPO_PRODUCTO = document.getElementById('nombreTipoProducto')
+    NOMBRE_TIPO_PRODUCTO = document.getElementById('nombreTipoProducto'),
+    CHART_MODAL = new bootstrap.Modal('#chartModal');
 
 /*
 *Elementos para la tabla VALORACIONES_PRODUCTOS
@@ -445,6 +446,9 @@ const fillTableTipoP = async (form = null) => {
                         <button type="button" class="btn btn-info" onclick="openUpdateTipoP(${row.id_tipo_producto})">
                         <i class="fa-solid fa-pencil"></i>
                         </button>
+                        <button type="button" class="btn btn-warning" onclick="openChart(${row.id_tipo_producto})">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </button>
                         <button type="button" class="btn btn-danger" onclick="openDeleteTipoP(${row.id_tipo_producto})">
                         <i class="fa-regular fa-trash-can"></i>
                         </button>
@@ -526,6 +530,39 @@ const openDeleteTipoP = async (id) => {
         } else {
             sweetAlert(2, DATA.error, false);
         }
+    }
+}
+
+/*
+*   Función asíncrona para mostrar un gráfico parametrizado.
+*   Parámetros: id (identificador del registro seleccionado).
+*   Retorno: ninguno.
+*/
+const openChart = async (id) => {
+    // Se define una constante tipo objeto con los datos del registro seleccionado.
+    const FORM = new FormData();
+    FORM.append('idTipoProducto', id);
+    // Petición para obtener los datos del registro solicitado.
+    const DATA = await fetchData(PRODUCTO_API, 'cantidadProductosTipoP', FORM);
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con el error.
+    if (DATA.status) {
+        // Se muestra la caja de diálogo con su título.
+        CHART_MODAL.show();
+        // Se declaran los arreglos para guardar los datos a graficar.
+        let productos = [];
+        let unidades = [];
+        // Se recorre el conjunto de registros fila por fila a través del objeto row.
+        DATA.dataset.forEach(row => {
+            // Se agregan los datos a los arreglos.
+            productos.push(row.nombre_producto);
+            unidades.push(row.cantidad_disponible);
+        });
+        // Se agrega la etiqueta canvas al contenedor de la modal.
+        document.getElementById('chartContainer').innerHTML = `<canvas id="chart"></canvas>`;
+        // Llamada a la función para generar y mostrar un gráfico de barras. Se encuentra en el archivo components.js
+        barGraph('chart', productos, unidades, 'Cantidad de productos', 'Productos por tipo de producto');
+    } else {
+        sweetAlert(4, DATA.error, true);
     }
 }
 

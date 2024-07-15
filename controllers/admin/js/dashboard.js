@@ -46,7 +46,7 @@ const graficoBarrasValoraciones = async () => {
             valoraciones.push(row.promedio);
         });
         // Llamada a la función para generar y mostrar un gráfico de barras. Se encuentra en el archivo components.js
-        barGraph('chart1', productos, valoraciones, 'Productos', 'Productos mejor valorados');
+        barGraph('chart1', productos, valoraciones, 'Valoracion media', 'Productos mejor valorados');
     } else {
         document.getElementById('chart1').remove();
         console.log(DATA.error);

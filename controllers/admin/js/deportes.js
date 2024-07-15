@@ -14,6 +14,9 @@ const SAVE_FORM = document.getElementById('saveForm'),
     NOMBRE_DEPORTE = document.getElementById('nombreDeporte'),
     ESTADO_DEPORTE = document.getElementById('estadoDeporte');
 
+// constantes para el funcionamiento de las graficas.
+CHART_MODAL = new bootstrap.Modal('#chartModal');
+
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
     // Llamada a la función para mostrar el encabezado y pie del documento.
@@ -85,6 +88,9 @@ const fillTable = async (form = null) => {
                     <td>
                         <button type="button" class="btn btn-info" onclick="openUpdate(${row.id_deporte})">
                         <i class="fa-solid fa-pencil"></i>
+                        </button>
+                        <button type="button" class="btn btn-warning" onclick="openChart(${row.id_deporte})">
+                            <i class="fa-solid fa-chart-line"></i>
                         </button>
                         <button type="button" class="btn btn-danger" onclick="openDelete(${row.id_deporte})">
                         <i class="fa-regular fa-trash-can"></i>
@@ -165,6 +171,39 @@ const openDelete = async (id) => {
         } else {
             sweetAlert(2, DATA.error, false);
         }
+    }
+}
+
+/*
+*   Función asíncrona para mostrar un gráfico parametrizado.
+*   Parámetros: id (identificador del registro seleccionado).
+*   Retorno: ninguno.
+*/
+const openChart = async (id) => {
+    // Se define una constante tipo objeto con los datos del registro seleccionado.
+    const FORM = new FormData();
+    FORM.append('idDeporte', id);
+    // Petición para obtener los datos del registro solicitado.
+    const DATA = await fetchData(DEPORTE_API, 'readTopProductosxDeporte', FORM);
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con el error.
+    if (DATA.status) {
+        // Se muestra la caja de diálogo con su título.
+        CHART_MODAL.show();
+        // Se declaran los arreglos para guardar los datos a graficar.
+        let productos = [];
+        let unidades = [];
+        // Se recorre el conjunto de registros fila por fila a través del objeto row.
+        DATA.dataset.forEach(row => {
+            // Se agregan los datos a los arreglos.
+            productos.push(row.nombre_producto);
+            unidades.push(row.cantidad_disponible);
+        });
+        // Se agrega la etiqueta canvas al contenedor de la modal.
+        document.getElementById('chartContainer').innerHTML = `<canvas id="chart"></canvas>`;
+        // Llamada a la función para generar y mostrar un gráfico de barras. Se encuentra en el archivo components.js
+        barGraph('chart', productos, unidades, 'Cantidad de productos', 'Top 5 de productos con más elementos en stock');
+    } else {
+        sweetAlert(4, DATA.error, true);
     }
 }
 

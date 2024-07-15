@@ -205,7 +205,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="modalTitleTipoP"></h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" 
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
                             <!-- Formulario para crear o actualizar un registro -->
@@ -246,6 +246,25 @@
                     </div>
                 </div>
 
+                <!-- Componente Modal para mostrar un gráfico -->
+                <div class="modal fade" id="chartModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                    aria-labelledby="chartTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="chartTitle">Gráfico del tipo de producto</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <!-- Contenedor para mostrar el gráfico -->
+                            <div class="modal-body" id="chartContainer"></div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
                 <!-- Componente Modal para guardar un registro de comentarios-->
                 <div class="modal fade" id="saveModalComentario" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -254,7 +273,8 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="modalTitleComentario"></h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-target="#saveModalDetalle" data-bs-toggle="modal"
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    data-bs-target="#saveModalDetalle" data-bs-toggle="modal"
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -302,6 +322,9 @@
     <!-- Llamada al framework y librería de mensajes -->
     <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+
+        <!-- Llamada a la librería para generar los gráficos. Para más información https://www.chartjs.org/ -->
+        <script type="text/javascript" src="../../resources/js/chart.umd.min.js"></script>  
 
     <!-- Llamada al controlador de la barra lateral -->
     <script src="../../controllers/admin/js/sidebar.js"></script>

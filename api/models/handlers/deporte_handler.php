@@ -31,13 +31,13 @@ class DeporteHandler
         return Database::getRows($sql, $params);
     }
 
-        public function createRow()
-        {
-            $sql = 'INSERT INTO tb_deportes(nombre_deporte, estado_retro, imagen_deporte)
+    public function createRow()
+    {
+        $sql = 'INSERT INTO tb_deportes(nombre_deporte, estado_retro, imagen_deporte)
                     VALUES(?, ?, ?)';
-            $params = array($this->nombre, $this->estado, $this->imagen);
-            return Database::executeRow($sql, $params);
-        }
+        $params = array($this->nombre, $this->estado, $this->imagen);
+        return Database::executeRow($sql, $params);
+    }
 
     public function readAll()
     {
@@ -81,5 +81,21 @@ class DeporteHandler
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
-}
 
+    /*
+    *   Métodos para mostrar las graficas.
+    */
+
+    public function readTopProductosxDeporte()
+    {
+        $sql = 'SELECT nombre_producto, cantidad_disponible 
+                FROM tb_detalle_productos
+                INNER JOIN tb_productos USING(id_producto)
+                WHERE id_deporte = ?
+                GROUP BY nombre_producto
+                ORDER BY cantidad_disponible DESC
+                LIMIT 5';
+        $params = array($this->id);
+        return Database::getRows($sql, $params);
+    }
+}
