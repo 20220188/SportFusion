@@ -315,9 +315,9 @@ class ProductoHandler
 
     public function readOnePublica()
     {
-        $sql = 'SELECT id_detalle_producto, precio, cantidad_disponible, id_talla, imagen, descripcion, nombre_producto
+        $sql = 'SELECT id_detalle_producto, id_producto, precio, cantidad_disponible, id_talla, imagen, descripcion, nombre_producto
                 FROM tb_detalle_productos
-                INNER JOIN tb_productos USING(id_producto) 
+                INNER JOIN tb_productos USING(id_producto)
                 WHERE id_producto = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
