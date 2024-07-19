@@ -176,9 +176,7 @@ const openDelete = async (id) => {
 *   Retorno: ninguno.
 */
 
-// Esto se mantendrá inactivo hasta que implementemos los reportes 
 
-/*
     const openReport = (id) => {
     // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
     const PATH = new URL(`${SERVER_URL}reports/admin/productos_categoria.php`);
@@ -186,4 +184,4 @@ const openDelete = async (id) => {
     PATH.searchParams.append('idCategoria', id);
     // Se abre el reporte en una nueva pestaña.
     window.open(PATH.href);
-    }*/
+    }

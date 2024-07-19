@@ -390,17 +390,28 @@ class ProductoHandler
     /*
     *   Métodos para generar reportes.
     */
-    /*
-    // Método para obtener los productos de una categoría. Comentada porque no se implementan reportes aun
+
     public function productosCategoria()
     {
-        $sql = 'SELECT nombre_producto, precio_producto, estado_producto
-                FROM producto
-                INNER JOIN categoria USING(id_categoria)
+        $sql = 'SELECT nombre_producto, precio, cantidad_disponible
+                FROM tb_detalle_productos
+                INNER JOIN tb_productos USING(id_producto)
+                INNER JOIN tb_categorias USING(id_categoria)
                 WHERE id_categoria = ?
                 ORDER BY nombre_producto';
-        $params = array($this->categoria);
+        $params = array($this->id_categoria);
         return Database::getRows($sql, $params);
     }
-    */
+
+    public function productosDeporte()
+    {
+        $sql = 'SELECT nombre_producto, precio, cantidad_disponible
+                FROM tb_detalle_productos
+                INNER JOIN tb_productos USING(id_producto)
+                WHERE id_deporte = ?
+                ORDER BY nombre_producto';
+        $params = array($this->id_deporte);
+        return Database::getRows($sql, $params);
+    }
+
 }

@@ -89,11 +89,14 @@ const fillTable = async (form = null) => {
                         <button type="button" class="btn btn-info" onclick="openUpdate(${row.id_deporte})">
                         <i class="fa-solid fa-pencil"></i>
                         </button>
+                        <button type="button" class="btn btn-danger" onclick="openDelete(${row.id_deporte})">
+                        <i class="fa-regular fa-trash-can"></i>
+                        </button>
                         <button type="button" class="btn btn-warning" onclick="openChart(${row.id_deporte})">
                             <i class="fa-solid fa-chart-line"></i>
                         </button>
-                        <button type="button" class="btn btn-danger" onclick="openDelete(${row.id_deporte})">
-                        <i class="fa-regular fa-trash-can"></i>
+                        <button type="button" class="btn btn-warning" onclick="openReport(${row.id_deporte})">
+                        <i class="fa-regular fa-file-pdf"></i>
                         </button>
                     </td>
                 </tr>
@@ -212,10 +215,12 @@ const openChart = async (id) => {
 *   Parámetros: ninguno.
 *   Retorno: ninguno.
 */
-/* 
-const openReport = () => {
+
+const openReport = (id) => {
     // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
-    const PATH = new URL(`${SERVER_URL}reports/admin/productos.php`);
+    const PATH = new URL(`${SERVER_URL}reports/admin/productos_deportes.php`);
+    // Se agrega un parámetro a la ruta con el valor del registro seleccionado.
+    PATH.searchParams.append('idDeporte', id);
     // Se abre el reporte en una nueva pestaña.
     window.open(PATH.href);
-}*/
+}
