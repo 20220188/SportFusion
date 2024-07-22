@@ -322,17 +322,17 @@ class PedidoHandler
     /*
     *   Métodos para generar reportes.
     */
-    /*
+
     // Método para obtener los productos de una categoría. Comentada porque no se implementan reportes aun
-    public function productosCategoria()
+    public function PedidosClientes()
     {
-        $sql = 'SELECT nombre_producto, precio_producto, estado_producto
-                FROM producto
-                INNER JOIN categoria USING(id_categoria)
-                WHERE id_categoria = ?
-                ORDER BY nombre_producto';
-        $params = array($this->categoria);
+        $sql = 'SELECT id_pedido, nombre_cliente, fecha_registro, precio_pedido, nombre_producto, cantidad_pedido
+            from tb_detalle_pedidos
+            INNER JOIN tb_pedidos USING(id_pedido)
+            INNER JOIN tb_productos USING (id_producto)
+            INNER JOIN tb_clientes USING(id_cliente)
+            WHERE id_cliente = ?';
+        $params = array($this->id_cliente);
         return Database::getRows($sql, $params);
     }
-    */
 }
