@@ -149,8 +149,8 @@ const fillTableDetails = async (id) => {
                     <td>${row.precio_pedido}</td>
                     <td>${row.cantidad_pedido}</td>
                     <td>${subtotal.toFixed(2)}</td>
-                    <td><button type="button" class="btn btn-success" onclick="openComentario(${row.id_detalle})">
-                        <i class="fa-regular fa-square-plus"></i>
+                    <td><button type="button" class="btn btn-warning" onclick="openComentario(${row.id_detalle})">
+                        <i class="fa-regular fa-comment-dots"></i>
                         </button></td>
                 </tr>
             `;
@@ -222,8 +222,8 @@ const fillTableValoracion = async (id) => {
                 <tr>
                     <td>${converRatingToStars(row.valoracion)}</td>
                     <td>${row.comentario}</td>
-                    <td><button type="button" class="btn btn-success" onclick="openUpdateComentario(${row.id_valoracion})">
-                        <i class="fa-regular fa-square-plus"></i></button>
+                    <td><button type="button" class="btn btn-info" onclick="openUpdateComentario(${row.id_valoracion})">
+                        <i class="fa-solid fa-pencil"></i>
 
                         <button type="button" class="btn btn-danger" onclick="openDelete(${row.id_valoracion})">
                         <i class="fa-regular fa-trash-can"></i>

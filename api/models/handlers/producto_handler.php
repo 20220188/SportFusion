@@ -4,6 +4,8 @@ require_once('../../helpers/database.php');
 /*
 *	Clase para manejar el comportamiento de los datos de la tabla PRODUCTO.
 */
+
+//StuddlyCaps
 class ProductoHandler
 {
     /*
@@ -187,12 +189,12 @@ class ProductoHandler
 
     public function readAllValoracion()
     {
-        $sql = 'SELECT v.id_valoracion_producto, comentario, o.opinion,v.id_detalle_producto, c.nombre_cliente, v.estado_valoracion
+        $sql = 'SELECT v.id_valoracion, v.comentario, v.valoracion,v.id_detalle, dp.id_producto, c.nombre_cliente, v.estado_valoracion
         FROM tb_valoraciones v
         INNER JOIN tb_clientes c USING(id_cliente)
-        inner join tb_detalle_productos dp using(id_detalle_producto)
-        WHERE v.id_detalle_producto = ?';
-        $params = array($this->id_detalle_producto);
+        INNER JOIN tb_detalle_pedidos dp USING(id_detalle)
+        WHERE dp.id_producto = ?';
+        $params = array($this->id_producto);
         return Database::getRows($sql, $params);
     }
 

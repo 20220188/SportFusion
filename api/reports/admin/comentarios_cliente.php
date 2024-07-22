@@ -8,7 +8,7 @@ require_once('../../models/data/producto_data.php');
 // Se instancia la clase para crear el reporte.
 $pdf = new Report;
 // Se inicia el reporte con el encabezado del documento.
-$pdf->startReport('Pedidos por cliente');
+$pdf->startReport('Comentarios por cliente');
 // Se instancia el módelo Categoría para obtener los datos.
 $cliente = new ClienteData;
 // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
