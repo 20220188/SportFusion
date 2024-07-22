@@ -19,7 +19,7 @@ if ($dataClientes = $cliente->readAll()) {
     $pdf->setFont('Arial', 'B', 11);
     // Se imprimen las celdas con los encabezados.
     $pdf->cell(90, 10, 'Comentario', 1, 0, 'C', 1);
-    $pdf->cell(50, 10, 'Valoracion', 1, 0, 'C', 1);
+    $pdf->cell(50, 10, $pdf->encodeString('Valoración'), 1, 0, 'C', 1);
     $pdf->cell(46, 10, 'Estado', 1, 1, 'C', 1);
 
     // Se establece un color de relleno para mostrar el nombre de la categoría.

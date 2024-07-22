@@ -95,6 +95,7 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Ocurrió un problema al finalizar el pedido';
                 }
                 break;
+                
             default:
                 $result['error'] = 'Acción no disponible dentro de la sesión';
         }

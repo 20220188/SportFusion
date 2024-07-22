@@ -106,6 +106,9 @@ const fillTable = async (form = null) => {
                         <button type="button" class="btn btn-success" onclick="openDetails(${row.id_pedido})">
                         <i class="fa-regular fa-square-plus"></i>
                         </button>
+                        <button type="button" class="btn btn-warning" onclick="openReport(${row.id_pedido})">
+                        <i class="fa-regular fa-file-pdf"></i>
+                        </button>
                     </td>
                 </tr>
             `;
@@ -314,9 +317,11 @@ const openDelete = async (id) => {
 *   Parámetros: ninguno.
 *   Retorno: ninguno.
 */
-const openReport = () => {
+const openReport = (id) => {
     // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
-    const PATH = new URL(`${SERVER_URL}reports/admin/productos.php`);
+    const PATH = new URL(`${SERVER_URL}reports/public/comprobante_compra.php`);
+    // Se agrega un parámetro a la ruta con el valor del registro seleccionado.
+    PATH.searchParams.append('idCliente', id);
     // Se abre el reporte en una nueva pestaña.
     window.open(PATH.href);
 }

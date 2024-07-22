@@ -335,4 +335,15 @@ class PedidoHandler
         $params = array($this->id_cliente);
         return Database::getRows($sql, $params);
     }
+
+    public function ComprobanteCompra()
+    {
+        $sql = 'SELECT  precio_pedido, cantidad_pedido, nombre_producto
+            FROM tb_detalle_pedidos
+            INNER JOIN tb_productos USING(id_producto)
+            WHERE id_pedido = ?';
+        $params = array($this->id_pedido);
+        return Database::getRows($sql, $params);
+    }
 }
+
