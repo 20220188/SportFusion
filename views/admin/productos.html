@@ -54,6 +54,11 @@
                         <button type="button" class="btn btn-success" onclick="openCreateTipoP()">
                             <i class="fa-solid fa-folder-plus"></i>
                         </button>
+
+                        <!-- Botón para abrir una caja de diálogo al momento de crear un nuevo registro -->
+                        <button type="button" class="btn btn-warning" onclick="openReport()">
+                            <i class="fa-regular fa-file-pdf"></i>
+                        </button>
                     </div>
                 </div>
 
@@ -130,6 +135,43 @@
                                         <input id="imagenProducto" type="file" name="imagenProducto"
                                             class="form-control" accept=".png, .jpg">
                                     </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Componente Modal para generar un reporte -->
+                <div class="modal fade" id="saveModalReport" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                    aria-labelledby="modalTitleReport" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="modalTitleReport"></h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <!-- Formulario para crear o actualizar un registro -->
+                            <form id="saveFormReport">
+                                <div class="modal-body row g-3">
+                                    <!-- Campo oculto para asignar el id del registro al momento de modificar -->
+                                    <input type="number" class="d-none" id="idProducto" name="idProducto">
+                                    <div class="col-sm-12 col-md-6">
+                                        <label for="numeroMin" class="form-label">Precio minimo</label>
+                                        <input id="numeroMin" type="number" name="numeroMin" min="0.00" step="0.01"
+                                            class="form-control" required>
+                                    </div>
+
+                                    <input type="number" class="d-none" id="idProducto" name="idProducto">
+                                    <div class="col-sm-12 col-md-6">
+                                        <label for="numeroMax" class="form-label">Precio maximo</label>
+                                        <input id="numeroMax" type="number" name="numeroMax"
+                                            class="form-control" required>
+                                    </div>
+                                    
                                 </div>
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-primary">Guardar</button>
@@ -323,8 +365,8 @@
     <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
 
-        <!-- Llamada a la librería para generar los gráficos. Para más información https://www.chartjs.org/ -->
-        <script type="text/javascript" src="../../resources/js/chart.umd.min.js"></script>  
+    <!-- Llamada a la librería para generar los gráficos. Para más información https://www.chartjs.org/ -->
+    <script type="text/javascript" src="../../resources/js/chart.umd.min.js"></script>
 
     <!-- Llamada al controlador de la barra lateral -->
     <script src="../../controllers/admin/js/sidebar.js"></script>

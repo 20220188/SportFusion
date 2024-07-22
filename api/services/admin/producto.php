@@ -229,6 +229,20 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'No hay datos disponibles';
                 }
                 break;
+                case 'createReport':
+                    $_POST = Validator::validateForm($_POST);
+                    if (
+                        !$producto->setPrecioMin($_POST['numeroMin']) or
+                        !$producto->setPrecioMax($_POST['numeroMax']) 
+                    ) {
+                        $result['error'] = $producto->getDataError();
+                    } elseif ($producto->productosPrecios()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'precios registrados correctamente';
+                    } else {
+                        $result['exception'] = Database::getException();
+                    }
+                    break;
             default:
                 $result['error'] = 'Acción no disponible dentro de la sesión';
         }

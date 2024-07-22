@@ -98,4 +98,6 @@ class DeporteHandler
         $params = array($this->id);
         return Database::getRows($sql, $params);
     }
+
+    
 }

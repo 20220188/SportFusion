@@ -153,6 +153,28 @@ public function setDetalleproducto($value)
         }
     }
 
+    public function setPrecioMin($value)
+    {
+        if (Validator::validateMoney($value)) {
+            $this->precioMin = $value;
+            return true;
+        } else {
+            $this->data_error = 'El precio minimo debe ser un valor numérico';
+            return false;
+        }
+    }
+
+    public function setPrecioMax($value)
+    {
+        if (Validator::validateMoney($value)) {
+            $this->precioMax = $value;
+            return true;
+        } else {
+            $this->data_error = 'El precio maximo debe ser un valor numérico';
+            return false;
+        }
+    }
+
     public function setExistencias($value)
     {
         if (Validator::validateNaturalNumber($value)) {

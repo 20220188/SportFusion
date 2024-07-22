@@ -224,3 +224,10 @@ const openReport = (id) => {
     // Se abre el reporte en una nueva pestaña.
     window.open(PATH.href);
 }
+
+const openAllReport = () => {
+    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
+    const PATH = new URL(`${SERVER_URL}reports/admin/All_productos_deporte.php`);
+    // Se abre el reporte en una nueva pestaña.
+    window.open(PATH.href);
+}

@@ -33,6 +33,10 @@ class ProductoHandler
     protected $id_cliente = null;
     protected $estado_valoracion = null;
 
+    // Atributos para los reportes
+    protected $precioMin = null;
+    protected $precioMax = null;
+
     // Constante para establecer la ruta de las imágenes.
     const RUTA_IMAGEN = '../../images/productos/';
 
@@ -183,9 +187,8 @@ class ProductoHandler
 
     public function readAllValoracion()
     {
-        $sql = 'SELECT v.id_valoracion_producto, o.comentario, o.opinion,v.id_detalle_producto, c.nombre_cliente, v.estado_valoracion
-        FROM tb_valoraciones_productos v
-        INNER JOIN tb_opiniones o USING(id_opinion)
+        $sql = 'SELECT v.id_valoracion_producto, comentario, o.opinion,v.id_detalle_producto, c.nombre_cliente, v.estado_valoracion
+        FROM tb_valoraciones v
         INNER JOIN tb_clientes c USING(id_cliente)
         inner join tb_detalle_productos dp using(id_detalle_producto)
         WHERE v.id_detalle_producto = ?';
@@ -410,6 +413,28 @@ class ProductoHandler
                 INNER JOIN tb_productos USING(id_producto)
                 WHERE id_deporte = ?
                 ORDER BY nombre_producto';
+        $params = array($this->id_deporte);
+        return Database::getRows($sql, $params);
+    }
+
+    public function productosPrecios()
+    {
+        $sql = 'SELECT nombre_producto, precio, cantidad_disponible, descripcion
+                FROM tb_detalle_productos
+                INNER JOIN tb_productos USING(id_producto)
+                WHERE precio BETWEEN ? AND ?
+                ORDER BY precio DESC';
+        $params = array($this->precioMin, $this->precioMax);
+        return Database::getRows($sql, $params);
+    }
+
+    public function productosDeporteGeneral()
+    {
+        $sql = 'SELECT nombre_producto, precio, cantidad_disponible
+                FROM tb_detalle_productos
+                INNER JOIN tb_productos USING(id_producto)
+                WHERE id_deporte = ?
+                ORDER BY precio DESC';
         $params = array($this->id_deporte);
         return Database::getRows($sql, $params);
     }

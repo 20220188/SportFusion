@@ -173,6 +173,21 @@ class ClienteHandler
         return Database::getRow($sql, $params);
     }
 
+    /*
+    *   Métodos para generar reportes.
+    */
+
+    // Método para obtener los productos de una categoría. Comentada porque no se implementan reportes aun
+    public function ComentariosCliente()
+    {
+        $sql = 'SELECT comentario, valoracion, nombre_cliente, estado_valoracion
+                from tb_valoraciones
+                INNER JOIN tb_clientes USING(id_cliente)
+                WHERE id_cliente =  ?';
+        $params = array($this->id);
+        return Database::getRows($sql, $params);
+    }
+
 }
 
 
