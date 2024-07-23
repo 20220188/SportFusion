@@ -173,6 +173,15 @@ class ClienteHandler
         return Database::getRow($sql, $params);
     }
 
+    public function verificarCorreo()
+    {
+        $sql = 'SELECT id_cliente, correo_cliente, nombre_cliente, 
+                FROM tb_clientes
+                WHERE correo_cliente = ?';
+        $params = array($this->correo);
+        return Database::getRow($sql, $params);
+    }
+
     /*
     *   Métodos para generar reportes.
     */

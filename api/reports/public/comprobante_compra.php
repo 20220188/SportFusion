@@ -34,10 +34,11 @@ if (isset($_SESSION['idCliente'])) {
             // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
             if ($dataPedidos = $pedido->ComprobanteCompra()) {
                 // Se establece un color de relleno para los encabezados.
-                $pdf->setFillColor(173, 216, 230);
-                
+                $pdf->setFillColor(68, 143, 163);
+                $pdf->SetTextColor(255);
                 // Se establece la fuente para los encabezados.
                 $pdf->setFont('Arial', 'B', 11);
+                
                 
                 // Se imprimen las celdas con los encabezados.
                 $pdf->cell(96, 10, 'Nombre', 1, 0, 'C', 1);
@@ -47,13 +48,14 @@ if (isset($_SESSION['idCliente'])) {
 
                 // Se establece la fuente para los datos de los productos.
                 $pdf->setFont('Arial', '', 11);
+                $pdf->SetTextColor(0);
                 $total = 0;
 
                 // Se recorren los registros fila por fila.
                 foreach ($dataPedidos as $rowPedido) {
                     $subtotal = $rowPedido['cantidad_pedido'] * $rowPedido['precio_pedido'];
                     $total += $subtotal;
-        
+                    
                     // Se imprimen las celdas con los datos de los productos.
                     $pdf->cell(96, 10, $pdf->encodeString($rowPedido['nombre_producto']), 1, 0, 'C');
                     $pdf->cell(30, 10, $rowPedido['precio_pedido'], 1, 0, 'C');
@@ -64,7 +66,11 @@ if (isset($_SESSION['idCliente'])) {
                 $pdf->ln(10);
                 // Mueve el cursor a la posición deseada para la celda del total.
                 $pdf->SetX(141); // Ajusta este valor según sea necesario
+                $pdf->SetTextColor(255);
+                $pdf->setFont('Arial', 'B', 11);
                 $pdf->cell(30, 10, 'Total (US$)', 1, 0, 'C', 1);
+                $pdf->SetTextColor(0);
+                $pdf->setFont('Arial', '', 11);
                 $pdf->cell(30, 10, $pdf->encodeString(number_format($total, 2)), 1, 0, 'C');
             } else {
                 $pdf->cell(0, 10, $pdf->encodeString('No hay productos para el deporte'), 1, 1);

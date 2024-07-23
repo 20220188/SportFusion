@@ -49,7 +49,7 @@ if (isset($_GET['action'])) {
                 ) {
                     $result['error'] = $cliente->getDataError();
                 } elseif ($cliente->editProfile()) {
-  
+
                     $result['status'] = 1;
                     $result['message'] = 'Perfil modificado correctamente';
                     $_SESSION['correoCliente '] = $_POST['correoclientePerfil'];
@@ -72,6 +72,17 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Ocurrió un problema al cambiar la contraseña';
                 }
                 break;
+            case 'verificarCorreo':
+                $_POST = Validator::validateForm($_POST);
+                if (!$cliente->setVerificarCorreo($_POST['correo'])) {
+                    $result['error'] = $cliente->getDataError();
+                } elseif ($result['dataset'] = $cliente->verificarCorreo()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['error'] = 'Ocurrió un error al verificar el correo';
+                }
+                break;
+
             default:
                 $result['error'] = 'Acción no disponible dentro de la sesión 1';
         }
