@@ -342,7 +342,7 @@ class PedidoHandler
             FROM tb_detalle_pedidos
             INNER JOIN tb_productos USING(id_producto)
             WHERE id_pedido = ?';
-        $params = array($this->id_pedido);
+        $params = array($_SESSION['idPedido']);
         return Database::getRows($sql, $params);
     }
 }
