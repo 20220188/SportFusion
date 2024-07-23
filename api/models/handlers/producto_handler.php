@@ -200,26 +200,26 @@ class ProductoHandler
 
     public function readOneValoracion()
     {
-        $sql = 'SELECT id_valoracion_producto, estado_valoracion
-                FROM tb_valoraciones_productos
-                WHERE id_valoracion_producto = ?';
+        $sql = 'SELECT id_valoracion, estado_valoracion
+                FROM tb_valoraciones
+                WHERE id_valoracion = ?';
         $params = array($this->id_valoracion);
         return Database::getRow($sql, $params);
     }
 
     public function updateRowValoracion()
     {
-        $sql = 'UPDATE tb_valoraciones_productos
+        $sql = 'UPDATE tb_valoraciones
         SET estado_valoracion = !(estado_valoracion )
-        WHERE id_valoracion_producto = ?';
+        WHERE id_valoracion = ?';
         $params = array($this->id_valoracion);
         return Database::executeRow($sql, $params);
     }
 
     public function deleteRowValoracion()
     {
-        $sql = 'DELETE FROM tb_valoraciones_productos
-                WHERE id_valoracion_producto = ?';
+        $sql = 'DELETE FROM tb_valoraciones
+                WHERE id_valoracion = ?';
         $params = array($this->id_valoracion);
         return Database::executeRow($sql, $params);
     }

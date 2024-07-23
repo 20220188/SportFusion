@@ -333,7 +333,6 @@ const fillTableDetails = async (id) => {
 *   Retorno: ninguno.
 */
 const openDetails = (id_producto) => {
-    console.log(id_producto);
     // Se muestra la caja de diálogo con su título.
     SAVE_MODAL_DETALLE.show();
     MODAL_TITLE_DETALLE.textContent = 'Detalle producto';
@@ -600,7 +599,7 @@ const fillTableComentario = async (id) => {
             TABLE_BODY_COMENTARIO.innerHTML += `
                 <tr>
                     
-                    <td>${converRatingToStars(row.opinion)} ${row.opinion}</td>
+                    <td>${converRatingToStars(row.valoracion)} ${row.valoracion}</td>
                     <td>${row.comentario}</td>
                     <td>${row.nombre_cliente}</td>
                     <td><i class="${icon}"></i></td>
@@ -637,7 +636,6 @@ const converRatingToStars = (rating) => {
 *   Retorno: ninguno.
 */
 const openCreateComentario = (idDetalleV) => {
-    console.log(idDetalleV);
     // Se muestra la caja de diálogo con su título.
     SAVE_MODAL_COMENTARIO.show();
     MODAL_TITLE_COMENTARIO.textContent = 'Valoraciones';
