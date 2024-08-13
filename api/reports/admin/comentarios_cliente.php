@@ -8,7 +8,7 @@ require_once('../../models/data/producto_data.php');
 // Se instancia la clase para crear el reporte.
 $pdf = new Report;
 // Se inicia el reporte con el encabezado del documento.
-$pdf->startReport('Pedidos por cliente');
+$pdf->startReport('Comentarios por cliente');
 // Se instancia el módelo Categoría para obtener los datos.
 $cliente = new ClienteData;
 // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
@@ -19,7 +19,7 @@ if ($dataClientes = $cliente->readAll()) {
     $pdf->setFont('Arial', 'B', 11);
     // Se imprimen las celdas con los encabezados.
     $pdf->cell(90, 10, 'Comentario', 1, 0, 'C', 1);
-    $pdf->cell(50, 10, 'Valoracion', 1, 0, 'C', 1);
+    $pdf->cell(50, 10, $pdf->encodeString('Valoración'), 1, 0, 'C', 1);
     $pdf->cell(46, 10, 'Estado', 1, 1, 'C', 1);
 
     // Se establece un color de relleno para mostrar el nombre de la categoría.

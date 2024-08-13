@@ -167,7 +167,7 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 if (
                     !$producto->setid_valoracion($_POST['idValoracionProducto'])
-
+                    
                 ) {
                     $result['error'] = $producto->getDataError();
                 } elseif ($producto->updateRowValoracion()) {
@@ -175,6 +175,7 @@ if (isset($_GET['action'])) {
                     $result['message'] = 'Estado modificado correctamente';
                 } else {
                     $result['exception'] = 'Ocurrió un problema al modificar el estado';
+                    
                 }
                 break;
             case 'readOneValoracion':
@@ -187,7 +188,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'readAllValoracion':
-                if (!$producto->setDetalleproducto($_POST['idDetalleV'])) {
+                if (!$producto->setIdProducto($_POST['idDetalleV'])) {
                     $result['error'] = $producto->getDataError();
                 } elseif ($result['dataset'] = $producto->readAllValoracion()) {
                     $result['status'] = 1;

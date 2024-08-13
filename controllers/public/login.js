@@ -24,3 +24,9 @@ SESSION_FORM.addEventListener('submit', async (event) => {
         sweetAlert(2, DATA.error, false);
     }
 });
+
+function sendMail(){
+    let params = {
+        
+    }
+}

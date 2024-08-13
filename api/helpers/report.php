@@ -9,7 +9,9 @@ require_once('../../libraries/fpdf185/fpdf.php');
 class Report extends FPDF
 {
     // Constante para definir la ruta de las vistas del sitio privado.
-    const CLIENT_URL = 'http://localhost/SportFusion/views/admin/';
+    const ADMIN_URL = 'http://localhost/SportFusion/views/admin/';
+
+    const PUBLIC_URL = 'http://localhost/SportFusion/views/public/';
     // Propiedad para guardar el título del reporte.
     private $title = null;
 
@@ -35,7 +37,28 @@ class Report extends FPDF
             // Se define un alias para el número total de páginas que se muestra en el pie del documento.
             $this->aliasNbPages();
         } else {
-            header('location:' . self::CLIENT_URL);
+            header('location:' . self::ADMIN_URL);
+        }
+    }
+
+    public function startReportPublic($title)
+    {
+        // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en los reportes.
+        session_start();
+        // Se verifica si un administrador ha iniciado sesión para generar el documento, de lo contrario se direcciona a la página web principal.
+        if (isset($_SESSION['idCliente'])) {
+            // Se asigna el título del documento a la propiedad de la clase.
+            $this->title = $title;
+            // Se establece el título del documento (true = utf-8).
+            $this->setTitle('SportFusion - Reporte', true);
+            // Se establecen los margenes del documento (izquierdo, superior y derecho).
+            $this->setMargins(15, 15, 15);
+            // Se añade una nueva página al documento con orientación vertical y formato carta, llamando implícitamente al método header()
+            $this->addPage('p', 'letter');
+            // Se define un alias para el número total de páginas que se muestra en el pie del documento.
+            $this->aliasNbPages();
+        } else {
+            header('location:' . self::PUBLIC_URL);
         }
     }
 

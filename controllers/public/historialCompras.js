@@ -106,6 +106,9 @@ const fillTable = async (form = null) => {
                         <button type="button" class="btn btn-success" onclick="openDetails(${row.id_pedido})">
                         <i class="fa-regular fa-square-plus"></i>
                         </button>
+                        <button type="button" class="btn btn-warning" onclick="openReport(${row.id_pedido})">
+                        <i class="fa-regular fa-file-pdf"></i>
+                        </button>
                     </td>
                 </tr>
             `;
@@ -149,8 +152,8 @@ const fillTableDetails = async (id) => {
                     <td>${row.precio_pedido}</td>
                     <td>${row.cantidad_pedido}</td>
                     <td>${subtotal.toFixed(2)}</td>
-                    <td><button type="button" class="btn btn-success" onclick="openComentario(${row.id_detalle})">
-                        <i class="fa-regular fa-square-plus"></i>
+                    <td><button type="button" class="btn btn-warning" onclick="openComentario(${row.id_detalle})">
+                        <i class="fa-regular fa-comment-dots"></i>
                         </button></td>
                 </tr>
             `;
@@ -222,8 +225,8 @@ const fillTableValoracion = async (id) => {
                 <tr>
                     <td>${converRatingToStars(row.valoracion)}</td>
                     <td>${row.comentario}</td>
-                    <td><button type="button" class="btn btn-success" onclick="openUpdateComentario(${row.id_valoracion})">
-                        <i class="fa-regular fa-square-plus"></i></button>
+                    <td><button type="button" class="btn btn-info" onclick="openUpdateComentario(${row.id_valoracion})">
+                        <i class="fa-solid fa-pencil"></i>
 
                         <button type="button" class="btn btn-danger" onclick="openDelete(${row.id_valoracion})">
                         <i class="fa-regular fa-trash-can"></i>
@@ -314,9 +317,10 @@ const openDelete = async (id) => {
 *   Parámetros: ninguno.
 *   Retorno: ninguno.
 */
-const openReport = () => {
+const openReport = (id) => {
     // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
-    const PATH = new URL(`${SERVER_URL}reports/admin/productos.php`);
+    const PATH = new URL(`${SERVER_URL}reports/public/comprobante_compra.php`);
+    // Se agrega un parámetro a la ruta con el valor del registro seleccionado.
     // Se abre el reporte en una nueva pestaña.
     window.open(PATH.href);
 }
