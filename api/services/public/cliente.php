@@ -49,7 +49,7 @@ if (isset($_GET['action'])) {
                 ) {
                     $result['error'] = $cliente->getDataError();
                 } elseif ($cliente->editProfile()) {
-  
+
                     $result['status'] = 1;
                     $result['message'] = 'Perfil modificado correctamente';
                     $_SESSION['correoCliente '] = $_POST['correoclientePerfil'];
@@ -150,6 +150,21 @@ if (isset($_GET['action'])) {
                     print_r($_POST);
                 }
                 break;
+                // En cliente.php, añade al switch la acción 'verifyEmail'
+            case 'verifyEmail':
+                if (isset($_POST['correo'])) {
+                    $correo = $_POST['correo'];
+                    if ($cliente->checkEmailExists($correo)) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Correo encontrado';
+                    } else {
+                        $result['error'] = 'Correo no encontrado';
+                    }
+                } else {
+                    $result['error'] = 'Correo no proporcionado';
+                }
+                break;
+
 
             default:
                 $result['error'] = 'Acción no disponible fuera de la sesión ';

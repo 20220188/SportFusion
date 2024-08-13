@@ -106,7 +106,14 @@ class ClienteHandler
             return false;
         }
     }
-
+    public function checkEmailExists($mail)
+    {
+        $sql = 'SELECT id_cliente FROM tb_clientes WHERE correo_cliente = ?';
+        $params = array($mail);
+        $data = Database::getRow($sql, $params);
+        return $data ? true : false;
+    }
+    
     public function checkPassword($password)
     {
         $sql = 'SELECT clave_cliente
