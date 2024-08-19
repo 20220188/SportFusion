@@ -85,6 +85,15 @@ class ClienteHandler
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
+    public function checkDuplicate($value)
+    {
+        // Consulta para verificar si el correo electrónico ya existe en la base de datos.
+        $sql = 'SELECT id_usuario
+            FROM tb_clientes
+            WHERE correo_cliente = ?';
+        $params = array($value);
+        return Database::getRow($sql, $params);
+    }
 
     /*
     *   Métodos para gestionar la cuenta del cliente.
@@ -130,8 +139,51 @@ class ClienteHandler
             return false;
         }
     }
+    public function generarPinRecuperacion()
+    {
+        $pin = sprintf("%06d", mt_rand(1, 999999)); // Genera un PIN de 6 dígitos
+        $expiry = date('Y-m-d H:i:s', strtotime('+30 minutes')); // 30 minutos desde ahora
 
+        $sql = "UPDATE tb_clientes SET recovery_pin = ?, pin_expiry = ? WHERE correo_cliente = ?";
+        $params = array($pin, $expiry, $this->correo);
 
+        if (Database::executeRow($sql, $params)) {
+            return $pin; // Retorna el PIN para enviarlo al usuario
+        } else {
+            // Manejo de errores
+            error_log("Error al generar el PIN de recuperación para el correo: " . $this->correo);
+        }
+        return false;
+    }
+    public function verificarPinRecuperacion($pin)
+    {
+        $sql = "SELECT id_cliente FROM tb_clientes 
+            WHERE correo_cliente = ? AND recovery_pin = ? AND pin_expiry > NOW()";
+        $params = array($this->correo, $pin);
+
+        $result = Database::getRow($sql, $params);
+
+        if ($result) {
+            return $result['id_cliente'];
+        } else {
+            // Manejo de errores
+            error_log("Error al verificar el PIN de recuperación para el correo: " . $this->correo);
+        }
+        return false;
+    }
+    public function resetearPin()
+    {
+        $sql = "UPDATE tb_clientes SET recovery_pin = NULL, pin_expiry = NULL WHERE id_cliente = ?";
+        $params = array($this->id);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function cambiarClaveConPin($id_usuario, $nuevaClave)
+    {
+        $sql = 'UPDATE tb_clientes SET clave = ? WHERE id_cliente = ?';
+        $params = array(password_hash($nuevaClave, PASSWORD_DEFAULT), $id_usuario);
+        return Database::executeRow($sql, $params);
+    }
     public function checkStatus()
     {
         if ($this->estado) {
