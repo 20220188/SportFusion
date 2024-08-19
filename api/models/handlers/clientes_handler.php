@@ -178,10 +178,10 @@ class ClienteHandler
         return Database::executeRow($sql, $params);
     }
 
-    public function cambiarClaveConPin($id_usuario, $nuevaClave)
+    public function cambiarClaveConPin($id_cliente, $nuevaClave)
     {
-        $sql = 'UPDATE tb_clientes SET clave = ? WHERE id_cliente = ?';
-        $params = array(password_hash($nuevaClave, PASSWORD_DEFAULT), $id_usuario);
+        $sql = 'UPDATE tb_clientes SET clave_cliente = ? WHERE id_cliente = ?';
+        $params = array(password_hash($nuevaClave, PASSWORD_DEFAULT), $id_cliente);
         return Database::executeRow($sql, $params);
     }
     public function checkStatus()

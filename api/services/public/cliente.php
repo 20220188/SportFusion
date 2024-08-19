@@ -156,7 +156,7 @@ if (isset($_GET['action'])) {
 
             case 'logIn':
                 $_POST = Validator::validateForm($_POST);
-                if (!$cliente->checkUser($_POST['correo'], $_POST['clave'])) {
+                if (!$cliente->checkUser($_POST['correoCliente'], $_POST['claveCliente'])) {
                     $result['error'] = 'Datos incorrectos';
                 } elseif ($cliente->checkStatus()) {
                     $result['status'] = 1;
@@ -239,22 +239,22 @@ if (isset($_GET['action'])) {
                 }
                 break;
 
-            case 'cambiarClaveConPin':
-                $_POST = Validator::validateForm($_POST);
-                if (!isset($_POST['id_usuario']) || !isset($_POST['nuevaClave'])) {
-                    $result['error'] = 'Faltan datos necesarios';
-                } else {
-                    $id_usuario = $_POST['id_usuario'];
-                    $nuevaClave = $_POST['nuevaClave'];
-                    if ($cliente->cambiarClaveConPin($id_usuario, $nuevaClave)) {
-                        $result['status'] = 1;
-                        $result['message'] = 'Contraseña cambiada exitosamente';
-                        $cliente->resetearPin(); // Resetea el PIN para que no se pueda usar nuevamente
+                case 'cambiarClaveConPin':
+                    $_POST = Validator::validateForm($_POST);
+                    if (!isset($_POST['id_cliente']) || !isset($_POST['nuevaClave'])) {
+                        $result['error'] = 'Faltan datos necesarios';
                     } else {
-                        $result['error'] = 'No se pudo cambiar la contraseña';
+                        $id_cliente = $_POST['id_cliente'];
+                        $nuevaClave = $_POST['nuevaClave'];
+                        if ($cliente->cambiarClaveConPin($id_cliente, $nuevaClave)) {
+                            $result['status'] = 1;
+                            $result['message'] = 'Contraseña cambiada exitosamente';
+                            $cliente->resetearPin(); // Resetea el PIN para que no se pueda usar nuevamente
+                        } else {
+                            $result['error'] = 'No se pudo cambiar la contraseña';
+                        }
                     }
-                }
-                break;
+                    break;
 
             default:
                 $result['error'] = 'Acción no disponible fuera de la sesión';
