@@ -50,16 +50,32 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'No existen resultados para mostrar';
                 }
                 break;
-            case 'readDetalleHistorial':
-                if (!$pedido->setId($_POST['idPedido'])) {
-                    $result['error'] = $pedido->getDataError();
-                } elseif ($result['dataset'] = $pedido->readDetalleHistorial()) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
-                } else {
-                    $result['error'] = 'No existen resultados para mostrar';
-                }
-                break;
+                case 'readDetalleHistorialMovil':
+                    $input = json_decode(file_get_contents('php://input'), true);
+                    error_log("Datos recibidos: " . print_r($input, true)); // Agrega un log para verificar los datos recibidos
+                    if (isset($input['idDetalle']) && $pedido->setId($input['idDetalle'])) {
+                        if ($result['dataset'] = $pedido->readDetalleHistorial()) {
+                            $result['status'] = 1;
+                            $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                        } else {
+                            $result['error'] = 'No existen resultados para mostrar';
+                        }
+                    } else {
+                        $result['error'] = 'El identificador del pedido es incorrecto';
+                    }
+                    break;
+                    case 'readDetalleHistorial':
+                        if (!$pedido->setId($_POST['idPedido'])) {
+                            $result['error'] = $pedido->getDataError();
+                        } elseif ($result['dataset'] = $pedido->readDetalleHistorial()) {
+                            $result['status'] = 1;
+                            $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                        } else {
+                            $result['error'] = 'No existen resultados para mostrar';
+                        }
+                        break;
+                
+                
                 // Acción para actualizar la cantidad de un producto en el carrito de compras.
             case 'updateDetail':
                 $_POST = Validator::validateForm($_POST);
