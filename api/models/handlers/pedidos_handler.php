@@ -242,7 +242,7 @@ class PedidoHandler
 
     public function readDetalleHistorial()
     {
-        $sql = 'SELECT id_detalle, id_pedido, precio_pedido, cantidad_pedido, nombre_producto
+        $sql = 'SELECT id_detalle, id_pedido, precio_pedido, cantidad_pedido, nombre_producto, imagen
                 FROM tb_detalle_pedidos
                 INNER JOIN tb_pedidos USING(id_pedido)
                 INNER JOIN tb_productos USING(id_producto) 
