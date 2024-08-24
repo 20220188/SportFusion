@@ -32,6 +32,22 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
+                case 'createRowValoracionMovil':
+                    $_POST = Validator::validateForm($_POST);
+                    if (
+                        !$valoracion->setComentario($_POST['Comentario']) or
+                        !$valoracion->setValoracion($_POST['Valoracion']) or
+                        !$valoracion->setDetallePedido($_POST['idDetalle']) or
+                        !$valoracion->getValoracion()
+                    ) {
+                        $result['error'] = $valoracion->getDataError();
+                    } elseif ($valoracion->createRowValoracion()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Valoración creada correctamente';
+                    } else {
+                        $result['exception'] = Database::getException();
+                    }
+                    break;
                 // Acción para obtener las visualizar los comentarios.
             case 'readAllValoracionPublica':
                 if (!$valoracion->setDetallePedido($_POST['idDetalle'])) {
